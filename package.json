@@ -1,0 +1,24 @@
+{
+  "name": "mic-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.6",
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-azure-ad": "^3.0.11",
+    "passport-microsoft": "0.0.5",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.1",
+    "serve-favicon": "^2.4.5",
+    "superagent": "^3.8.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
