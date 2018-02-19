@@ -1,7 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const router = express.Router();
 const graphHelper = require('../config/graphHelper.js');
 const passport = require('passport');
+let User = require('../models/user');
 let userData = undefined;
 
 // Get the home page.
@@ -33,13 +35,28 @@ router.get('/token',
     (req, res) => {
       graphHelper.getUserData(req.user.accessToken, (err, user) => {
         if (!err) {
-
-          //req.user.profile.displayName = user.body.displayName;
-          //req.user.profile.emails = [{ address: user.body.mail || user.body.userPrincipalName }];
           userData = user.body;
+          User.findOne({staffID:req.body.staffID}, function(err, user){
+    if(err) throw err;
+    if(user){
+      let newUser = new User({
+      fistName:userData.displayName.split(' ')[0],
+      lastName:userData.displayName.split(' ')[1],
+      email:userData.mail,
+      staffID:'150007237',
+
+    });
+    newUser.save(function(err){
+          if(err){
+            console.log(err);
+            return;
+          }else {
+            //req.flash('success','You are now registered and can log in');
+          }
+        });
+    }});
+
           res.redirect('/mainPage');
-          //req.user.profile.emails = [{ address: user.body.mail || user.body.userPrincipalName }];
-          //renderSendMail(req, res);
         } else {
           console.log(err);
         }

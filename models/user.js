@@ -9,10 +9,6 @@ const userSchema = mongoose.Schema({
     type : String,
     required : true
   },
-  jobTitle:{
-    type : String,
-    requiered : true
-  },
   email:{
     type : String,
     requiered : true
