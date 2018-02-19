@@ -1,5 +1,25 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+	background: #3E5BC7;
+	margin: 0;
+	padding-top: 1em;
+	font-family: sans-serif;
+}
+
+.dundee-logo {
+	width:200px;
+}
+
+.avatar {
+	width:35px;
+	//border-radius: 50%;
+}
+
+.navbar-custom {
+	background: white;
+	border-radius: 5px;
+	margin-bottom: 1rem;
+}
+
+.table-custom {
+	background:white;
 }

@@ -7,11 +7,11 @@ import './index.css';
 class Footer extends React.Component {
   render() {
     return (
-      <div className="Footer">
-        <div className="Footer">
-          <p>PlaceHolder footer</p>
-        </div>
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Place sticky footer content here.</span>
       </div>
+    </footer>
     );
   }
 }

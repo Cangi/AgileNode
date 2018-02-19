@@ -4,26 +4,30 @@ import logo from './logo.svg';
 class NavBar extends Component {
  render() {
    return (
-                <nav class="navbar navbar-light bg-faded">
-                    <a class="navbar-brand" href="#">
-                        <img src="https://www.familyfreshmeals.com/wp-content/uploads/2017/07/Creamy-Instant-Pot-Mac-and-Cheese-Step-1.jpg" width="60" height="60" class="d-inline-block align-top" alt=""></img>
-                    </a>
-                    Enter title here
-                    
-                    <a class="welcome">
-                    Wecome -username-
-                    </a>
-                    
-                    <a class="profilepic">
-                        <img src="http://cdn.wpbeginner.com/wp-content/uploads/2012/03/icontexto-user-web20-wordpress-180x180.png" width="60" height="60" alt=""></img>
-                    </a>
-                    
-                    <form class="form-inline">
-                        <button class="btn btn-outline-success" type="button">Button 1</button>
-                        <button class="btn btn-outline-success" type="button">Button 2</button>
-                    </form>
-                    
-                </nav>
+			<div class="container-fluid">
+				<nav class="navbar-custom navbar navbar-expand-sm navbar-light">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<a class="navbar-brand" href="#"><img class="dundee-logo" src="https://www.pslteamsports.com/assets/images/ClubShops/UoD/University%20of%20Dundee%20(logo).png"></img></a>
+
+					<div class="collapse navbar-collapse justify-content-end" id="nav-content">  
+					
+					<ul class="navbar-nav">
+					<li class="nav-item">
+						<span class="navbar-text">Welcome Paulius! <img class="avatar" src="images/avatar_male.png"></img></span>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link 1</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link 2</a>
+					</li>
+					</ul>
+					</div>
+				</nav>
+			</div>
    );
  }
 }

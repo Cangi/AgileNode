@@ -9,10 +9,9 @@ import registerServiceWorker from './registerServiceWorker';
 class Frame extends React.Component {
   render() {
     return (
-			<div>
-				<h1 class="display-1">List of Projects (template)</h1>
-				<p>My first paragraph.</p>
-				<table class="table table-bordered">
+			<div class="container-fluid">
+				<h3 class="">Researcher Products</h3>
+				<table class="table-custom table table-bordered">
 				<thead>
 				  <tr>
 					<th>Project Name</th>
