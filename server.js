@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const session = require('express-session');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -10,7 +11,22 @@ const passport = require('passport');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const uuid = require('uuid');
 const config = require('./config/config.js');
+const configDatabase = require('./config/database.js');
 var port = 3000;
+
+mongoose.connect(configDatabase.database);
+let db = mongoose.connection;
+
+// Check connection
+db.once('open', function(){
+  console.log('Connected to MongoDB');
+});
+
+// Check for DB errors
+db.on('error', function(err){
+  console.log(err);
+});
+
 const app = express();
 
 const callback = (iss, sub, profile, accessToken, refreshToken, done) => {
@@ -64,5 +80,3 @@ app.use('/', routes);
 app.listen(port, function() {
 	console.log(`running port ${port}`);
 });
-
-
