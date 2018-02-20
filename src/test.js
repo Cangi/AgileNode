@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+class Test extends Component {
   getThickness(){
-	  return "Dombro";
+	  return "test";
   }
   
   render() {
     return (
-      <div className="App">
+      <div className="Test">
 	  <h1>Hello world {this.getThickness()}</h1>,
       </div> 
     );
   }
 }
 
-export default App;
+export default Test;
