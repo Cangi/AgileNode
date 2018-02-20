@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import {
+  Route,
+  NavLink,
+  HashRouter
+} from "react-router-dom";
 
 class NavBar extends Component {
  render() {
@@ -18,12 +23,16 @@ class NavBar extends Component {
 					<li class="nav-item">
 						<span class="navbar-text">Welcome Paulius! <img class="avatar" src="images/avatar_male.png"></img></span>
 					</li>
+					<HashRouter>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Link 1</a>
+						<a class="nav-link" href="/test">Login Button</a>
 					</li>
+					</HashRouter>
+					<HashRouter>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Link 2</a>
 					</li>
+					</HashRouter>
 					</ul>
 					</div>
 				</nav>

@@ -1,22 +1,29 @@
 import React, { Component } from 'react';
 import './App.css';
+import {Route, NavLink, HashRouter} from "react-router-dom";
+import MainResearcher from './MainResearcher';
 
 class Login extends Component {
+	constructor(props){
+		super(props);
+		this.handleClick = this.handleClick.bind(this);
+	}
+	
+	handleClick(){
+		var butt = document.getElementById("button_id");
+		butt.div.setState({ showResults: false });
+	}
 
 render() {
   return (
-  <html>
-        <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous"></link>
-        </head>
-        <body>
-            <div className="Login">
-            </div>
-            <button onClick={() =>alert('Just a test')}>Login</button>        
-            </body>
-    </html>
-  );
-}
+			<HashRouter>
+				<div className="Login">
+				<button id = "button_id" onClick={this.handleClick}><NavLink exact to="/MainResearcher">Login</NavLink></button>
+				<Route path="/MainResearcher" component={MainResearcher}/>
+				</div>
+			</HashRouter>	
+		);
+	}
 }
 
 export default Login;

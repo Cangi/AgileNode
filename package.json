@@ -12,6 +12,7 @@
     "passport-microsoft": "0.0.5",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
     "serve-favicon": "^2.4.5",
     "superagent": "^3.8.2"
