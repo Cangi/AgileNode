@@ -18,12 +18,12 @@ mongoose.connect(configDatabase.database);
 let db = mongoose.connection;
 
 // Check connection
-db.once('open', function(){
+db.once('open', () =>{
   console.log('Connected to MongoDB');
 });
 
 // Check for DB errors
-db.on('error', function(err){
+db.on('error', (err) =>{
   console.log(err);
 });
 
@@ -53,30 +53,22 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// session middleware configuration
-// see https://github.com/expressjs/session
+// configuration for session middleware
 app.use(session({
-  secret: '12345QWERTY-SECRET',
+  secret: 'theBooleans-SECRET',
   name: 'graphNodeCookie',
   resave: false,
   saveUninitialized: false,
   //cookie: {secure: true} // For development only
 }));
+//Add static paths when react is working
 //app.use(express.static(path.join(__dirname, 'public')));
+//configuration for passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 app.use('/', routes);
-/*app.get('/', function(req, res) {
-	res.json({message: 'EXPRESS LISTENING'});
-});*/
 
-//app.use(router);
-
-
-
-app.listen(port, function() {
+app.listen(port, () => {
 	console.log(`running port ${port}`);
 });

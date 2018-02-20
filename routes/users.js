@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
     res.redirect('/login');
   } else {
     //renderSendMail(req, res);
-    console.log("HI AUTHENTICATED BEAST U");
     res.redirect('/mainPage');
   }
 });
@@ -23,7 +22,6 @@ router.get('/', (req, res) => {
 router.get('/login',
   passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
     (req, res) => {
-
       res.redirect('/');
     });
 
@@ -36,41 +34,39 @@ router.get('/token',
       graphHelper.getUserData(req.user.accessToken, (err, user) => {
         if (!err) {
           userData = user.body;
-          User.findOne({staffID:req.body.staffID}, function(err, user){
+          User.findOne({staffID:req.body.staffID}, (err,user) =>{
     if(err) throw err;
     if(user){
       let newUser = new User({
       fistName:userData.displayName.split(' ')[0],
       lastName:userData.displayName.split(' ')[1],
       email:userData.mail,
+      //change when we can get input from the react app
       staffID:'150007237',
 
-    });
-    newUser.save(function(err){
-          if(err){
-            console.log(err);
-            return;
-          }else {
-            //req.flash('success','You are now registered and can log in');
-          }
-        });
-    }});
-
-          res.redirect('/mainPage');
-        } else {
-          console.log(err);
-        }
+  });
+      newUser.save((err) =>{
+            if(err){
+              console.log(err);
+              return;
+            }else {
+              //add when react app ready
+              //req.flash('success','You are now registered and can log in');
+            }
+          });
+      }});
+      res.redirect('/mainPage');
+    } else {
+      console.log(err);
+    }
       });
-      //res.end(req.user.profile.displayName);
-
-      //res.send('We are connected bois');
     });
 
-router.get('/mainPage',function (req,res){
+router.get('/mainPage',(req,res) =>{
   if(userData == undefined){
     res.redirect('/login');
   }else{
-  res.send('Hi bois, my name is: ' + userData.displayName + ' ' + userData.jobTitle + ' ' + userData.id);
+  res.send('Hi bois, my name is: ' + userData.displayName.split(' ')[0] +  ' ' + userData.id);
   }
 });
 router.get('/disconnect', (req, res) => {
