@@ -28,7 +28,8 @@ db.on('error', (err) =>{
 });
 
 const app = express();
-
+const fUpload = require('express-fileupload');
+app.use(fUpload());
 const callback = (iss, sub, profile, accessToken, refreshToken, done) => {
   done(null, {
     profile,
@@ -68,6 +69,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', routes);
+
+//Upload to server functionality
+app.post('/upload', function(req, res) {
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+  let uploadedFile = req.files.sampleFile;
+  uploadedFile.mv('./uploads/' + req.files.sampleFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+    res.send('File uploaded!');
+  });
+});
 
 app.listen(port, () => {
 	console.log(`running port ${port}`);
