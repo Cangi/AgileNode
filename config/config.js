@@ -5,7 +5,7 @@
 
 module.exports = {
   creds: {
-    redirectUrl: 'http://localhost:3000/token',
+    redirectUrl: 'https://ec2-35-160-181-71.us-west-2.compute.amazonaws.com:3000/',
     clientID: '54ded075-30ae-4da4-85ab-bcff0c30f8e8',
     clientSecret: 'rjaxEK8;;$ttySOCWN6786-',
     identityMetadata: 'https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration',
