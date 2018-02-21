@@ -3,18 +3,17 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Footer from './footer';
 import registerServiceWorker from './registerServiceWorker';
-/*import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from "react-router-dom";*/
+import axios from 'axios';
+
 //call to local host - call to the server, pass it back to the server
 
 
 
 class ProjectPage extends Component {
+
+//  getData(){
+  //  axios.get(URLofDatabase$)
+//  }
   render() {
     return(
           <body>
