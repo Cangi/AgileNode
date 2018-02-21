@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "browser-history": "^1.0.1",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",

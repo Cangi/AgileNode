@@ -3,6 +3,8 @@ sending it to a database*/
 /*The basics of this code is taken from https://reactjs.org/docs/forms.html */
 import './index.css';
 import React from 'react';
+import axios from 'axios';
+
 
 //import ProjectsListResearcher from './projectsListResearcher';
 //import {Route, Link, BrowserRouter} from "react-router-dom";
@@ -22,14 +24,9 @@ class CreateProject extends React.Component {
     this.setState({value: event.target.value});
   }
 
-  handleSubmit(event) {
-    //if(confirm('Are you sure you want the name ' + this.state.value))
-    //{ //This function will ask for confirmation that the name is correct
-    
-    //}
-    //else {
-      //nothing happens it goes back to the normal page
-   // }
+  handleSubmit(event) { //this code is from http://codeheaven.io/how-to-use-axios-as-your-http-client/
+    axios.post('/save', { name: this.state.prop,}).then(function(response){console.log('saved successfully')
+  })
     //It also needs to collect the date from the server/browser when it was created
 
     //and then check the name for any bad characters, and then submit to database
