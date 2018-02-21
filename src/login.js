@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, NavLink, HashRouter} from "react-router-dom";
+import {Route, Link, BrowserRouter} from "react-router-dom";
 import MainResearcher from './mainResearcher';
 
 class Login extends Component {
@@ -17,13 +17,13 @@ class Login extends Component {
 
 render() {
   return (
-			<HashRouter>
+			<BrowserRouter>
 				<div className="Login">
 				<button id = "button_id" onClick={this.handleClick}>
-				<NavLink exact to="/mainResearcher">Login</NavLink></button>
+				<Link exact to="/mainResearcher">Login</Link></button>
 				<Route path="/mainResearcher" component={MainResearcher}/>
 				</div>
-			</HashRouter>	
+			</BrowserRouter>	
 		);
 	}
 }
