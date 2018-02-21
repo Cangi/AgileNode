@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = mongoose.Schema({
   firstName:{
       type : String,
-      requiered : true
+      required : true
     },
   lastName:{
     type : String,
@@ -11,11 +11,11 @@ const userSchema = mongoose.Schema({
   },
   email:{
     type : String,
-    requiered : true
+    required : true
   },
   staffID:{
     type : String,
-    requiered : true
+    required : true
   }
   });
 

@@ -13,6 +13,7 @@ const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const uuid = require('uuid');
 const config = require('./config/config.js');
 const configDatabase = require('./config/database.js');
+const cors = require('cors');
 var port = 3000;
 
 mongoose.connect(configDatabase.database);
@@ -30,15 +31,8 @@ db.on('error', (err) =>{
 
 const app = express();
 
-app.use(function(req, res, next) {
- res.setHeader('Access-Control-Allow-Origin', '*');
- res.setHeader('Access-Control-Allow-Credentials', 'true');
- res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
- res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
-//and remove cacheing so we get the most recent comments
- res.setHeader('Cache-Control', 'no-cache');
- next();
-});
+app.use(cors());
+
 
 const fUpload = require('express-fileupload');
 app.use(fUpload());

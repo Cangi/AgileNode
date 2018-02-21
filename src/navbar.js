@@ -22,6 +22,7 @@ class NavBar extends Component {
 					</li>
 					<li class="nav-item">
 						<Link exact to="/">LogOut</Link>
+						
 					</li>
 					<li class="nav-item">
 						<button><Link to="/createProject">HELP ME GOD</Link></button>

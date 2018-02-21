@@ -9,6 +9,7 @@ const Main = () => (
     <Switch>
 	  
       <Route exact path='/' component={ProjectsListResearcher}/>
+	  <Route path='/privacy-policy' component={() => window.location = 'http://localhost:3000/login'}/>
       <Route path='/createProject' component={CreateProject}/>
     </Switch>
   </main>
