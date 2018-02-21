@@ -24,7 +24,7 @@ const projectSchema = mongoose.Schema({
     associateDeanSigned:{
       type : Boolean,
       requiered : false
-    }
+    },
     dean:{
       type : Boolean,
       requiered : false

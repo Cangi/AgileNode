@@ -8,6 +8,7 @@
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "cookie-parser": "^1.4.3",
+    "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
     "history": "^4.7.2",
     "mongoose": "^5.0.6",

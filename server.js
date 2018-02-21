@@ -13,7 +13,7 @@ const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const uuid = require('uuid');
 const config = require('./config/config.js');
 const configDatabase = require('./config/database.js');
-var port = 3000;
+var port = 3001;
 
 mongoose.connect(configDatabase.database);
 let db = mongoose.connection;
@@ -29,6 +29,17 @@ db.on('error', (err) =>{
 });
 
 const app = express();
+
+app.use(function(req, res, next) {
+ res.setHeader('Access-Control-Allow-Origin', '*');
+ res.setHeader('Access-Control-Allow-Credentials', 'true');
+ res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+ res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers');
+//and remove cacheing so we get the most recent comments
+ res.setHeader('Cache-Control', 'no-cache');
+ next();
+});
+
 const fUpload = require('express-fileupload');
 app.use(fUpload());
 const callback = (iss, sub, profile, accessToken, refreshToken, done) => {
@@ -101,7 +112,6 @@ app.get('/download2', function(req, res){
   var file = __dirname + '/uploads/black_man.png';
   res.download(file); // Set disposition and send it.
 });
-
 
 app.listen(port, () => {
 	console.log(`running port ${port}`);

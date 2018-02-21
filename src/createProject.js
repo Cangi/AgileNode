@@ -25,7 +25,7 @@ class CreateProject extends React.Component {
   }
 
   handleSubmit(event) { //this code is from http://codeheaven.io/how-to-use-axios-as-your-http-client/
-    axios.post('/save', { name: this.state.prop,}).then(function(response){console.log('saved successfully')
+    axios.post('http://localhost:3001/api/createProject',{ name: this.state.value,}).then(function(response){console.log('saved successfully')
   })
     //It also needs to collect the date from the server/browser when it was created
 
@@ -35,7 +35,7 @@ class CreateProject extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} action="POST">
         <label>
           Name:
           <input type="text" value={this.state.value} onChange={this.handleChange} />
