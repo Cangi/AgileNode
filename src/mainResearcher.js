@@ -1,15 +1,17 @@
 import './index.css';
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from './navbar';
 import Footer from './footer';
-import ProjectsListResearcher from './ProjectsListResearcher';
+import CreateProject from './createProject'
+import ProjectsListResearcher from './projectsListResearcher';
+
 
 class MainResearcher extends React.Component {
   render() {
     return (
 			<div>
 				<Navbar />
-				<ProjectsListResearcher />
+				<CreateProject />
 				<Footer />
 			</div>
 		);

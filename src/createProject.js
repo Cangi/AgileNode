@@ -1,8 +1,15 @@
 /*A page that deals with creating a form and asking for confirmation before
 sending it to a database*/
 /*The basics of this code is taken from https://reactjs.org/docs/forms.html */
+import './index.css';
+import React from 'react';
 
-class NameForm extends React.Component {
+//import ProjectsListResearcher from './projectsListResearcher';
+//import {Route, Link, BrowserRouter} from "react-router-dom";
+//import {HashRouter, NavLink, BrowserRouter, Route} from "react-router-dom";
+//import ProjectPage from './projectPage';
+
+class CreateProject extends React.Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
@@ -16,19 +23,17 @@ class NameForm extends React.Component {
   }
 
   handleSubmit(event) {
-    //alert('A name was submitted: ' + this.state.value);
-    if(confirm('Are you sure you want the name ' + this.state.value))
-    {
-      <HashRouter>
-        <NavLink exact to="./projectPage">
-        </NavLink>
-        <Route path="./projectPage" component={ProjectPage}/>
-      </HashRouter>
-    }
+    //if(confirm('Are you sure you want the name ' + this.state.value))
+    //{ //This function will ask for confirmation that the name is correct
+    
+    //}
+    //else {
+      //nothing happens it goes back to the normal page
+   // }
     //It also needs to collect the date from the server/browser when it was created
-    //This function will ask for confirmation that the name is correct
+
     //and then check the name for any bad characters, and then submit to database
-    event.preventDefault();
+
   }
 
   render() {
@@ -44,4 +49,4 @@ class NameForm extends React.Component {
   }
 }
 
-export default NameForm;
+export default CreateProject;
