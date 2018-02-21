@@ -13,7 +13,7 @@ const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const uuid = require('uuid');
 const config = require('./config/config.js');
 const configDatabase = require('./config/database.js');
-var port = 3001;
+var port = 3000;
 
 mongoose.connect(configDatabase.database);
 let db = mongoose.connection;

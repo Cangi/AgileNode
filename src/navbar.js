@@ -20,18 +20,12 @@ class NavBar extends Component {
 					<li class="nav-item">
 						<span class="navbar-text">Welcome Paulius! <img class="avatar" src="images/avatar_male.png"></img></span>
 					</li>
-					<BrowserRouter>
 					<li class="nav-item">
-						<a class="nav-link" href="/">Logut</a>
+						<Link exact to="/">LogOut</Link>
 					</li>
-					</BrowserRouter>
-					<BrowserRouter>
 					<li class="nav-item">
-						<button><Link exact to="/createProjectFile">HELP ME GOD</Link></button>
-						<Route path="/createProjectFile" component={CreateProjectFile}/>
-
+						<button><Link to="/createProject">HELP ME GOD</Link></button>
 					</li>
-					</BrowserRouter>
 					</ul>
 					</div>
 				</nav>
