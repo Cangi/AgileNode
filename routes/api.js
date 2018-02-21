@@ -19,15 +19,17 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/createProject',(req,res) =>{
+router.options('/createProject',(req,res) =>{
+  console.log('it works');
   User.findOne({firstName:userData.userData.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
     let staffID = user.staffID;
+    }
   });
   let newProject = new Project({
   name:req.body.nameOfTheProject,
-  date: new Date(day, month, year);,
+  date: new Date(day, month, year),
   researcherStaffID:staffID,
 
 });
@@ -45,10 +47,11 @@ router.post('/createProject',(req,res) =>{
 });
 
 router.post('/getProject',(req,res) =>{
-  Project.findOne({name:req.body.name, (err,project) =>{
+  Project.findOne({name:req.body.name}, (err,project) =>{
     if(err) throw err;
     if(project){
     res.send(project);
+  }
   });
 });
 
