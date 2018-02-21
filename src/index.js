@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Login from './Login';
+import Login from './login';
 import registerServiceWorker from './registerServiceWorker';
 
 
@@ -10,4 +10,3 @@ ReactDOM.render(
 		document.getElementById('root')
 		);
 	registerServiceWorker();
-	

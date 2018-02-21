@@ -8,14 +8,14 @@ const projectSchema = mongoose.Schema({
     date:{
       type : Date,
       requiered: true
-    },
-    researcherName:{
+    },//Maybe we need to add description field
+    researcherStaffID:{
       type : String,
       requiered: true
     },
     RISSheet:{
       type : String,
-      required : true
+      required : false
     },
     RISSigned:{
       type : Boolean,
