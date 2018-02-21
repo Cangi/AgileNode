@@ -16,19 +16,22 @@ class NameForm extends React.Component {
   }
 
   handleSubmit(event) {
-    //alert('A name was submitted: ' + this.state.value);
     if(confirm('Are you sure you want the name ' + this.state.value))
-    {
+    { //This function will ask for confirmation that the name is correct
+      event.preventDefault();
       <HashRouter>
         <NavLink exact to="./projectPage">
         </NavLink>
         <Route path="./projectPage" component={ProjectPage}/>
       </HashRouter>
     }
+    else {
+      //nothing happens it goes back to the normal page
+    }
     //It also needs to collect the date from the server/browser when it was created
-    //This function will ask for confirmation that the name is correct
+
     //and then check the name for any bad characters, and then submit to database
-    event.preventDefault();
+
   }
 
   render() {
