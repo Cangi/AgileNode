@@ -2,11 +2,9 @@ import './index.css';
 import React from 'react';
 import Navbar from './navbar';
 import Footer from './footer';
-import CreateProject from './createProject'
-import ProjectsListResearcher from './projectsListResearcher';
+import CreateProject from './createProject';
 
-
-class MainResearcher extends React.Component {
+class CreateProjectFile extends React.Component {
   render() {
     return (
 			<div>
@@ -18,4 +16,4 @@ class MainResearcher extends React.Component {
 	}
 }
 
-export default MainResearcher;
+export default CreateProjectFile;

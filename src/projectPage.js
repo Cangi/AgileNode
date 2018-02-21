@@ -1,16 +1,15 @@
 //import React from 'react';
-import NavBar from './navBar';
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Footer from './footer';
 import registerServiceWorker from './registerServiceWorker';
-import {
+/*import {
   BrowserRouter as Router,
   Route,
   Link,
   Redirect,
   withRouter
-} from "react-router-dom";
+} from "react-router-dom";*/
 //call to local host - call to the server, pass it back to the server
 
 
@@ -37,15 +36,5 @@ class ProjectPage extends Component {
   }
 }
 
-ReactDOM.render(
-
-    <div>
-			<NavBar />
-			<ProjectPage />
-			<Footer />
-		</div>,
-    document.getElementById('root')
-);
-registerServiceWorker();
 
 export default ProjectPage;

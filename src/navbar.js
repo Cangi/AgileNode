@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import {Route, NavLink, BrowserRouter} from "react-router-dom";
+import {Route, NavLink, BrowserRouter, Link} from "react-router-dom";
+import CreateProjectFile from './createProjectFile';
 
 class NavBar extends Component {
  render() {
@@ -11,7 +12,7 @@ class NavBar extends Component {
 						<span class="navbar-toggler-icon"></span>
 					</button>
 
-					<a class="navbar-brand" href=""><img class="dundee-logo" src="https://www.pslteamsports.com/assets/images/ClubShops/UoD/University%20of%20Dundee%20(logo).png"></img></a>
+					<a class="navbar-brand" href="/"><img class="dundee-logo" src="https://www.pslteamsports.com/assets/images/ClubShops/UoD/University%20of%20Dundee%20(logo).png"></img></a>
 
 					<div class="collapse navbar-collapse justify-content-end" id="nav-content">  
 					
@@ -21,12 +22,14 @@ class NavBar extends Component {
 					</li>
 					<BrowserRouter>
 					<li class="nav-item">
-						<a class="nav-link" href="">Login Button</a>
+						<a class="nav-link" href="/">Logut</a>
 					</li>
 					</BrowserRouter>
 					<BrowserRouter>
 					<li class="nav-item">
-						<a class="nav-link" href="">Link 2</a>
+						<button><Link exact to="/createProjectFile">HELP ME GOD</Link></button>
+						<Route path="/createProjectFile" component={CreateProjectFile}/>
+
 					</li>
 					</BrowserRouter>
 					</ul>
