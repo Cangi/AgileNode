@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 import {Route, NavLink, HashRouter} from "react-router-dom";
-import MainResearcher from './MainResearcher';
+import MainResearcher from './mainResearcher';
 
 class Login extends Component {
 	constructor(props){
@@ -10,16 +9,19 @@ class Login extends Component {
 	}
 	
 	handleClick(){
-		var butt = document.getElementById("button_id");
-		butt.div.setState({ showResults: false });
+		//var butt = document.getElementById("button_id");
+		//butt.div.setState({ showResults: false });
+		var x = document.getElementById('button_id');
+		x.style.display = 'none';
 	}
 
 render() {
   return (
 			<HashRouter>
 				<div className="Login">
-				<button id = "button_id" onClick={this.handleClick}><NavLink exact to="/MainResearcher">Login</NavLink></button>
-				<Route path="/MainResearcher" component={MainResearcher}/>
+				<button id = "button_id" onClick={this.handleClick}>
+				<NavLink exact to="/mainResearcher">Login</NavLink></button>
+				<Route path="/mainResearcher" component={MainResearcher}/>
 				</div>
 			</HashRouter>	
 		);

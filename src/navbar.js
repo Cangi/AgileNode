@@ -15,7 +15,7 @@ class NavBar extends Component {
 						<span class="navbar-toggler-icon"></span>
 					</button>
 
-					<a class="navbar-brand" href="#"><img class="dundee-logo" src="https://www.pslteamsports.com/assets/images/ClubShops/UoD/University%20of%20Dundee%20(logo).png"></img></a>
+					<a class="navbar-brand" href=""><img class="dundee-logo" src="https://www.pslteamsports.com/assets/images/ClubShops/UoD/University%20of%20Dundee%20(logo).png"></img></a>
 
 					<div class="collapse navbar-collapse justify-content-end" id="nav-content">  
 					
@@ -25,12 +25,12 @@ class NavBar extends Component {
 					</li>
 					<HashRouter>
 					<li class="nav-item">
-						<a class="nav-link" href="/test">Login Button</a>
+						<a class="nav-link" href="">Login Button</a>
 					</li>
 					</HashRouter>
 					<HashRouter>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Link 2</a>
+						<a class="nav-link" href="">Link 2</a>
 					</li>
 					</HashRouter>
 					</ul>
