@@ -38,7 +38,7 @@ router.get('/token',
     if(err) throw err;
     if(user){
       let newUser = new User({
-      fistName:userData.displayName.split(' ')[0],
+      firstName:userData.displayName.split(' ')[0],
       lastName:userData.displayName.split(' ')[1],
       email:userData.mail,
       //change when we can get input from the react app
@@ -48,6 +48,7 @@ router.get('/token',
       newUser.save((err) =>{
             if(err){
               console.log(err);
+              console.log("Rony's a wanker!")
               return;
             }else {
               //add when react app ready

@@ -1,7 +1,7 @@
 import './index.css';
 import React from 'react';
 import Navbar from './Navbar';
-import Footer from './Footer';
+import Footer from './footer';
 import ProjectsListResearcher from './ProjectsListResearcher';
 
 class MainResearcher extends React.Component {
