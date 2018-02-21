@@ -48,7 +48,6 @@ router.get('/token',
       newUser.save((err) =>{
             if(err){
               console.log(err);
-              console.log("Rony's a wanker!")
               return;
             }else {
               //add when react app ready

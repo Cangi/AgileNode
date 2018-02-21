@@ -7,6 +7,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const routes = require('./routes/users');
+const routeCalls = require('./routes/api');
 const passport = require('passport');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const uuid = require('uuid');
@@ -69,6 +70,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', routes);
+app.use('/api',routeCalls)
 
 //Upload to server functionality
 app.post('/upload', function(req, res) {
