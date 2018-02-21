@@ -82,6 +82,25 @@ app.post('/upload', function(req, res) {
   });
 });
 
+//Returns list of files in uploads folder in json format --- Tests
+app.get('/download', function(req, res) {
+	const fileloc = './uploads/';
+	const fs = require('fs');
+	var arr = [];
+	fs.readdirSync(fileloc).forEach(file => {
+	  arr.push(file);
+	});
+	var json = JSON.stringify(arr);
+	res.json(json);
+});
+
+//Downloads file named "black_man.png" from uploads folder --- Tests
+app.get('/download2', function(req, res){
+  var file = __dirname + '/uploads/black_man.png';
+  res.download(file); // Set disposition and send it.
+});
+
+
 app.listen(port, () => {
 	console.log(`running port ${port}`);
 });
