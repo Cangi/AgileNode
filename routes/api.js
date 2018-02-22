@@ -19,17 +19,15 @@ router.get('/', (req, res) => {
 });
 
 
-router.options('/createProject',(req,res) =>{
-  console.log('it works');
-  User.findOne({firstName:userData.userData.displayName.split(' ')[0]}, (err,user) =>{
+router.post('/createProject',(req,res) =>{
+  User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
     let staffID = user.staffID;
-    }
-  });
+  
   let newProject = new Project({
   name:req.body.nameOfTheProject,
-  date: new Date(day, month, year),
+  date: new Date(),
   researcherStaffID:staffID,
 
 });
@@ -44,13 +42,15 @@ router.options('/createProject',(req,res) =>{
           //req.flash('success','You are now registered and can log in');
         }
       });
+	    }
+  });
 });
 
 router.post('/getProject',(req,res) =>{
   Project.findOne({name:req.body.name}, (err,project) =>{
     if(err) throw err;
     if(project){
-    res.send(project);
+    res.json(project);
   }
   });
 });

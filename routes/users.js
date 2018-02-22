@@ -34,9 +34,10 @@ router.get('/token',
       graphHelper.getUserData(req.user.accessToken, (err, user) => {
         if (!err) {
           userData = user.body;
-          User.findOne({staffID:req.body.staffID}, (err,user) =>{
+		  module.exports.user = userData;
+          User.findOne({firstName:userData.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
-    if(user){
+    if(!user){
       let newUser = new User({
       firstName:userData.displayName.split(' ')[0],
       lastName:userData.displayName.split(' ')[1],
@@ -52,10 +53,11 @@ router.get('/token',
             }else {
               //add when react app ready
               //req.flash('success','You are now registered and can log in');
+			  console.log('p k mi');
             }
           });
       }});
-      res.redirect('/mainPage');
+      res.redirect("http://localhost:3006/");
     } else {
       console.log(err);
     }
@@ -90,5 +92,6 @@ function hasAccessTokenExpired(e) {
   }
   return expired;
 }
-module.exports = userData;
+
 module.exports = router;
+
