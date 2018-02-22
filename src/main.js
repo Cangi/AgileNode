@@ -18,7 +18,6 @@ const Main = () => (
       <Route exact path='/' component={ProjectsListResearcher}/>
       <Route path='/createProject' component={CreateProject}/>
       <Route path='/projectPage' component={ProjectPage}/>
-	  <Route path='/signatureForm' component={signatureForm}/>
     </Switch>
   </main>
 )
