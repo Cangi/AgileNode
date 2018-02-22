@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Footer from './footer';
 import axios from 'axios';
+import './projectPage.css'
 
 //call to local host - call to the server, pass it back to the server
 

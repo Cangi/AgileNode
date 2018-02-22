@@ -4,9 +4,26 @@ import { Link } from 'react-router-dom'
 import './index.css';
 import ProjectCard from './projectCard';
 import registerServiceWorker from './registerServiceWorker';
+import axios from 'axios';
 
 
 class ProjectsListResearcher extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = ({userData: undefined, projectData: undefined});
+		const self = this;
+		axios.get('http://localhost:3000/userdata')
+	    .then((response) => {
+			if(response.data.givenName!=undefined)
+			self.setState({userData: response.data});
+		});
+		/*axios.get('http://localhost:3000/api/getProjects')
+	    .then((response) => {
+			//if(response.data!=undefined)
+			self.setState({projectData: response});
+		});
+		console.log(this.state.projectData);*/
+	}
   render() {
     return (
 			<div class="container-fluid">

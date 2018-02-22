@@ -24,6 +24,15 @@ router.get('/login',
     (req, res) => {
       res.redirect('/');
     });
+	
+router.get('/userdata', (req, res) => {
+	if(userData!=undefined){
+		res.send(userData);
+		console.log("SENDING DATA");
+	} else {
+		res.send(undefined);
+	}
+});
 
 
 // Authentication callback.
@@ -36,17 +45,17 @@ router.get('/token',
           userData = user.body;
 		  module.exports.user = userData;
           User.findOne({firstName:userData.displayName.split(' ')[0]}, (err,user) =>{
-    if(err) throw err;
-    if(!user){
-      let newUser = new User({
-      firstName:userData.displayName.split(' ')[0],
-      lastName:userData.displayName.split(' ')[1],
-      email:userData.mail,
-      //change when we can get input from the react app
-      staffID:'150007237',
+			if(err) throw err;
+			if(!user){
+			  let newUser = new User({
+			  firstName:userData.displayName.split(' ')[0],
+			  lastName:userData.displayName.split(' ')[1],
+			  email:userData.mail,
+			  //change when we can get input from the react app
+			  staffID:'150007237',
 
-  });
-      newUser.save((err) =>{
+			});
+			newUser.save((err) =>{
             if(err){
               console.log(err);
               return;
@@ -57,7 +66,7 @@ router.get('/token',
             }
           });
       }});
-      res.redirect("http://localhost:3006/");
+      res.redirect("http://localhost:3006/index");
     } else {
       console.log(err);
     }
