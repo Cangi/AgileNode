@@ -24,7 +24,7 @@ router.post('/createProject',(req,res) =>{
     if(err) throw err;
     if(user){
     let staffID = user.staffID;
-  
+
   let newProject = new Project({
   name:req.body.nameOfTheProject,
   date: new Date(),
@@ -46,13 +46,32 @@ router.post('/createProject',(req,res) =>{
   });
 });
 
+router.get('/getProjects',(req,res) =>{
+  User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+  Project.find({staffID:user.staffID}, (err,projects) =>{
+    if(err) throw err;
+    if(projects){
+    res.json(projects);
+  }
+  });
+}
+});
+});
+
 router.post('/getProject',(req,res) =>{
-  Project.findOne({name:req.body.name}, (err,project) =>{
+  User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+  Project.findOne({staffID:user.staffID , name:req.body.nameOfTheProject}, (err,project) =>{
     if(err) throw err;
     if(project){
     res.json(project);
   }
   });
+}
+});
 });
 
 
