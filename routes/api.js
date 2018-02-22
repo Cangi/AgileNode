@@ -46,7 +46,7 @@ router.post('/createProject',(req,res) =>{
   });
 });
 
-router.post('/getProjects',(req,res) =>{
+router.get('/getProjects',(req,res) =>{
   User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
@@ -60,7 +60,7 @@ router.post('/getProjects',(req,res) =>{
 });
 });
 
-outer.post('/getProject',(req,res) =>{
+router.post('/getProject',(req,res) =>{
   User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
