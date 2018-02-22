@@ -4,6 +4,8 @@ import ProjectsListResearcher from './projectsListResearcher'
 import CreateProject from './createProject'
 import Login from './login'
 import ProjectPage from './projectPage'
+import matriculationReq from './matriculationReq'
+import signatureForm from './signatureForm'
 
 
 const Main = () => (
@@ -11,11 +13,11 @@ const Main = () => (
     <Switch>
 	 
 	  <Route path='/index' component={ProjectsListResearcher}/>
-	 	
 	  <Route path='/login' component={Login}/>
-
+	  <Route path='/matriculationReq' component={matriculationReq}/>
       <Route path='/createProject' component={CreateProject}/>
       <Route path='/projectPage' component={ProjectPage}/>
+	  <Route path='/signatureForm' component={signatureForm}/>
     </Switch>
   </main>
 )
