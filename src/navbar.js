@@ -30,13 +30,13 @@ class NavBar extends Component {
 	
 	
    return (
-			<div class="container-fluid">
+			<div class="container-fluid container-navbar">
 				<nav class="navbar-custom navbar navbar-expand-sm navbar-light">
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
 
-					<a class="navbar-brand" href="/"><img class="dundee-logo" src="https://www.pslteamsports.com/assets/images/ClubShops/UoD/University%20of%20Dundee%20(logo).png"></img></a>
+					<Link to="/index"><img class="dundee-logo" src="/images/university_logo.png"></img></Link>
 
 					<div class="collapse navbar-collapse justify-content-end" id="nav-content">  
 					

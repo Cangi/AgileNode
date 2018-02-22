@@ -7,7 +7,7 @@ import registerServiceWorker from './registerServiceWorker';
 class ProjectsListResearcher extends React.Component {
   render() {
     return (
-			<div class="container-fluid">
+			<div class="container-fluid container-content">
 				<h3 class="">Researcher Products</h3>
 				<table class="table-custom table table-bordered">
 				<thead>
