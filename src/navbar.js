@@ -3,13 +3,14 @@ import logo from './logo.svg';
 import {Route, NavLink, BrowserRouter, Link} from "react-router-dom";
 import CreateProjectFile from './createProjectFile';
 import axios from 'axios';
+import server from './serverConfig'
 
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = ({name: "Please log in!", loggedin: false, userData: undefined});
 		const self = this;
-		axios.get('http://localhost:3000/userdata')
+		axios.get(server.serverAPI + '/userdata')
 	    .then((response) => {
 			if(response.data.givenName!=undefined)
 			self.setState({name: "Welcome " + response.data.givenName, loggedin: true, userData: response.data});
