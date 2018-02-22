@@ -10,26 +10,26 @@ class NavBar extends Component {
 		super(props);
 		this.state = ({name: "Please log in!", loggedin: false, userData: undefined});
 		const self = this;
-		axios.get(server.serverAPI + '/userdata')
+		axios.get(server.serverApi + '/api/userdata')
 	    .then((response) => {
 			if(response.data.givenName!=undefined)
 			self.setState({name: "Welcome " + response.data.givenName, loggedin: true, userData: response.data});
 		});
-		
+
 	}
-	
+
  render() {
-	
+
 	var loginButton;
 	var userIMG;
 	if(this.state.loggedin == false) {
 		loginButton = <button><Link to="/login">Login</Link></button>
-		
+
 	} else {
 		userIMG = <img class="avatar" src="images/avatar_male.png"></img>
 	}
-	
-	
+
+
    return (
 			<div class="container-fluid container-navbar">
 				<nav class="navbar-custom navbar navbar-expand-sm navbar-light">
@@ -39,17 +39,17 @@ class NavBar extends Component {
 
 					<Link to="/index"><img class="dundee-logo" src="/images/university_logo.png"></img></Link>
 
-					<div class="collapse navbar-collapse justify-content-end" id="nav-content">  
-					
+					<div class="collapse navbar-collapse justify-content-end" id="nav-content">
+
 					<ul class="navbar-nav">
 					<li class="nav-item">
 						<span class="navbar-text">{this.state.name}! {userIMG}</span>
 					</li>
-					
+
 					<li class="nav-item">
 					{loginButton}
 					</li>
-					
+
 					</ul>
 					</div>
 				</nav>

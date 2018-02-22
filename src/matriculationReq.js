@@ -11,7 +11,7 @@ import server from './serverConfig'
 //import {HashRouter, NavLink, BrowserRouter, Route} from "react-router-dom";
 //import ProjectPage from './projectPage';
 
-class CreateProject extends React.Component {
+class matriculationReq extends React.Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
@@ -25,7 +25,7 @@ class CreateProject extends React.Component {
   }
 
   handleSubmit(event) { //this code is from http://codeheaven.io/how-to-use-axios-as-your-http-client/
-    axios.post(server.serverApi + '/api/createProject',{ nameOfTheProject: this.state.value });
+    axios.post(server.serverApi + '/api/createProject',{ staffID: this.state.value });
 
     //It also needs to collect the date from the server/browser when it was created
 
@@ -35,10 +35,10 @@ class CreateProject extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit} action="POST">
         <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+          Matriculation Number:
+          <input name="staffID" type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />
       </form>
@@ -46,4 +46,4 @@ class CreateProject extends React.Component {
   }
 }
 
-export default CreateProject;
+export default matriculationReq;

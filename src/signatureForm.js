@@ -11,7 +11,7 @@ import server from './serverConfig'
 //import {HashRouter, NavLink, BrowserRouter, Route} from "react-router-dom";
 //import ProjectPage from './projectPage';
 
-class CreateProject extends React.Component {
+class signatureForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
@@ -25,25 +25,11 @@ class CreateProject extends React.Component {
   }
 
   handleSubmit(event) { //this code is from http://codeheaven.io/how-to-use-axios-as-your-http-client/
-    axios.post(server.serverApi + '/api/createProject',{ nameOfTheProject: this.state.value });
+    axios.post(server.serverApi + '/api/createProject',{ staffID: this.state.value });
 
     //It also needs to collect the date from the server/browser when it was created
 
     //and then check the name for any bad characters, and then submit to database
 
   }
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    );
-  }
 }
-
-export default CreateProject;
