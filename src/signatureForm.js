@@ -36,11 +36,7 @@ class signatureForm extends React.Component {
   render() {
     return (
 
-		<form id="frm1" action="/action_page.php">
-			First name: <input type="text" name="fname"><br>
-			Last name: <input type="text" name="lname"><br><br>
-			<input type="button" onclick="myFunction()" value="Submit">
-		</form>
+		
 
     );
   }
