@@ -6,8 +6,8 @@
 module.exports = {
   creds: {
     //Before pushing to git hub always change this for the server
-    //redirectUrl: 'https://ec2-35-160-181-71.us-west-2.compute.amazonaws.com:3000/',
-    redirectUrl: 'http://localhost:3000/token',
+    redirectUrl: 'https://ec2-35-160-181-71.us-west-2.compute.amazonaws.com/token',
+    //redirectUrl: 'http://localhost:3001/token',
     clientID: '54ded075-30ae-4da4-85ab-bcff0c30f8e8',
     clientSecret: 'rjaxEK8;;$ttySOCWN6786-',
     identityMetadata: 'https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration',
