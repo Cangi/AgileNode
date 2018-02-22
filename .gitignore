@@ -1,8 +1,9 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
-#config for server
-/config
+
 # dependencies
 /node_modules
+/config/config.js
+/config/database.js
 
 # testing
 /coverage
