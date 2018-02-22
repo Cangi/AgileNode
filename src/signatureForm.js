@@ -32,6 +32,3 @@ class signatureForm extends React.Component {
     //and then check the name for any bad characters, and then submit to database
 
   }
-
-
-export default signatureForm;
