@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom'
 import './index.css';
+import ProjectCard from './projectCard';
 import registerServiceWorker from './registerServiceWorker';
 import axios from 'axios';
 
@@ -26,36 +28,21 @@ class ProjectsListResearcher extends React.Component {
     return (
 			<div class="container-fluid">
 				<h3 class="">Researcher Products</h3>
-				<table class="table-custom table table-bordered">
-				<thead>
-				  <tr>
-					<th>Project Name</th>
-					<th>Project date</th>
-					<th>Owner</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr>
-					<td>John</td>
-					<td>Doe</td>
-					<td>john@example.com</td>
-				  </tr>
-				  <tr>
-					<td>Mary</td>
-					<td>Moe</td>
-					<td>mary@example.com</td>
-				  </tr>
-				  <tr>
-					<td>July</td>
-					<td>Dooley</td>
-					<td>july@example.com</td>
-				  </tr>
-				</tbody>
-			  </table>
+        <button><Link to="/projectPage">Project Page</Link></button>
+        <div class="Cards">
+          <ProjectCard name="Improving Displays for colour blind people"
+           researcherName="Paulius Kuzmiskas"
+           dateCreated = "22/02/2018"
+           risSign = "true"
+           researcherSign = "true"
+           assocDeanSign = "false"
+           deanSign = "false" />
+
+        </div>
 			</div>
+       //passing the parameters to projectCard
     );
   }
 }
 
 export default ProjectsListResearcher;
-
