@@ -4,7 +4,7 @@ sending it to a database*/
 import './index.css';
 import React from 'react';
 import axios from 'axios';
-
+import server from './serverConfig'
 
 //import ProjectsListResearcher from './projectsListResearcher';
 //import {Route, Link, BrowserRouter} from "react-router-dom";
@@ -25,24 +25,11 @@ class signatureForm extends React.Component {
   }
 
   handleSubmit(event) { //this code is from http://codeheaven.io/how-to-use-axios-as-your-http-client/
-    axios.post('http://localhost:3000/api/createProject',{ staffID: this.state.value });
-  
+    axios.post(server.serverApi + '/api/createProject',{ staffID: this.state.value });
+
     //It also needs to collect the date from the server/browser when it was created
 
     //and then check the name for any bad characters, and then submit to database
 
   }
-
-  render() {
-    return (
-
-		<form id="frm1" action="/action_page.php">
-			First name: <input type="text" name="fname"><br>
-			Last name: <input type="text" name="lname"><br><br>
-			<input type="button" onclick="myFunction()" value="Submit">
-		</form>
-
-    );
-  }
-  
-export default signatureForm;
+}

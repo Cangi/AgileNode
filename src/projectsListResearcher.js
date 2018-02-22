@@ -5,14 +5,14 @@ import './index.css';
 import ProjectCard from './projectCard';
 import registerServiceWorker from './registerServiceWorker';
 import axios from 'axios';
-
+import server from './serverConfig'
 
 class ProjectsListResearcher extends React.Component {
   constructor(props) {
 		super(props);
 		this.state = ({projectData: undefined});
 		const self = this;
-		axios.get('http://localhost:3000/api/getProjects')
+		axios.get(server.serverApi + '/api/getProjects')
 	    .then((response) => {
 			//if(response.data.givenName!=undefined)
 			self.setState({projectData: response.data});
@@ -33,7 +33,7 @@ class ProjectsListResearcher extends React.Component {
 	   date = this.state.projectData[id].date;
 	   staffid = this.state.projectData[id].researcherStaffID;
 	  }
-    
+
   render() {
     return (
 			<div class="container-fluid container-content">

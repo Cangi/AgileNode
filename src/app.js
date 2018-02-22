@@ -10,10 +10,7 @@ const App = () => (
   <div>
     <Navbar />
     <Main />
-<<<<<<< HEAD
-=======
 	<Footer />
->>>>>>> 0669a9113930d9de9a22e7776af07ccb0ce8cc2f
   </div>
 )
 
