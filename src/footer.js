@@ -8,8 +8,8 @@ class Footer extends React.Component {
   render() {
     return (
     <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+      <div class="container container-footer">
+        <span class="text-muted footer-text">Copyright © University of Dundee 2018 </span>
       </div>
     </footer>
     );

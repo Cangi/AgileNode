@@ -12,6 +12,9 @@ body {
 
 .dundee-logo {
 	width:200px;
+	padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
 }
 
 .avatar {
@@ -51,4 +54,14 @@ body {
 	padding-right: 6rem;
     padding-top: 2rem;
     padding-left: 6rem;
+}
+
+.container-footer {
+	background: #3E5BC7;
+	text-align: center;
+	margin-top: 1.5rem;
+}
+
+.footer-text {
+	color: white !important;
 }
