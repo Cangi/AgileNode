@@ -33,7 +33,7 @@ class ProjectPage extends Component {
   render() {
     return(
           <body>
-<<<<<<< HEAD
+
 			<div class = "page">
 				<div class="row">
 					<div class="column">
@@ -90,9 +90,9 @@ class ProjectPage extends Component {
 					<div class="column">
 						<h2>Comments to be implemented.</h2>
 					</div>
-				</div>	
+				</div>
 			</div>
-=======
+			{/*
             <div class = 'page'>
               <h1 class="display-1">{this.props.name}</h1>
               <h2 class="display-2">By {this.props.researcherName}</h2>
@@ -110,15 +110,12 @@ class ProjectPage extends Component {
               <h3>Comments</h3>
               <p>Comment box</p>
             </div>
->>>>>>> fb18a65fde214b8f007f02a5aede36bf7aa411fa
+			*/}
           </body>
 
     )
   }
-  function tick() //changes the word "true" to a green tick and false to a x
-  {
 
-  }
 }
 
 

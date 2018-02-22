@@ -33,6 +33,7 @@ class ProjectsListResearcher extends React.Component {
 	   date = this.state.projectData[id].date;
 	   staffid = this.state.projectData[id].researcherStaffID;
 	  }
+	}
 
   render() {
     return (
