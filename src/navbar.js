@@ -48,6 +48,7 @@ class NavBar extends Component {
 					<li class="nav-item">
 					{loginButton}
 					</li>
+					
 					</ul>
 					</div>
 				</nav>

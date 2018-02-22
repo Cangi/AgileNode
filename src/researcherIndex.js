@@ -11,6 +11,7 @@ class Frame extends React.Component {
     return (
 			<div class="container-fluid">
 				<h3 class="">Researcher Products</h3>
+        <button><Link to="/projectPage">Project Page</Link></button>
 				<table class="table-custom table table-bordered">
 				<thead>
 				  <tr>
@@ -53,4 +54,3 @@ ReactDOM.render(
 registerServiceWorker();
 
 export default Frame;
-
