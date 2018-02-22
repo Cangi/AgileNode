@@ -5,14 +5,14 @@ import './index.css';
 import ProjectCard from './projectCard';
 import registerServiceWorker from './registerServiceWorker';
 import axios from 'axios';
-
+import server from './serverConfig'
 
 class ProjectsListResearcher extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = ({userData: undefined, projectData: undefined});
 		const self = this;
-		axios.get('http://localhost:3000/userdata')
+		axios.get(server.serverApi + '/userdata')
 	    .then((response) => {
 			if(response.data.givenName!=undefined)
 			self.setState({userData: response.data});
