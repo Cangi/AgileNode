@@ -26,7 +26,7 @@ class ProjectsListResearcher extends React.Component {
 	}
   render() {
     return (
-			<div class="container-fluid">
+			<div class="container-fluid container-content">
 				<h3 class="">Researcher Products</h3>
         <button><Link to="/projectPage">Project Page</Link></button>
         <div class="Cards">
