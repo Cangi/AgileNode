@@ -4,7 +4,7 @@ sending it to a database*/
 import './index.css';
 import React from 'react';
 import axios from 'axios';
-
+import server from './serverConfig'
 
 //import ProjectsListResearcher from './projectsListResearcher';
 //import {Route, Link, BrowserRouter} from "react-router-dom";
@@ -25,7 +25,7 @@ class CreateProject extends React.Component {
   }
 
   handleSubmit(event) { //this code is from http://codeheaven.io/how-to-use-axios-as-your-http-client/
-    axios.post('http://ec2-35-160-181-71.us-west-2.compute.amazonaws.com:3000/api/createProject',{ nameOfTheProject: this.state.value });
+    axios.post(server.serverApi + '/api/createProject',{ nameOfTheProject: this.state.value });
 
     //It also needs to collect the date from the server/browser when it was created
 

@@ -4,6 +4,7 @@ const router = express.Router();
 const graphHelper = require('../config/graphHelper.js');
 const passport = require('passport');
 let User = require('../models/user');
+const front = require('../config/serverConfig');
 let userData = undefined;
 
 // Get the home page.
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
     res.redirect('/login');
   } else {
     //renderSendMail(req, res);
-    res.redirect('/mainPage');
+    res.redirect(front.serverFront +'/index');
   }
 });
 
@@ -24,7 +25,7 @@ router.get('/login',
     (req, res) => {
       res.redirect('/');
     });
-	
+
 router.get('/userdata', (req, res) => {
 	if(userData!=undefined){
 		res.send(userData);
@@ -66,7 +67,7 @@ router.get('/token',
             }
           });
       }});
-      res.redirect("http://ec2-35-160-181-71.us-west-2.compute.amazonaws.com:3006/index");
+      res.redirect(front.serverFront + '/index');
     } else {
       console.log(err);
     }
@@ -103,4 +104,3 @@ function hasAccessTokenExpired(e) {
 }
 
 module.exports = router;
-

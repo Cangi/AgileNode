@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-/config/config.js
-/config/database.js
 
 # testing
 /coverage
