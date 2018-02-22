@@ -66,7 +66,7 @@ router.get('/token',
             }
           });
       }});
-      res.redirect("http://localhost:3006/index");
+      res.redirect("http://ec2-35-160-181-71.us-west-2.compute.amazonaws.com:3006/index");
     } else {
       console.log(err);
     }

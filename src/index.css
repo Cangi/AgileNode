@@ -1,8 +1,13 @@
+html {
+	position: relative;
+    min-height: 100%;
+}
+
 body {
-	background: #3E5BC7;
+	background: white;
 	margin: 0;
-	padding-top: 1em;
 	font-family: sans-serif;
+	margin: 0 0 50px;
 }
 
 .dundee-logo {
@@ -15,11 +20,35 @@ body {
 }
 
 .navbar-custom {
-	background: white;
-	border-radius: 5px;
-	margin-bottom: 1rem;
+	background: #3E5BC7;
 }
 
 .table-custom {
-	background:green;
+	background:#3E5BC7;
+}
+
+.main {
+	padding-right:1rem;
+	padding-left:1rem;
+}
+
+.footer {
+    height: 50px;
+    background-color: orange;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.container-navbar {
+	padding:0;
+}
+
+.container-content {
+	padding-right: 6rem;
+    padding-top: 2rem;
+    padding-left: 6rem;
 }
