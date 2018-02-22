@@ -8,14 +8,14 @@ import axios from 'axios';
 
 
 class ProjectsListResearcher extends React.Component {
-	constructor(props) {
+  constructor(props) {
 		super(props);
-		this.state = ({userData: undefined, projectData: undefined});
+		this.state = ({projectData: undefined});
 		const self = this;
-		axios.get('http://localhost:3000/userdata')
+		axios.get('http://localhost:3000/api/getProjects')
 	    .then((response) => {
-			if(response.data.givenName!=undefined)
-			self.setState({userData: response.data});
+			//if(response.data.givenName!=undefined)
+			self.setState({projectData: response.data});
 		});
 		/*axios.get('http://localhost:3000/api/getProjects')
 	    .then((response) => {
@@ -24,6 +24,16 @@ class ProjectsListResearcher extends React.Component {
 		});
 		console.log(this.state.projectData);*/
 	}
+  objectRow(id) {
+		var name;
+	  var date;
+	  var staffid;
+		if(this.state.projectData!=undefined) {
+	   name = this.state.projectData[id].name;
+	   date = this.state.projectData[id].date;
+	   staffid = this.state.projectData[id].researcherStaffID;
+	  }
+    
   render() {
     return (
 			<div class="container-fluid container-content">

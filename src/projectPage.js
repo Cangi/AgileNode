@@ -38,6 +38,10 @@ class ProjectPage extends Component {
 
     )
   }
+  function tick() //changes the word "true" to a green tick and false to a x
+  {
+
+  }
 }
 
 
