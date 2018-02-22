@@ -27,6 +27,9 @@ class NavBar extends Component {
 					<li class="nav-item">
 						<button><Link to="/createProject">HELP ME GOD</Link></button>
 					</li>
+					<li class="nav-item">
+						<button><Link to="/projectPage">It's just a button</Link></button>
+					</li>
 					</ul>
 					</div>
 				</nav>
