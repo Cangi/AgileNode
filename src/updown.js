@@ -5,7 +5,6 @@ import './index.css';
 import React from 'react';
 import axios from 'axios';
 import server from './serverConfig'
-
 //import ProjectsListResearcher from './projectsListResearcher';
 //import {Route, Link, BrowserRouter} from "react-router-dom";
 //import {HashRouter, NavLink, BrowserRouter, Route} from "react-router-dom";
@@ -17,7 +16,7 @@ class UpDown extends React.Component {
     this.state = {value: '' , downloadarray: undefined , dlfile: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
 	this.handleDownload = this.handleDownload.bind(this);
-	
+
 	axios.get(server.serverApi + '/api/download')
 	.then((response) => {
 		this.setState({downloadarray: JSON.parse(response.data)});
@@ -45,18 +44,18 @@ class UpDown extends React.Component {
 	    iframe.src = server.serverApi + '/api/download3';
 	});
   }
-  
+
   renderList(){
 	  if(this.state.downloadarray){
 		  return(
-			<div class="list">        
-				{this.state.downloadarray.map(function(item, i){                                        
+			<div class="list">
+				{this.state.downloadarray.map(function(item, i){
 					return (
 						<form class="list-items" onSubmit={this.handleDownload}>
-						   <span class="btn btn-primary" id={i} onClick={this.handleDownload}><img class="download-icon" src="images/download.ico"></img>{item}</span>
+						   <span class="btn btn-primary" id={i} onClick={this.handleDownload}><img class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item}</span>
 						</form>
-					);                
-				}, this)}        
+					);
+				}, this)}
 				  </div>)
 			  }
 			  return (
@@ -64,7 +63,7 @@ class UpDown extends React.Component {
 			</div>
 		)
   }
-  
+
   render() {
 		return (
 		<div>
