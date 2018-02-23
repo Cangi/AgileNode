@@ -36,11 +36,12 @@ class CreateProject extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Create a new project:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
+	  <div class="form-group">
+        <label for="inputNewProject"> Create a new project
+          <input type="text" class="form-control" id="inputNewProject" aria-describedby="emailHelp" placeholder="Enter name" value={this.state.value} onChange={this.handleChange} />
         </label>
-        <input type="submit" value="Submit" />
+		<button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+		</div>
       </form>
     );
   }
