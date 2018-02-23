@@ -79,7 +79,8 @@ router.post('/signProject',(req,res) => {
   User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
-      Project.findOneAndUpdate({researcherStaffID:user.staffID},{user.department+'Signed':true}, function (err){
+		let userDepartment = user.department+'Signed';
+      Project.findOneAndUpdate({researcherStaffID:user.staffID},{userDepartment:true}, function (err){
         if(err)
         {
           console.log('Didn\'t update');
