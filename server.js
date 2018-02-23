@@ -77,35 +77,7 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/api',routeCalls)
 
-//Upload to server functionality
-app.post('/upload', function(req, res) {
-  if (!req.files)
-    return res.status(400).send('No files were uploaded.');
-  let uploadedFile = req.files.sampleFile;
-  uploadedFile.mv('./uploads/' + req.files.sampleFile.name, function(err) {
-    if (err)
-      return res.status(500).send(err);
-    res.send('File uploaded!');
-  });
-});
 
-//Returns list of files in uploads folder in json format --- Tests
-app.get('/download', function(req, res) {
-	const fileloc = './uploads/';
-	const fs = require('fs');
-	var arr = [];
-	fs.readdirSync(fileloc).forEach(file => {
-	  arr.push(file);
-	});
-	var json = JSON.stringify(arr);
-	res.json(json);
-});
-
-//Downloads file named "black_man.png" from uploads folder --- Tests
-app.get('/download2', function(req, res){
-  var file = __dirname + '/uploads/black_man.png';
-  res.download(file); // Set disposition and send it.
-});
 
 app.listen(port, () => {
 	console.log(`running port ${port}`);

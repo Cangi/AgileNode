@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const projectSchema = mongoose.Schema({
     name:{
       type : String,
-      requiered: true
+      required: true
     },
     date:{
       type : Date,
@@ -11,7 +11,7 @@ const projectSchema = mongoose.Schema({
     },//Maybe we need to add description field
     researcherStaffID:{
       type : String,
-      requiered: true
+      required: true
     },
     RISSheet:{
       type : String,
@@ -19,15 +19,15 @@ const projectSchema = mongoose.Schema({
     },
     RISSigned:{
       type : Boolean,
-      requiered : false
+      required : false
     },
     associateDeanSigned:{
       type : Boolean,
-      requiered : false
+      required : false
     },
     dean:{
       type : Boolean,
-      requiered : false
+      required : false
     }
   });
 
