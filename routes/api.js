@@ -53,7 +53,7 @@ router.get('/getProjects',(req,res) =>{
   Project.find({researcherStaffID:user.staffID}, (err,projects) =>{
     if(err) throw err;
     if(projects){
-		
+
     res.json(projects);
   }
   });
@@ -65,7 +65,7 @@ router.post('/getProject',(req,res) =>{
   User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
-  Project.findOne({staffID:user.staffID , name:req.body.nameOfTheProject}, (err,project) =>{
+  Project.findOne({researcherStaffID:user.staffID , _id:req.body.idOfTheProject}, (err,project) =>{
     if(err) throw err;
     if(project){
     res.json(project);
@@ -75,5 +75,51 @@ router.post('/getProject',(req,res) =>{
 });
 });
 
+router.post('/signProject',(req,res) => {
+  User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+		let userDepartment = user.department+'Signed';
+      Project.findOneAndUpdate({researcherStaffID:user.staffID},{userDepartment:true}, function (err){
+        if(err)
+        {
+          console.log('Didn\'t update');
+        }else{
+          console.log('Updated');
+        }
+  });
+}
+});
+});
+
+//Upload to server functionality
+router.post('/upload', function(req, res) {
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+  let uploadedFile = req.files.sampleFile;
+  uploadedFile.mv('./uploads/' + req.files.sampleFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+    res.send('File uploaded!');
+  });
+});
+
+//Returns list of files in uploads folder in json format --- Tests
+router.get('/download', function(req, res) {
+	const fileloc = './uploads/';
+	const fs = require('fs');
+	var arr = [];
+	fs.readdirSync(fileloc).forEach(file => {
+	  arr.push(file);
+	});
+	var json = JSON.stringify(arr);
+	res.json(json);
+});
+
+//Downloads file named "black_man.png" from uploads folder --- Tests
+router.get('/download2', function(req, res){
+  var file = __dirname + '/uploads/black_man.png';
+  res.download(file); // Set disposition and send it.
+});
 
 module.exports = router;

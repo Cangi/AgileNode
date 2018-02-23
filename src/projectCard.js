@@ -2,12 +2,47 @@ import './index.css';
 import React from 'react';
 import { Link } from 'react-router-dom'
 import ProjectPage from './projectPage';
+import server from './serverConfig'
+import axios from 'axios'
+import front  from './serverConfig'
 
 class ProjectCard extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {linkTo: '/projectPage'};
+	}
 render() {
+  if(this.props.risSign=="true"){
+	var risSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
+  }
+  else {
+	var risSign = <img class="checkbox" src='images/redcheckbox.png'></img>;
+  }
+  
+  if(this.props.researcherSign=="true"){
+	var resSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
+  }
+  else {
+	var resSign = <img class="checkbox" src='images/redcheckbox.png'></img>;
+  }
+  
+  if(this.props.assocDeanSign=="true"){
+	var assoSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
+  }
+  else {
+	var assoSign = <img class="checkbox" src='images/redcheckbox.png'></img>;
+  }
+  
+  if(this.props.deanSign=="true"){
+	var deanSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
+  }
+  else {
+	var deanSign = <img class="checkbox" src='images/redcheckbox.png'></img>;
+  }
+  
   return(
-      <div class="card">
-        <div class="card-header">
+	  <div class="card">
+        <div class="card-header card-custom">
         {this.props.name}
         </div>
         <div class="card-body">
@@ -15,17 +50,25 @@ render() {
           <p class="card-text">
               Created : {this.props.dateCreated}
 			  </p>
-			  <p>
-              Signed : RIS = {this.props.risSign} Researcher = {this.props.researcherSign} Associate Dean = {this.props.assocDeanSign} Dean = {this.props.deanSign} 
+			  <p class="centered">
+              Signatures: 
+			  <span class="badge badge-warning badge-custom">RIS {risSign}</span>
+			  <span class="badge badge-warning badge-custom">Researcher {resSign}</span>
+			  <span class="badge badge-warning badge-custom">Associate Dean {assoSign}</span>
+			  <span class="badge badge-warning badge-custom">Dean {deanSign}</span> 
             </p>
-          <button><Link to="/projectPage">Project Page</Link></button>
-        </div>
 
+          <button onClick={()=> window.location = front.serverFront + '/projectPage/:' + this.props.id}>Project Page</button>
+
+        </div>
+		
     </div>
 
   )
   }
 }
+//axios.post(server.serverApi + '/api/getProject',{ idOfTheProject: this.props.name }).then((response) => {
+//<Link to={this.state.linkTo}>Project Page</Link>
 //displays the project name
 //displays the researchers name who created the project
 //the date the project was created

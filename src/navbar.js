@@ -4,7 +4,7 @@ import {Route, NavLink, BrowserRouter, Link} from "react-router-dom";
 import CreateProjectFile from './createProjectFile';
 import axios from 'axios';
 import server from './serverConfig'
-
+import front from './serverConfig'
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
@@ -25,20 +25,21 @@ class NavBar extends Component {
 	if(this.state.loggedin == false) {
 		loginButton = <button type="button" class="btn btn-light" onClick={() => this.setState({disconnected: false})}><Link to="/login">Login</Link></button>
 	} else {
+
 		loginButton = <button type="button" class="btn btn-light" onClick={() => this.setState({name: "", loggedin: false, userData: undefined})}><Link to="/disconnect">Logout</Link></button>
-		userIMG = <img class="avatar" src="images/avatar_male.png"></img>
+		userIMG = <img class="avatar" src={front.serverFront + "/images/avatar_male.png"}></img>
 		
 	}
 	
 	
    return (
-			<div class="container-fluid">
+			<div class="container-fluid container-navbar">
 				<nav class="navbar-custom navbar navbar-expand-sm navbar-light">
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-content" aria-controls="nav-content" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
 
-					<a class="navbar-brand" href="/index"><img class="dundee-logo" src="images/university_logo.png"></img></a>
+					<a class="navbar-brand" href="/index"><img class="dundee-logo" src={front.serverFront + "/images/university_logo.png"}></img></a>
 
 					<div class="collapse navbar-collapse justify-content-end" id="nav-content">  
 					

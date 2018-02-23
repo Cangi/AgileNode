@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import Footer from './footer';
 import axios from 'axios';
 import './projectPage.css'
+import server from './serverConfig'
 
 //call to local host - call to the server, pass it back to the server
 
@@ -12,10 +13,18 @@ import './projectPage.css'
 class ProjectPage extends Component {
 	 constructor(props) {
     super(props);
-    this.state = {value: ''};
-
+    this.state = {value: '' , project: undefined, userData: undefined};
+	axios.post(server.serverApi + '/api/getProject',{ idOfTheProject: this.props.location.pathname.split(':')[1] }).then((response) => {this.setState({project: response.data})});
+	axios.get(server.serverApi + '/userdata')
+	    .then((response) => {
+			//if(response.data!=undefined)
+			this.setState({userData: response.data});
+			
+		});
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+	//console.log(this.props);
+	//console.log();
   }
 
   handleChange(event) {
@@ -31,6 +40,18 @@ class ProjectPage extends Component {
   //  axios.get(URLofDatabase$)
 //  }
   render() {
+	  var projectName;
+	  var researcherName;
+	  var date;
+
+	  if(this.state.project != undefined) {
+		  console.log(this.state.project);
+		  projectName = this.state.project.name;
+		  date = this.state.project.date.split('T')[0];
+		  if(this.state.userData != undefined) {
+			researcherName = this.state.userData.givenName + " " + this.state.userData.surname;
+		  }
+	  }
     return(
           <body>
 
@@ -38,16 +59,16 @@ class ProjectPage extends Component {
 				<div class="row">
 					<div class="column">
 						<h1>Name of Project</h1>
-						<p>Insert information here.</p>
+						<p>{projectName}</p>
 					</div>
 					<div class="column">
 						<h1>Name of Head Researcher</h1>
-					<p>Insert information here.</p>
+					<p>{researcherName}</p>
 					</div>
 					<div class="column">
 						<h2>Details</h2>
-						<p>Date created: 01/01/2001</p>
-						<p>Date Last Updated: 02/02/2002</p>
+						<p>Date created: {date}</p>
+						<p>Date Last Updated: {date}</p>
 					</div>
 				</div>
 				
@@ -60,8 +81,8 @@ class ProjectPage extends Component {
 					</div>
 					<div class="column">
 						<h2>Last update</h2>
-						<p>Last Edited: 01/01/2001</p>
-						<p>User who edited it: Radu</p>
+						<p>Last Edited: {date}</p>
+						<p>User who edited it: {researcherName}</p>
 					</div>
 					<div class="column">
 						<h2>Digital signature</h2>

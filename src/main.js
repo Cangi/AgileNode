@@ -4,14 +4,14 @@ import ProjectsListResearcher from './projectsListResearcher'
 import CreateProject from './createProject'
 import Login from './login'
 import ProjectPage from './projectPage'
-
+import server from './serverConfig'
 
 const Main = () => (
   <main>
     <Switch>
 	 
 	  <Route path='/index' component={ProjectsListResearcher}/>
-	  <Route path='/disconnect' component={() => window.location = 'http://localhost:3000/disconnect'}/>
+	  <Route path='/disconnect' component={() => window.location = server.serverApi + '/disconnect'}/>
 	  <Route path='/login' component={Login}/>
 	
       <Route path='/createProject' component={CreateProject}/>
