@@ -65,7 +65,7 @@ router.post('/getProject',(req,res) =>{
   User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
-  Project.findOne({staffID:user.staffID , name:req.body.nameOfTheProject}, (err,project) =>{
+  Project.findOne({researcherStaffID:user.staffID , _id:req.body.idOfTheProject}, (err,project) =>{
     if(err) throw err;
     if(project){
     res.json(project);
