@@ -7,10 +7,10 @@ import { Switch, Route } from 'react-router-dom'
 
 
 const App = () => (
-  <div>
+  <div class="container-webpage">
     <Navbar />
     <Main />
-	
+	<Footer />
   </div>
 )
 
