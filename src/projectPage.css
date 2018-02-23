@@ -22,8 +22,6 @@
 .page{
 	margin-left: auto;
 	margin-right: auto;
-	background-color: white;
-	border: 1em solid #3E5BC7;
 	padding: 1em;
 	border-radius: 25px;
 }

@@ -14,7 +14,9 @@ body {
 
 .container-webpage {
 	position: relative;
-    min-height: 100%;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .container-navbar {
@@ -43,6 +45,8 @@ background:#3E5BC7;
 
 main { 
     padding-bottom: 100px;
+	flex: 1;
+	background: gainsboro;
 } 
 
 footer { 
@@ -54,21 +58,19 @@ footer {
 	width: 100%; 
 	overflow: hidden; 
 	background: #3E5BC7; 
+	background: #3E5BC7; 
 } 
 
 .container-content { 
-
 	padding-right: 6rem; 
 	padding-top: 2rem; 
 	padding-left: 6rem; 
     padding-bottom: 2rem;
-	background: gainsboro;
-
 } 
 
 .container-footer { 
-text-align: center; 
-margin-top: 1.5rem; 
+	text-align: center; 
+	margin-top: 1.5rem; 
 } 
 
 .footer-text { 
@@ -76,11 +78,6 @@ margin-top: 1.5rem;
 } 
 .title {
 	padding-bottom:1rem;
-}
-
-
-.footer { 
-	background: #3E5BC7; 
 }
 
 .avatar{

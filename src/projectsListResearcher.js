@@ -45,8 +45,8 @@ class ProjectsListResearcher extends React.Component {
 	  return <ProjectCard name={name}
            researcherName={username}
            dateCreated = {date}
-           risSign = "true"
-           researcherSign = "true"
+           risSign = "false"
+           researcherSign = "false"
            assocDeanSign = "false"
            deanSign = "false"
 			id = {projectid}/>
