@@ -7,8 +7,7 @@ class Login extends Component {
 render() {
 	window.location.replace(server.serverApi + '/login'); 
 	return (
-		<div>Taking you to log in...</div>
-
+	<div class="spinner"></div>
 	)
 }
 
