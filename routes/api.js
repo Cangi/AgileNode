@@ -106,7 +106,7 @@ router.post('/upload', function(req, res) {
 });
 
 router.get('/download', function(req, res) {
-    const fileloc = './uploads/';
+    const fileloc = './routes/uploads/';
     const fs = require('fs');
     var arr = [];
     fs.readdirSync(fileloc).forEach(file => {
@@ -117,7 +117,7 @@ router.get('/download', function(req, res) {
 });
 
 router.post('/download2', function(req, res){
-    filePath = path.join(__dirname, '\\..\\uploads\\');
+    filePath = path.join(__dirname, './uploads/');
     filePath = path.join(filePath , req.body.nameOfFile);
     res.send('File found!');
 });
