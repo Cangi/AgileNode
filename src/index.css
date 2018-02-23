@@ -13,7 +13,7 @@ body {
 } 
 
 .container-webpage {
-	position: relative;
+	//position: relative;
     min-height: 100%;
 }
 
@@ -54,6 +54,7 @@ footer {
 	width: 100%; 
 	overflow: hidden; 
 	background: #3E5BC7; 
+	background: #3E5BC7; 
 } 
 
 .container-content { 
@@ -67,8 +68,8 @@ footer {
 } 
 
 .container-footer { 
-text-align: center; 
-margin-top: 1.5rem; 
+	text-align: center; 
+	margin-top: 1.5rem; 
 } 
 
 .footer-text { 
@@ -76,11 +77,6 @@ margin-top: 1.5rem;
 } 
 .title {
 	padding-bottom:1rem;
-}
-
-
-.footer { 
-	background: #3E5BC7; 
 }
 
 .avatar{
