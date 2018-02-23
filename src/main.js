@@ -11,9 +11,9 @@ const Main = () => (
     <Switch>
 	 
 	  <Route path='/index' component={ProjectsListResearcher}/>
-	 	
+	  <Route path='/disconnect' component={() => window.location = 'http://localhost:3000/disconnect'}/>
 	  <Route path='/login' component={Login}/>
-
+	
       <Route path='/createProject' component={CreateProject}/>
       <Route path='/projectPage' component={ProjectPage}/>
     </Switch>

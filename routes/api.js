@@ -50,9 +50,10 @@ router.get('/getProjects',(req,res) =>{
   User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
-  Project.find({staffID:user.staffID}, (err,projects) =>{
+  Project.find({researcherStaffID:user.staffID}, (err,projects) =>{
     if(err) throw err;
     if(projects){
+		
     res.json(projects);
   }
   });

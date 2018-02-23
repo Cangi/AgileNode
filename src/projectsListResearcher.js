@@ -6,51 +6,67 @@ import ProjectCard from './projectCard';
 import registerServiceWorker from './registerServiceWorker';
 import axios from 'axios';
 import server from './serverConfig'
+import CreateProject from './createProject'
 
 class ProjectsListResearcher extends React.Component {
   constructor(props) {
 		super(props);
-		this.state = ({projectData: undefined});
+		this.state = ({projectData: undefined, userData: undefined});
 		const self = this;
+		
+		axios.get(server.serverApi + '/userdata')
+	    .then((response) => {
+			//if(response.data!=undefined)
+			self.setState({userData: response.data});
+			
+		});
 		axios.get(server.serverApi + '/api/getProjects')
 	    .then((response) => {
 			//if(response.data.givenName!=undefined)
 			self.setState({projectData: response.data});
+		console.log(response.data);
 		});
-		/*axios.get('http://localhost:3000/api/getProjects')
-	    .then((response) => {
-			//if(response.data!=undefined)
-			self.setState({projectData: response});
-		});
-		console.log(this.state.projectData);*/
+		
 	}
   objectRow(id) {
-		var name;
+	  var name;
+	  var username;
 	  var date;
 	  var staffid;
 		if(this.state.projectData!=undefined) {
 	   name = this.state.projectData[id].name;
-	   date = this.state.projectData[id].date;
-	   staffid = this.state.projectData[id].researcherStaffID;
+	   date = this.state.projectData[id].date.split('T')[0];
+	   if(this.state.userData!=undefined) {
+		 username=this.state.userData.givenName + " " + this.state.userData.surname;
+	   }
 	  }
-	}
-
-  render() {
-    return (
-			<div class="container-fluid container-content">
-				<h3 class="">Researcher Products</h3>
-        <button><Link to="/projectPage">Project Page</Link></button>
-        <div class="Cards">
-          <ProjectCard name="Improving Displays for colour blind people"
-           researcherName="Paulius Kuzmiskas"
-           dateCreated = "22/02/2018"
+	  return <ProjectCard name={name}
+           researcherName={username}
+           dateCreated = {date}
            risSign = "true"
            researcherSign = "true"
            assocDeanSign = "false"
            deanSign = "false" />
+	}
+
+  render() {
+	  var size=0;
+	  if(this.state.projectData!=undefined) size = this.state.projectData.length;
+    return (
+			<div class="container-fluid container-content">
+				<h3 class="">Researcher Projects</h3>
+        <div class="Cards">
+          {[...Array(size)].map((x, i) =>
+						//calls the function 5 times
+						
+						this.objectRow(i)
+					  )}
+					  
 
         </div>
+			<CreateProject />
 			</div>
+			
        //passing the parameters to projectCard
     );
   }

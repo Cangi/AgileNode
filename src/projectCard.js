@@ -8,17 +8,15 @@ render() {
   return(
       <div class="card">
         <div class="card-header">
-        {this.props.name};
+        {this.props.name}
         </div>
         <div class="card-body">
           <h4 class="card-title">By {this.props.researcherName}</h4>
           <p class="card-text">
               Created : {this.props.dateCreated}
-              Signed : RIS = {this.props.risSign}
-                       Researcher = {this.props.researcherSign}
-                       Associate Dean = {this.props.assocDeanSign}
-                       Dean = {this.props.deanSign} 
-
+			  </p>
+			  <p>
+              Signed : RIS = {this.props.risSign} Researcher = {this.props.researcherSign} Associate Dean = {this.props.assocDeanSign} Dean = {this.props.deanSign} 
             </p>
           <button><Link to="/projectPage">Project Page</Link></button>
         </div>

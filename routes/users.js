@@ -5,7 +5,7 @@ const graphHelper = require('../config/graphHelper.js');
 const passport = require('passport');
 let User = require('../models/user');
 const front = require('../config/serverConfig');
-let userData = undefined;
+var userData = undefined;
 
 // Get the home page.
 router.get('/', (req, res) => {
@@ -31,6 +31,7 @@ router.get('/userdata', (req, res) => {
 		res.send(userData);
 		console.log("SENDING DATA");
 	} else {
+		console.log("SO IM NOT SENDING DATA NOW");
 		res.send(undefined);
 	}
 });
@@ -81,12 +82,17 @@ router.get('/mainPage',(req,res) =>{
   res.send('Hi bois, my name is: ' + userData.displayName.split(' ')[0] +  ' ' + userData.id);
   }
 });
+
+
+const self = this;
 router.get('/disconnect', (req, res) => {
+	userData=undefined;
   req.session.destroy(() => {
     req.logOut();
     res.clearCookie('graphNodeCookie');
     res.status(200);
-    res.redirect('/');
+    //res.redirect('/');
+	res.redirect(front.serverFront);
   });
 });
 
