@@ -123,6 +123,8 @@ footer {
 	padding: 0.5rem;
 }
 
+/*Code taken from http://tobiasahlin.com/spinkit/"*/
+
 .spinner {
   width: 40px;
   height: 40px;
