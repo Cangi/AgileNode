@@ -14,32 +14,54 @@ import server from './serverConfig'
 class UpDown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
-    this.handleSubmit = this.handleSubmit.bind(this);
-	/*axios.get(server.serverApi + '/api/download')
+    this.state = {value: '' , downloadarray: undefined , dlfile: ''};
+	this.handleDownload = this.handleDownload.bind(this);
+
+	axios.get(server.serverApi + '/api/downloadList')
 	.then((response) => {
-		alert(response.data);
-	});*/
-  }
-  handleSubmit(event) {
-	var uploadform = document.getElementById('upform');
-	let upfile = new FormData(uploadform);
-	axios.post(server.serverApi + '/api/upload',upfile)
-	.then((response) => {
-		alert(response.data);
+		this.setState({downloadarray: JSON.parse(response.data)});
 	});
   }
 
+  handleDownload(event) {
+	axios.post(server.serverApi + '/api/downloadFile',{'nameOfFile':event.target.textContent}).then(()=>{
+		var iframe;
+	    iframe = document.getElementById("hiddenDownloader");
+	    if (iframe == null) {
+		    iframe = document.createElement('iframe');
+		    iframe.id = "hiddenDownloader";
+		    iframe.style.visibility = 'hidden';
+		    document.body.appendChild(iframe);
+	    }
+	    iframe.src = server.serverApi + '/api/downloadFile';
+	});
+  }
+
+  renderList(){
+	  if(this.state.downloadarray){
+		  return(
+			<div class="list">
+				{this.state.downloadarray.map(function(item, i){
+					return (
+						<form class="list-items" onSubmit={this.handleDownload}>
+						   <span class="btn btn-primary" id={i} onClick={this.handleDownload}><img class="download-icon" src="images/download.ico"></img>{item}</span>
+						</form>
+					);
+				}, this)}
+				  </div>)
+			  }
+			  return (
+				<div>
+			</div>
+		)
+  }
+
   render() {
-    return (
-      <form id="upform" onSubmit={this.handleSubmit}>
-        <label>
-          Add excel file:
-          <input type="file" name="sampleFile"/>
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    );
+		return (
+		<div>
+			{this.renderList()}
+		</div>
+		);
   }
 }
 

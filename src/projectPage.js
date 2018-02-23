@@ -5,7 +5,7 @@ import Footer from './footer';
 import axios from 'axios';
 import './projectPage.css'
 import server from './serverConfig'
-
+import UpDown from './updown'
 //call to local host - call to the server, pass it back to the server
 
 
@@ -13,18 +13,24 @@ import server from './serverConfig'
 class ProjectPage extends Component {
 	 constructor(props) {
     super(props);
-    this.state = {value: '' , project: undefined, userData: undefined};
+    this.state = {value: '' , project: undefined, userData: undefined,value:'', downloadArray: undefined, dfile:''};
 	axios.post(server.serverApi + '/api/getProject',{ idOfTheProject: this.props.location.pathname.split(':')[1] }).then((response) => {this.setState({project: response.data})});
+	axios.get(server.serverApi + '/api/downloadList').then((response)=>{
+		this.setState({downloadArray:JSON.parse(response.data)});
+	});
 	axios.get(server.serverApi + '/userdata')
 	    .then((response) => {
 			//if(response.data!=undefined)
 			this.setState({userData: response.data});
-			
+
 		});
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleUpload = this.handleUpload.bind(this);
+		this.handleDownload = this.handleDownload.bind(this);
 	//console.log(this.props);
 	//console.log();
+
   }
 
   handleChange(event) {
@@ -35,11 +41,34 @@ class ProjectPage extends Component {
     alert('Signed now bo$$! ' + this.state.value);
     event.preventDefault();
   }
-
+  handleUpload(event) {
+		var uploadForm = document.getElementById('upform');
+		let upfile = new FormData(uploadForm);
+		axios.post(server.serverApi + '/api/upload',upfile)
+			.then((response)=>{
+				alert(response.data);
+			});
+	}
+	handleDownload(event) {
+		axios.post(server.serverApi + '/api/downloadFile',{'nameOfFile':this.state.project.name}).then(()=>{
+		var iframe;
+		iframe = document.getElementById('hiddenIframe');
+		if(iframe == null){
+			iframe = document.createElement('iframe');
+			iframe.id = 'hiddenIframe';
+			iframe.style.visibility = 'hidden';
+			document.body.appendChild(iframe);
+		}
+		iframe.src = server.serverApi + 'api/downloadFile';
+	});
+}
 //  getData(){
   //  axios.get(URLofDatabase$)
 //  }
+
+
   render() {
+
 	  var projectName;
 	  var researcherName;
 	  var date;
@@ -52,6 +81,7 @@ class ProjectPage extends Component {
 			researcherName = this.state.userData.givenName + " " + this.state.userData.surname;
 		  }
 	  }
+
     return(
           <body>
 
@@ -71,11 +101,14 @@ class ProjectPage extends Component {
 						<p>Date Last Updated: {date}</p>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="column">
-					<button type="button" class="btn btn-primary">Upload</button><p></p>
-					<button type="button" class="btn btn-primary">Download latest</button>
+					<form id="upform" onSubmit={this.handleUpload}>
+					<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
+					<input type="file" name="sampleFile"/><p></p>
+					</form>
+					<UpDown />
 					<p></p>
 					<p>Small picture/snapshot of excel file</p>
 					</div>
@@ -106,7 +139,7 @@ class ProjectPage extends Component {
 							</div>
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="column">
 						<h2>Comments to be implemented.</h2>
