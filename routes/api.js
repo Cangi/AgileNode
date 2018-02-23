@@ -105,25 +105,25 @@ router.post('/upload', function(req, res) {
   });
 });
 
-//Returns list of files in uploads folder in json format --- Tests
-router.get('/downloadList', function(req, res) {
-	const fileloc = './uploads/';
-	const fs = require('fs');
-	var arr = [];
-	fs.readdirSync(fileloc).forEach(file => {
-	  arr.push(file);
-	});
-	var json = JSON.stringify(arr);
-	res.json(json);
+router.get('/download', function(req, res) {
+    const fileloc = './uploads/';
+    const fs = require('fs');
+    var arr = [];
+    fs.readdirSync(fileloc).forEach(file => {
+      arr.push(file);
+    });
+    var json = JSON.stringify(arr);
+    res.json(json);
 });
 
-//Downloads file named "black_man.png" from uploads folder --- Tests
-router.post('/downloadFile', function(req, res){
-  filePath = path.join(__dirname,'\\..\\uploads\\');
-  filePath = path.join(filePath,req,body.nameOfFile);
+router.post('/download2', function(req, res){
+    filePath = path.join(__dirname, '\\..\\uploads\\');
+    filePath = path.join(filePath , req.body.nameOfFile);
+    res.send('File found!');
 });
-router.get('/downloadFile', function(req, res){
-  res.download(filePath);
+
+router.get('/download3', function(req, res){
+    res.download(filePath);
 });
 
 module.exports = router;

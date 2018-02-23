@@ -1,16 +1,16 @@
-html { 
-	margin: 0;
-    padding: 0;
-    height: 100%; 
-} 
-
-body { 
-	background: white; 
-	font-family: sans-serif; 
+html {
 	margin: 0;
     padding: 0;
     height: 100%;
-} 
+}
+
+body {
+	background: white;
+	font-family: sans-serif;
+	margin: 0;
+    padding: 0;
+    height: 100%;
+}
 
 .container-webpage {
 	position: relative;
@@ -23,59 +23,71 @@ body {
 	padding: 0;
 }
 
-.dundee-logo { 
-width:230px; 
-padding-top: 0; 
-padding-bottom: 0; 
-padding-left: 2rem; 
-} 
+.dundee-logo {
+width:230px;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 2rem;
+}
 
-.avatar { 
-width:35px; 
-//border-radius: 50%; 
-} 
+.avatar {
+width:35px;
+//border-radius: 50%;
+}
 
-.navbar-custom { 
+.navbar-custom {
 background: #3E5BC7;
-} 
+}
 
-.table-custom { 
-background:#3E5BC7; 
-} 
+.table-custom {
+background:#3E5BC7;
+}
 
-main { 
+main {
     padding-bottom: 100px;
 	flex: 1;
 	background: gainsboro;
-} 
+}
 
-footer { 
+footer {
 	position: absolute;
 	width: 100%;
-	height: 100px; 
-	left: 0; 
-	bottom: 0; 
-	width: 100%; 
-	overflow: hidden; 
-	background: #3E5BC7; 
-	background: #3E5BC7; 
-} 
+	height: 100px;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	overflow: hidden;
+	background: #3E5BC7;
+	background: #3E5BC7;
+}
+.list {
+    padding:1rem;
+}
 
-.container-content { 
-	padding-right: 6rem; 
-	padding-top: 2rem; 
-	padding-left: 6rem; 
+.list-items {
+    padding:0.2rem;
+}
+
+.download-icon {
+    width: 40px;
+    padding-right:0.8rem;
+}
+
+.container-content {
+	padding-right: 6rem;
+	padding-top: 2rem;
+	padding-left: 6rem;
     padding-bottom: 2rem;
-} 
+}
 
-.container-footer { 
-	text-align: center; 
-	margin-top: 1.5rem; 
-} 
+.container-footer {
+	text-align: center;
+	margin-top: 1.5rem;
+}
 
-.footer-text { 
-	color: white !important; 
-} 
+.footer-text {
+	color: white !important;
+}
 .title {
 	padding-bottom:1rem;
 }
@@ -142,16 +154,14 @@ footer {
 }
 
 @keyframes sk-rotateplane {
-  0% { 
+  0% {
     transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
-  } 50% { 
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  } 50% {
     transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
-  } 100% { 
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  } 100% {
     transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
 }
-
-
