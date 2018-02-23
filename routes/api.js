@@ -98,7 +98,7 @@ router.post('/upload', function(req, res) {
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
   let uploadedFile = req.files.sampleFile;
-  uploadedFile.mv('./uploads/' + req.files.sampleFile.name, function(err) {
+  uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
     if (err)
       return res.status(500).send(err);
     res.send('File uploaded!');
