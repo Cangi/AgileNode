@@ -63,16 +63,16 @@ class ProjectsListResearcher extends React.Component {
 	  
 	  
     return (
-			
-		<div class="container-fluid container-content">
-				<h3 class="">Researcher Projects</h3>
-				<div class="Cards">
-				  {[...Array(size)].map((x, i) =>
-								//calls the function 5 times
-								
-								this.objectRow(i),
-								
-							  )}
+
+			<div class="container-fluid container-content">
+				<h3 class="title">Researcher Projects</h3>
+        <div class="Cards">
+          {[...Array(size)].map((x, i) =>
+						//calls the function 5 times
+						
+						this.objectRow(i)
+					  )}
+
 					  
 		
 				</div>

@@ -16,6 +16,10 @@ const userSchema = mongoose.Schema({
   staffID:{
     type : String,
     required : true
+  },
+  department:{
+    type : String,
+    required : true
   }
   });
 
