@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const graphHelper = require('../config/graphHelper.js');
 const passport = require('passport');
+const path = require('path');
 let User = require('../models/user');
 let Project = require('../models/project');
 let userData = require('./users');
-
+let filePath = path.join(__dirname, '\\..\\uploads\\');
 // Get the home page.
 router.get('/', (req, res) => {
   // check if user is authenticated
@@ -105,7 +106,7 @@ router.post('/upload', function(req, res) {
 });
 
 //Returns list of files in uploads folder in json format --- Tests
-router.get('/download', function(req, res) {
+router.get('/downloadList', function(req, res) {
 	const fileloc = './uploads/';
 	const fs = require('fs');
 	var arr = [];
@@ -117,9 +118,12 @@ router.get('/download', function(req, res) {
 });
 
 //Downloads file named "black_man.png" from uploads folder --- Tests
-router.get('/download2', function(req, res){
-  var file = __dirname + '/uploads/black_man.png';
-  res.download(file); // Set disposition and send it.
+router.post('/downloadFile', function(req, res){
+  filePath = path.join(__dirname,'\\..\\uploads\\');
+  filePath = path.join(filePath,req,body.nameOfFile);
+});
+router.get('/downloadFile', function(req, res){
+  res.download(filePath);
 });
 
 module.exports = router;
