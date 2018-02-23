@@ -23,7 +23,7 @@ width:35px;
 } 
 
 .navbar-custom { 
-background: #3E5BC7; 
+background: #3E5BC7;
 } 
 
 .table-custom { 
@@ -52,7 +52,7 @@ padding:0; }
 .container-content { 
 padding-right: 6rem; 
 padding-top: 2rem; 
-padding-left: 6rem; 
+padding-left: 6rem;
 } 
 
 .container-footer { 
@@ -66,4 +66,21 @@ margin-top: 1.5rem;
 
 .footer { 
 	background: #3E5BC7; 
+}
+
+.avatar{
+	height: 38px;
+	border-radius: 5px;
+	position: relative;
+	bottom: 7px;
+	margin: auto;
+    border: 3px solid white;
+}
+
+.nav-item{
+		padding-left: 1rem;
+}
+
+.navbar-text {
+	color: white !important;
 }

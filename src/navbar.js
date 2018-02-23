@@ -8,7 +8,7 @@ import server from './serverConfig'
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
-		this.state = ({name: "Please log in!", loggedin: false, userData: undefined});
+		this.state = ({name: "", loggedin: false, userData: undefined});
 		const self = this;
 		axios.get(server.serverApi + '/userdata')
 	    .then((response) => {
@@ -23,10 +23,11 @@ class NavBar extends Component {
 	var loginButton;
 	var userIMG;
 	if(this.state.loggedin == false) {
-		loginButton = <button onClick={() => this.setState({disconnected: false})}><Link to="/login">Login</Link></button>
+		loginButton = <button type="button" class="btn btn-light" onClick={() => this.setState({disconnected: false})}><Link to="/login">Login</Link></button>
 	} else {
-		loginButton = <button onClick={() => this.setState({name: "Please log in!", loggedin: false, userData: undefined})}><Link to="/disconnect">Logout</Link></button>
+		loginButton = <button type="button" class="btn btn-light" onClick={() => this.setState({name: "", loggedin: false, userData: undefined})}><Link to="/disconnect">Logout</Link></button>
 		userIMG = <img class="avatar" src="images/avatar_male.png"></img>
+		
 	}
 	
 	
@@ -43,7 +44,7 @@ class NavBar extends Component {
 					
 					<ul class="navbar-nav">
 					<li class="nav-item">
-						<span class="navbar-text">{this.state.name}! {userIMG}</span>
+						<span class="navbar-text">{this.state.name} {userIMG}</span>
 					</li>
 					
 					<li class="nav-item">
