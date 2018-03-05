@@ -11,21 +11,10 @@ import CreateProject from './createProject'
 class ProjectsListResearcher extends React.Component {
   constructor(props) {
 		super(props);
-		this.state = ({projectData: undefined, userData: undefined});
+		this.state = ({projectData: undefined, userData: undefined, loggedin: false});
 		const self = this;
 		
-		axios.get(server.serverApi + '/userdata')
-	    .then((response) => {
-			//if(response.data!=undefined)
-			self.setState({userData: response.data});
-			
-		});
-		axios.get(server.serverApi + '/api/getProjects')
-	    .then((response) => {
-			//if(response.data.givenName!=undefined)
-			self.setState({projectData: response.data});
-		console.log(response.data);
-		});
+		
 		
 	}
   objectRow(id) {
@@ -55,7 +44,15 @@ class ProjectsListResearcher extends React.Component {
 
   render() {
 	  var size=0;
-	  var create=<div></div>;
+      var create = <div></div>;
+      if (this.props.userData != undefined && !this.state.loggedin) {
+          this.setState({ loggedin: true, userData: this.props.userData });
+          axios.post(server.serverApi + '/api/getProjects', { user: this.props.userData }).then((response) => {
+
+              this.setState({ projectData: response.data });
+              console.log(response);
+          });
+      } 
 	  if(this.state.projectData!=undefined) {
 		  size = this.state.projectData.length;
 		  create=<CreateProject />

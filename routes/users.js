@@ -6,7 +6,6 @@ const passport = require('passport');
 let User = require('../models/user');
 const front = require('../config/serverConfig');
 var userData = undefined;
-
 // Get the home page.
 router.get('/', (req, res) => {
   // check if user is authenticated
@@ -25,15 +24,28 @@ router.get('/login',
     (req, res) => {
       res.redirect('/');
     });
-
 router.get('/userdata', (req, res) => {
-	if(userData!=undefined){
+    
+    res.send(req.session);
+
+});
+router.post('/userdata', (req, res) => {
+	
+	graphHelper.getUserData(req.body.token, (err, user) => {
+        if (!err) {
+			res.send(user.body);
+		}
+		else {
+			console.log("ERROR SENDING BACK USER BODY");
+		}
+	});
+	/*if(userData!=undefined){
 		res.send(userData);
 		console.log("SENDING DATA");
 	} else {
 		console.log("SO IM NOT SENDING DATA NOW");
 		res.send(undefined);
-	}
+	}*/
 });
 
 
@@ -44,7 +56,8 @@ router.get('/token',
     (req, res) => {
       graphHelper.getUserData(req.user.accessToken, (err, user) => {
         if (!err) {
-          userData = user.body;
+            userData = user.body;
+            console.log(req.originalUrl);
 		  module.exports.user = userData;
           User.findOne({firstName:userData.displayName.split(' ')[0]}, (err,user) =>{
 			if(err) throw err;
@@ -68,7 +81,8 @@ router.get('/token',
             }
           });
       }});
-      res.redirect(front.serverFront + '/index');
+      res.redirect(front.serverFront + '/index?valid='+req.user.accessToken);
+	  //res.redirect('/mainPage');
     } else {
       console.log(err);
     }

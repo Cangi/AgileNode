@@ -10,16 +10,31 @@ class NavBar extends Component {
 		super(props);
 		this.state = ({name: "", loggedin: false, userData: undefined});
 		const self = this;
-		axios.get(server.serverApi + '/userdata')
+		
+		
+		/*axios.get(server.serverApi + '/userdata')
 	    .then((response) => {
-			if(response.data.givenName!=undefined)
-			self.setState({name: "Welcome " + response.data.givenName, loggedin: true, userData: response.data});
-		});
+            console.log(response.data);
+            });*/
+        
+		
 		
 	}
 	
- render() {
-	
+    render() {
+        /*if (sessionStorage.userData != undefined && !this.state.loggedin) {
+            console.log(JSON.parse(sessionStorage.userData));
+            //console.log("hi");
+            let ob = JSON.parse(sessionStorage.userData);
+            this.setState({ name: "Welcome " + ob.displayName, loggedin: true, userData: ob });
+        }
+        else {
+            console.log("USERDATA UNDEFINED");
+            
+        }*/
+	if(this.props.userData!=undefined && !this.state.loggedin) {
+			this.setState({name: "Welcome " + this.props.userData.displayName, loggedin: true, userData: this.props.userData});
+	} 
 	var loginButton;
 	var userIMG;
 	if(this.state.loggedin == false) {

@@ -13,17 +13,12 @@ import UpDown from './updown'
 class ProjectPage extends Component {
 	 constructor(props) {
     super(props);
-    this.state = {value: '' , project: undefined, userData: undefined,value:'', downloadArray: undefined, dfile:''};
-	axios.post(server.serverApi + '/api/getProject',{ idOfTheProject: this.props.location.pathname.split(':')[1] }).then((response) => {this.setState({project: response.data})});
+    this.state = { value: '', project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:''};
+    axios.post(server.serverApi + '/api/getProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData }).then((response) => {this.setState({project: response.data})});
 	axios.get(server.serverApi + '/api/downloadList').then((response)=>{
 		this.setState({downloadArray:JSON.parse(response.data)});
 	});
-	axios.get(server.serverApi + '/userdata')
-	    .then((response) => {
-			//if(response.data!=undefined)
-			this.setState({userData: response.data});
-
-		});
+    console.log(this.props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleUpload = this.handleUpload.bind(this);

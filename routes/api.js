@@ -47,8 +47,8 @@ router.post('/createProject',(req,res) =>{
   });
 });
 
-router.get('/getProjects',(req,res) =>{
-  User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
+router.post('/getProjects',(req,res) =>{
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
   Project.find({researcherStaffID:user.staffID}, (err,projects) =>{
@@ -63,7 +63,7 @@ router.get('/getProjects',(req,res) =>{
 });
 
 router.post('/getProject',(req,res) =>{
-  User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
   Project.findOne({researcherStaffID:user.staffID , _id:req.body.idOfTheProject}, (err,project) =>{
