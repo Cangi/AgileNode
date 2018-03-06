@@ -47,6 +47,16 @@ router.post('/createProject',(req,res) =>{
   });
 });
 
+router.post('/signup',(req,res) =>{
+  let newUser = new User({
+  firstName:req.firstName,
+  lastName:req.lastName,
+  email:req.email,
+  staffID:req.staffID,
+  position:req.position
+});
+});
+
 router.post('/getProjects',(req,res) =>{
   User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;

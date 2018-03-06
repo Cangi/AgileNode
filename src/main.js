@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import ProjectsListResearcher from './projectsListResearcher'
 import CreateProject from './createProject'
+import SignUp from './signUp'
 import Login from './login'
 import ProjectPage from './projectPage'
 import server from './serverConfig'
@@ -17,7 +18,7 @@ class Main extends React.Component {
                     <Route exact path='/' component={() => {
                         if (this.props.userData != undefined) {
                             window.location = '/index';
-                            
+
                         }
                         return <div></div>
                     }}/>
@@ -32,7 +33,9 @@ class Main extends React.Component {
                     <Route path='/login' component={Login} />
 
                     <Route path='/createProject' component={CreateProject} />
-                    
+
+                    <Route path='/signup' component={SignUp} />
+
                     <Route path='/projectPage' component={ProjectPage} />
                 </Switch>
             </main>

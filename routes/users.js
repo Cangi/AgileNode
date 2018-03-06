@@ -25,12 +25,12 @@ router.get('/login',
       res.redirect('/');
     });
 router.get('/userdata', (req, res) => {
-    
+
     res.send(req.session);
 
 });
 router.post('/userdata', (req, res) => {
-	
+
 	graphHelper.getUserData(req.body.token, (err, user) => {
         if (!err) {
 			res.send(user.body);
@@ -62,32 +62,30 @@ router.get('/token',
           User.findOne({firstName:userData.displayName.split(' ')[0]}, (err,user) =>{
 			if(err) throw err;
 			if(!user){
-			  let newUser = new User({
-			  firstName:userData.displayName.split(' ')[0],
-			  lastName:userData.displayName.split(' ')[1],
-			  email:userData.mail,
+        res.redirect(front.serverFront + '/signup?valid='+req.user.accessToken);
+			  //let newUser = new User({
+			  //firstName:userData.displayName.split(' ')[0],
+			  //lastName:userData.displayName.split(' ')[1],
+			  //email:userData.mail,
 			  //change when we can get input from the react app
-			  staffID:'150007237',
+			  //staffID:'150007237',
 
-			});
-			newUser.save((err) =>{
-            if(err){
-              console.log(err);
-              return;
-            }else {
+			}else{
+        res.redirect(front.serverFront + '/index?valid='+req.user.accessToken);
+      }});
+			//newUser.save((err) =>{
+      //      if(err){
+      //        console.log(err);
+      //        return;
+      //      }else {
               //add when react app ready
               //req.flash('success','You are now registered and can log in');
-			  console.log('p k mi');
-            }
-          });
-      }});
-      res.redirect(front.serverFront + '/index?valid='+req.user.accessToken);
-	  //res.redirect('/mainPage');
+      //      }
+      //    });
     } else {
       console.log(err);
     }
-      });
-    });
+  })});
 
 router.get('/mainPage',(req,res) =>{
   if(userData == undefined){
@@ -105,7 +103,6 @@ router.get('/disconnect', (req, res) => {
     req.logOut();
     res.clearCookie('graphNodeCookie');
     res.status(200);
-    //res.redirect('/');
 	res.redirect(front.serverFront);
   });
 });
