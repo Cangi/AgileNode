@@ -26,23 +26,24 @@ class SignUp extends React.Component {
   }
 
   handleChangePosition(event) {
-    let position = event.target.value
-    if(event.target.value == 'RIS'){
-      this.setState({position: position});
-
-    }else if(event.target.value == 'Associate Dean'){
-      position = event.target.value.charAt(0).toLowerCase() + event.target.value.slice(1);
-      position = position.split(' ')[0] + position.split(' ')[1];
-    this.setState({position: position});
-  }else {
-    position = event.target.value.charAt(0).toLowerCase() + event.target.value.slice(1);
-    this.setState({positon: position});
-  }
+      this.setState({position: event.target.value});
   }
 
   handleSubmit(event) {
+    let position;
+    if(this.state.position == 'RIS')
+    {
+      position = this.state.position;
+    }else if(this.state.position == 'Associate Dean'){
+      position = this.state.position.charAt(0).toLowerCase() + this.state.position.slice(1);
+      position = position.replace(/\s/g, "");
+    this.setState({position: position});
+  }else{
+    position = this.state.position.charAt(0).toLowerCase() + this.state.position.slice(1);
+    this.setState({positon: position});
+  }
 let userData = JSON.parse(localStorage.getItem('userData'));
-    axios.post(server.serverApi + '/api/signUp',{ staffID: this.state.staffID, position:this.state.position, firstName:userData.displayName.split(' ')[0], lastName:userData.displayName.split(' ')[1], email:userData.mail })
+    axios.post(server.serverApi + '/api/signUp',{ staffID: this.state.staffID, position:position, firstName:userData.displayName.split(' ')[0], lastName:userData.displayName.split(' ')[1], email:userData.mail })
     .then((response) => {
     });
 
@@ -50,8 +51,6 @@ let userData = JSON.parse(localStorage.getItem('userData'));
   }
 
   render() {
-let userData = JSON.parse(localStorage.getItem('userData'));
-    console.log(userData);
     return (
       <form onSubmit={this.handleSubmit}>
 
@@ -76,7 +75,7 @@ let userData = JSON.parse(localStorage.getItem('userData'));
                         <label for="inputNewProject"> Position
                           <select class="form-control" id="inputPosition" aria-describedby="emailHelp"  value={this.state.position} onChange={this.handleChangePosition} >
                             <option>Researcher</option>
-                            <option>RIS staff</option>
+                            <option>RIS</option>
                             <option>Associate Dean</option>
                             <option>Dean</option>
                           </select>
