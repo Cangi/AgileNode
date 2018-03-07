@@ -13,6 +13,14 @@ const projectSchema = mongoose.Schema({
       type : String,
       required: true
     },
+    readyForRIS:{
+      type: Boolean,
+      required: true
+    },
+    researcherSigned:{
+      type: Boolean,
+      required: true
+    },
     RISSheet:{
       type : String,
       required : false
@@ -25,7 +33,7 @@ const projectSchema = mongoose.Schema({
       type : Boolean,
       required : false
     },
-    dean:{
+    deanSigned:{
       type : Boolean,
       required : false
     }

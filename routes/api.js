@@ -49,12 +49,23 @@ router.post('/createProject',(req,res) =>{
 
 router.post('/signup',(req,res) =>{
   let newUser = new User({
-  firstName:req.firstName,
-  lastName:req.lastName,
-  email:req.email,
-  staffID:req.staffID,
-  position:req.position
+  firstName:req.body.firstName,
+  lastName:req.body.lastName,
+  email:req.body.email,
+  staffID:req.body.staffID,
+  department:req.body.position
 });
+
+newUser.save((err) =>{
+     if(err){
+        console.log(err);
+        return;
+      }else {
+        //add when react app ready
+        //req.flash('success','You are now registered and can log in');
+        console.log('User created');
+      }
+    });
 });
 
 router.post('/getProjects',(req,res) =>{
@@ -87,7 +98,7 @@ router.post('/getProject',(req,res) =>{
 });
 
 router.post('/signProject',(req,res) => {
-  User.findOne({firstName:userData.user.displayName.split(' ')[0]}, (err,user) =>{
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
 		let userDepartment = user.department+'Signed';
