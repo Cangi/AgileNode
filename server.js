@@ -14,7 +14,7 @@ const uuid = require('uuid');
 const config = require('./config/config.js');
 const configDatabase = require('./config/database.js');
 const cors = require('cors');
-var port = 3000;
+let port = 3000;
 
 mongoose.connect(configDatabase.database);
 let db = mongoose.connection;
@@ -68,9 +68,7 @@ app.use(session({
   saveUninitialized: false,
   //cookie: {secure: true} // For development only
 }));
-//Add static paths when react is working
-//app.use(express.static(path.join(__dirname, 'public')));
-//configuration for passport middleware
+
 app.use(passport.initialize());
 app.use(passport.session());
 

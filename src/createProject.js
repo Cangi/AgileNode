@@ -25,7 +25,7 @@ class CreateProject extends React.Component {
   }
 
   handleSubmit(event) { //this code is from http://codeheaven.io/how-to-use-axios-as-your-http-client/
-    axios.post(server.serverApi + '/api/createProject',{ nameOfTheProject: this.state.value });
+    axios.post(server.serverApi + '/api/createProject',{ nameOfTheProject: this.state.value, user:JSON.parse(localStorage.getItem('userData'))});
 
     //It also needs to collect the date from the server/browser when it was created
 

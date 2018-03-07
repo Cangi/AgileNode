@@ -34,7 +34,7 @@ class ProjectPage extends Component {
 
   handleSubmit(event) {
     alert('Signed now bo$$! ' + this.state.value);
-    event.preventDefault();
+    axios.post(server.serverApi + '/api/signProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData,signiture:this.state.value });
   }
   handleUpload(event) {
 		var uploadForm = document.getElementById('upform');
@@ -88,7 +88,7 @@ class ProjectPage extends Component {
 					</div>
 					<div class="column">
 						<h1>Name of Head Researcher</h1>
-					<p>{researcherName}</p>
+						<p>{researcherName}</p>
 					</div>
 					<div class="column">
 						<h2>Details</h2>
@@ -98,41 +98,41 @@ class ProjectPage extends Component {
 				</div>
 
 				<div class="row">
-					<div class="column">
-					<form id="upform" onSubmit={this.handleUpload}>
-					<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
-					<input type="file" name="sampleFile"/><p></p>
-					</form>
-					<UpDown />
-					<p></p>
-					<p>Small picture/snapshot of excel file</p>
-					</div>
-					<div class="column">
-						<h2>Last update</h2>
-						<p>Last Edited: {date}</p>
-						<p>User who edited it: {researcherName}</p>
-					</div>
-					<div class="column">
-						<h2>Digital signature</h2>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign this document</button>
+						<div class="column">
+							<form id="upform" onSubmit={this.handleUpload}>
+								<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
+								<input type="file" name="sampleFile"/><p></p>
+							</form>
+							<UpDown />
+							<p></p>
+							<p>Small picture/snapshot of excel file</p>
+						</div>
+						<div class="column">
+							<h2>Last update</h2>
+							<p>Last Edited: {date}</p>
+							<p>User who edited it: {researcherName}</p>
+						</div>
+						<div class="column">
+							<h2>Digital signature</h2>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign this document</button>
 							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-body">
-									<form onSubmit={this.handleSubmit}>
-									<label for="inputID">Please enter your ID
-									<input type="number" class="form-control" value value={this.state.value} onChange={this.handleChange}/>
-									</label>
-									</form>
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+											<div class="modal-body">
+												<form onSubmit={this.handleSubmit}>
+														<label for="inputID">Please enter your ID
+														<input type="number" class="form-control" value value={this.state.value} onChange={this.handleChange}/>
+														</label>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+															<button type="submit" class="btn btn-primary">Sign</button>
+														</div>
+												</form>
+											</div>
+									</div>
 								</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-								<button type="button" class="btn btn-primary">Sign</button>
 							</div>
-							</div>
-							</div>
-							</div>
-					</div>
+						</div>
 				</div>
 
 				<div class="row">
@@ -140,7 +140,7 @@ class ProjectPage extends Component {
 						<h2>Comments to be implemented.</h2>
 					</div>
 				</div>
-			</div>
+		</div>
 			{/*
             <div class = 'page'>
               <h1 class="display-1">{this.props.name}</h1>
