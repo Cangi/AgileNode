@@ -44,7 +44,7 @@ class ProjectsListResearcher extends React.Component {
 
   render() {
 	  var size=0;
-      var create = <div></div>;
+     // var create = <div></div>;
       if (this.props.userData != undefined && !this.state.loggedin) {
           this.setState({ loggedin: true, userData: this.props.userData });
           axios.post(server.serverApi + '/api/getProjects', { user: this.props.userData }).then((response) => {
@@ -55,9 +55,9 @@ class ProjectsListResearcher extends React.Component {
       } 
 	  if(this.state.projectData!=undefined) {
 		  size = this.state.projectData.length;
-		  create=<CreateProject />
+		  
 	  }
-	  
+      var create = <CreateProject />
 	  
     return (
 
