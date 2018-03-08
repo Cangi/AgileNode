@@ -21,6 +21,16 @@ router.get('/', (req, res) => {
   }
 });
 
+router.post('/checkUser',(req,res) => {
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+      res.send(true);
+	  }else{
+      res.send(false);
+    }
+  });
+});
 
 router.post('/createProject',(req,res) =>{
   User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
@@ -58,9 +68,10 @@ router.post('/signup',(req,res) =>{
   newUser.save((err) =>{
      if(err){
         console.log(err);
+        res.send(false);
         return;
       }else {
-        res.send('created');
+        res.send(true);
       }
   });
 });

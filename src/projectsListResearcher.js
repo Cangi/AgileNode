@@ -13,9 +13,9 @@ class ProjectsListResearcher extends React.Component {
 		super(props);
 		this.state = ({projectData: undefined, userData: undefined, loggedin: false});
 		const self = this;
-		
-		
-		
+
+
+
 	}
   objectRow(id) {
 	  var name;
@@ -23,10 +23,18 @@ class ProjectsListResearcher extends React.Component {
 	  var date;
 	  var staffid;
 	  var projectid;
+    var ris;
+    var researcher;
+    var assocDean;
+    var dean;
 		if(this.state.projectData!=undefined) {
 	   name = this.state.projectData[id].name;
 	   date = this.state.projectData[id].date.split('T')[0];
 	   projectid = this.state.projectData[id]._id;
+     ris = this.state.projectData[id].RISSigned;
+     researcher = this.state.projectData[id].researcherSigned;
+     assocDean = this.state.projectData[id].associateDeanSigned;
+     dean = this.state.projectData[id].deanSigned;
 	   if(this.state.userData!=undefined) {
 		 username=this.state.userData.givenName + " " + this.state.userData.surname;
 	   }
@@ -34,12 +42,12 @@ class ProjectsListResearcher extends React.Component {
 	  return <ProjectCard name={name}
            researcherName={username}
            dateCreated = {date}
-           risSign = "false"
-           researcherSign = "false"
-           assocDeanSign = "false"
-           deanSign = "false"
+           risSign = {ris}
+           researcherSign = {researcher}
+           assocDeanSign = {assocDean}
+           deanSign = {dean}
 			id = {projectid}/>
-		   
+
 	}
 
   render() {
@@ -50,15 +58,14 @@ class ProjectsListResearcher extends React.Component {
           axios.post(server.serverApi + '/api/getProjects', { user: this.props.userData }).then((response) => {
 
               this.setState({ projectData: response.data });
-              console.log(response);
           });
-      } 
+      }
 	  if(this.state.projectData!=undefined) {
 		  size = this.state.projectData.length;
-		  
+
 	  }
       var create = <CreateProject />
-	  
+
     return (
 
 			<div class="container-fluid container-content">
@@ -66,12 +73,12 @@ class ProjectsListResearcher extends React.Component {
         <div class="Cards">
           {[...Array(size)].map((x, i) =>
 						//calls the function 5 times
-						
+
 						this.objectRow(i)
 					  )}
 
-					  
-		
+
+
 				</div>
 				{create}
 			</div>

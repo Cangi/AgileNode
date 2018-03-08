@@ -36,7 +36,7 @@ router.post('/userdata', (req, res) => {
 			res.send(user.body);
 		}
 		else {
-			console.log("ERROR SENDING BACK USER BODY");
+			
 		}
 	});
 	/*if(userData!=undefined){
