@@ -12,6 +12,8 @@ class Main extends React.Component {
         super(props);
     }
     render() {
+      if(JSON.parse(localStorage.getItem('signUp')) == false)
+       return (<SignUp userData={this.props.userData} />);
         return (
             <main >
                 <Switch>
