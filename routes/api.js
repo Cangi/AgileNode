@@ -70,10 +70,26 @@ router.post('/getProjects',(req,res) =>{
     if(err) throw err;
     if(user){
       Project.find({researcherStaffID:user.staffID}, (err,projects) =>{
+        //if you don't give a staff id then you get all of them
         if(err) throw err;
         if(projects){
           res.json(projects);
         }
+      });
+    }
+  });
+});
+
+//should return all projects that have been readied for RIS
+router.post('/getRISNewProjects', (req,res) =>{
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+      Project.find({readyForRIS:true}, (err,project) =>{
+          if(err) throw err;
+          if(project){
+          res.json(project);
+          }
       });
     }
   });
