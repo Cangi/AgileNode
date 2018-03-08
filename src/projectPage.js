@@ -18,7 +18,6 @@ class ProjectPage extends Component {
 	axios.get(server.serverApi + '/api/downloadList').then((response)=>{
 		this.setState({downloadArray:JSON.parse(response.data)});
 	});
-    console.log(this.props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleUpload = this.handleUpload.bind(this);

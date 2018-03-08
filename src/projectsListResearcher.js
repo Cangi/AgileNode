@@ -23,10 +23,18 @@ class ProjectsListResearcher extends React.Component {
 	  var date;
 	  var staffid;
 	  var projectid;
+    var ris;
+    var researcher;
+    var assocDean;
+    var dean;
 		if(this.state.projectData!=undefined) {
 	   name = this.state.projectData[id].name;
 	   date = this.state.projectData[id].date.split('T')[0];
 	   projectid = this.state.projectData[id]._id;
+     ris = this.state.projectData[id].RISSigned;
+     researcher = this.state.projectData[id].researcherSigned;
+     assocDean = this.state.projectData[id].associateDeanSigned;
+     dean = this.state.projectData[id].deanSigned;
 	   if(this.state.userData!=undefined) {
 		 username=this.state.userData.givenName + " " + this.state.userData.surname;
 	   }
@@ -34,10 +42,10 @@ class ProjectsListResearcher extends React.Component {
 	  return <ProjectCard name={name}
            researcherName={username}
            dateCreated = {date}
-           risSign = "false"
-           researcherSign = "false"
-           assocDeanSign = "false"
-           deanSign = "false"
+           risSign = {ris}
+           researcherSign = {researcher}
+           assocDeanSign = {assocDean}
+           deanSign = {dean}
 			id = {projectid}/>
 
 	}
