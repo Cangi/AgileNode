@@ -21,6 +21,16 @@ router.get('/', (req, res) => {
   }
 });
 
+router.post('/checkUser',(req,res) => {
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(!user){
+      res.send(false);
+	  }else{
+      res.send(true);
+    }
+  });
+});
 
 router.post('/createProject',(req,res) =>{
   User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
