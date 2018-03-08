@@ -6,7 +6,6 @@ import Footer from './footer';
 import { Switch, Route } from 'react-router-dom'
 import server from './serverConfig'
 import axios from 'axios'
-import LandingPage from './landingPage'
 class App extends React.Component {
 
 
