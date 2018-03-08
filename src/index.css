@@ -68,6 +68,7 @@ footer {
 	background: #3E5BC7;
 	background: #3E5BC7;
 }
+
 .list {
     padding:1rem;
 }
@@ -141,6 +142,47 @@ footer {
 .badge-custom {
 	margin:1rem;
 	padding: 0.5rem;
+}
+
+.full-image-background {
+	position: absolute;
+	min-height: 80%;
+	min-width: 100%;
+	background-image: url(/images/dundee.jpg);
+	background-position: center;
+    background-size: cover;
+}
+
+.signup {
+	margin: 0;
+    position: absolute;
+    top: 47%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	background: #3e5bc7cf;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+	text-align: center;
+	max-width: 20rem;
+}
+
+.panel-custom {
+	margin-top: 0 !important;
+}
+
+.input-custom {
+	text-align: left;
+	margin: auto;
+}
+
+.input-submit-custom {
+	max-width: 100%;
+	padding-top: 1rem;
+}
+
+.panel-heading-custom {
+	padding-bottom: 1rem;
 }
 
 /*Code taken from http://tobiasahlin.com/spinkit/"*/

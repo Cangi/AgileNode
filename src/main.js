@@ -40,9 +40,8 @@ class Main extends React.Component {
 			);
 		}
 		
-        
-		return (
-            <main >
+        return (
+            <main>
                 <Switch>
                     <Route exact path='/' component={() => {
                         if (this.props.userData != undefined) {

@@ -52,26 +52,27 @@ class SignUp extends React.Component {
   render() {
     console.log(this.state.testing);
     return (
-      <form onSubmit={this.handleSubmit}>
+	<div class="full-image-background">
+      <form class="signup" onSubmit={this.handleSubmit}>
 
         <div class="container">
           <div class="row">
             <div class="col-md-14 col-md-offset-7">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <strong class="">SignUp</strong>
+              <div class="panel-custom panel panel-default">
+                <div class="panel-heading-custom panel-heading">
+                  <strong class="">Please enter your details to create your account:</strong>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form">
                       <div class="form-group last">
-                          <div class="col-sm-offset- col-sm-9">
+                          <div class="input-custom col-sm-offset-3 col-sm-9">
                             <label for="inputNewProject"> Staff ID
-                              <input type="text" class="form-control" id="inputStaffID" aria-describedby="emailHelp" placeholder="Enter staff ID" value={this.state.staffID} onChange={this.handleChangeStaffID} />
+                              <input type="text" maxlength="9" class="form-control" id="inputStaffID" aria-describedby="emailHelp" placeholder="Enter staff ID" value={this.state.staffID} onChange={this.handleChangeStaffID} />
                             </label>
                           </div>
                       </div>
                       <div class="form-group last">
-                          <div class="col-sm-offset-3 col-sm-9">
+                          <div class="input-custom col-sm-offset-3 col-sm-9">
                             <label for="inputNewProject"> Position
                               <select class="form-control" id="inputPosition" aria-describedby="emailHelp"  value={this.state.position} onChange={this.handleChangePosition} >
                                 <option>Researcher</option>
@@ -85,7 +86,7 @@ class SignUp extends React.Component {
 
 
                       <div class="form-group last">
-                        <div class="col-sm-offset-3 col-sm-9">
+                        <div class="input-submit-custom col-sm-offset-3 col-sm-9">
                           <button type="submit" class="btn btn-success btn-sm">Sign up</button>
                         </div>
                       </div>
@@ -96,6 +97,7 @@ class SignUp extends React.Component {
           </div>
         </div>
       </form>
+	  </div>
     );
   }
 }
