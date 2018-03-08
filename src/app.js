@@ -47,7 +47,7 @@ class App extends React.Component {
 		return(
 			<div class="container-webpage">
                 <Navbar userData={this.state.userData}/>
-                <Main userData={this.state.userData} signUp={this.state.signUp}/>
+                <Main userData={this.state.userData}/>
                 <Footer userData={this.state.userData}/>
 			</div>
 		);

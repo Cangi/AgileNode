@@ -13,9 +13,9 @@ class ProjectsListResearcher extends React.Component {
 		super(props);
 		this.state = ({projectData: undefined, userData: undefined, loggedin: false});
 		const self = this;
-		
-		
-		
+
+
+
 	}
   objectRow(id) {
 	  var name;
@@ -39,7 +39,7 @@ class ProjectsListResearcher extends React.Component {
            assocDeanSign = "false"
            deanSign = "false"
 			id = {projectid}/>
-		   
+
 	}
 
   render() {
@@ -50,15 +50,14 @@ class ProjectsListResearcher extends React.Component {
           axios.post(server.serverApi + '/api/getProjects', { user: this.props.userData }).then((response) => {
 
               this.setState({ projectData: response.data });
-              console.log(response);
           });
-      } 
+      }
 	  if(this.state.projectData!=undefined) {
 		  size = this.state.projectData.length;
-		  
+
 	  }
       var create = <CreateProject />
-	  
+
     return (
 
 			<div class="container-fluid container-content">
@@ -66,12 +65,12 @@ class ProjectsListResearcher extends React.Component {
         <div class="Cards">
           {[...Array(size)].map((x, i) =>
 						//calls the function 5 times
-						
+
 						this.objectRow(i)
 					  )}
 
-					  
-		
+
+
 				</div>
 				{create}
 			</div>

@@ -12,7 +12,7 @@ class Main extends React.Component {
         super(props);
     }
     render() {
-      if(this.props.signUp == false)
+      if(JSON.parse(localStorage.getItem('signUp')) == false)
        return (<SignUp userData={this.props.userData} />);
         return (
             <main >

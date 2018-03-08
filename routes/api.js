@@ -68,9 +68,10 @@ router.post('/signup',(req,res) =>{
   newUser.save((err) =>{
      if(err){
         console.log(err);
+        res.send(false);
         return;
       }else {
-        res.send('created');
+        res.send(true);
       }
   });
 });
