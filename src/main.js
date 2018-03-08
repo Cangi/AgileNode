@@ -6,14 +6,20 @@ import SignUp from './signUp'
 import Login from './login'
 import ProjectPage from './projectPage'
 import server from './serverConfig'
+import axios from 'axios';
 // <Route path='/index' component={ProjectsListResearcher} />
 class Main extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {department: ''};
+        axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
     }
     render() {
+      var department = <div></div>;
       if(localStorage.getItem('signUp') == false)
        return (<SignUp userData={this.props.userData} />);
+       if(this.state.department == "researcher")
+       department = <ProjectsListResearcher userData={this.props.userData} />
         return (
             <main >
                 <Switch>
@@ -25,7 +31,8 @@ class Main extends React.Component {
                         return <div></div>
                     }}/>
                     <Route path='/index' render={(props) => (
-                        <ProjectsListResearcher {...props} userData={this.props.userData} />
+
+                        department
                     )} />
                     <Route path='/disconnect' component={() => {
                         localStorage.clear();
