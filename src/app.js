@@ -38,7 +38,6 @@ class App extends React.Component {
 						axios.post(server.serverApi + '/api/checkUser', {user:JSON.parse(localStorage.getItem('userData')) }).then((response) => {
                 // this.setState({ userData: response.data });
                     localStorage.setItem('signUp', response.data);
-                    this.setState({ signUp: response.data });
             });
         }
     }
