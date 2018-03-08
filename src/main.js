@@ -6,15 +6,42 @@ import SignUp from './signUp'
 import Login from './login'
 import ProjectPage from './projectPage'
 import server from './serverConfig'
+import LandingPage from './landingPage'
 // <Route path='/index' component={ProjectsListResearcher} />
 class Main extends React.Component {
     constructor(props) {
         super(props);
     }
     render() {
-      if(JSON.parse(localStorage.getItem('signUp')) == false)
-       return (<SignUp userData={this.props.userData} />);
-        return (
+	        if(JSON.parse(localStorage.getItem('signUp')) == false)
+			return (<SignUp userData={this.props.userData} />);	
+		
+		if(this.props.userData == undefined) {
+			return(
+			<main >
+				<LandingPage/>
+                <Switch>
+                    <Route exact path='/' component={() => {
+                        if (this.props.userData != undefined) {
+                            window.location = '/index';
+
+                        }
+                        return <div></div>
+                    }}/>
+                    <Route path='/disconnect' component={() => {
+                        localStorage.clear();
+                        window.location = server.serverApi + '/disconnect';
+                    }
+                    } />
+                    <Route path='/login' component={Login} />
+                    <Route path='/signup' component={SignUp} />
+                </Switch>
+            </main>
+			);
+		}
+		
+        
+		return (
             <main >
                 <Switch>
                     <Route exact path='/' component={() => {
