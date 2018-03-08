@@ -13,7 +13,7 @@ class Main extends React.Component {
     }
     render() {
         return (
-            <main >
+            <main>
                 <Switch>
                     <Route exact path='/' component={() => {
                         if (this.props.userData != undefined) {
