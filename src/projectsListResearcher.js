@@ -56,7 +56,6 @@ class ProjectsListResearcher extends React.Component {
       if (this.props.userData != undefined && !this.state.loggedin) {
           this.setState({ loggedin: true, userData: this.props.userData });
           axios.post(server.serverApi + '/api/getProjects', { user: this.props.userData }).then((response) => {
-
               this.setState({ projectData: response.data });
           });
       }

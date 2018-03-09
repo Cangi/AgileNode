@@ -15,13 +15,15 @@ class Main extends React.Component {
     }
 
     render() {
-      if(this.state.department === '')
+      if(this.state.department == '')
       axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
       var department = <div></div>;
-      if(localStorage.getItem('signUp') === false)
-       return (<SignUp userData={this.props.userData} />);
-       if(this.state.department === "researcher")
-       department = <ProjectsListResearcher userData={this.props.userData} />
+      if(localStorage.getItem('signUp') == false){
+        return (<SignUp userData={this.props.userData} />);
+      }
+       if(this.state.department == "researcher"){
+        department = <ProjectsListResearcher userData={this.props.userData} />
+      }
         return (
             <main >
                 <Switch>
@@ -33,7 +35,6 @@ class Main extends React.Component {
                         return <div></div>
                     }}/>
                     <Route path='/index' render={(props) => (
-
                         department
                     )} />
                     <Route path='/disconnect' component={() => {
