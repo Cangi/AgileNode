@@ -53,9 +53,9 @@ class SignUp extends React.Component {
   render() {
     console.log(this.state.testing);
     return (
+	
 	<div class="full-image-background">
       <form class="signup" onSubmit={this.handleSubmit}>
-
         <div class="container">
           <div class="row">
             <div class="col-md-14 col-md-offset-7">
@@ -68,7 +68,7 @@ class SignUp extends React.Component {
                       <div class="form-group last">
                           <div class="input-custom col-sm-offset-3 col-sm-9">
                             <label for="inputNewProject"> Staff ID
-                              <input type="text" maxlength="9" class="form-control" id="inputStaffID" aria-describedby="emailHelp" placeholder="Enter staff ID" value={this.state.staffID} onChange={this.handleChangeStaffID} />
+                              <input type="number" max="999999999" class="form-control" id="inputStaffID" aria-describedby="emailHelp" placeholder="Enter staff ID" value={this.state.staffID} onChange={this.handleChangeStaffID} />
                             </label>
                           </div>
                       </div>

@@ -58,7 +58,7 @@ render() {
 			  <span class="badge badge-warning badge-custom">Dean {deanSign}</span> 
             </p>
 
-          <button onClick={()=> window.location = front.serverFront + '/projectPage/:' + this.props.id}>Project Page</button>
+          <button class="btn" onClick={()=> window.location = front.serverFront + '/projectPage/:' + this.props.id}>Project Page</button>
 
         </div>
 		

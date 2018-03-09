@@ -185,6 +185,16 @@ footer {
 	padding-bottom: 1rem;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.form-custom {
+	padding-top: 1rem;
+}
+
 /*Code taken from http://tobiasahlin.com/spinkit/"*/
 
 .spinner {

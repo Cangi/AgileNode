@@ -69,6 +69,10 @@ class ProjectsListResearcher extends React.Component {
 						
 						this.objectRow(i)
 					  )}
+					  
+					  
+					   
+					   
 
 					  
 		
