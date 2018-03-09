@@ -24,6 +24,10 @@ const projectSchema = mongoose.Schema({
     RISSheet:{
       type : String,
       required : false
+    },
+    RISStaff:{
+      type : String,
+      required : false
     },//holds the signiture of the RIS
     RISSigned:{
       type : Boolean,

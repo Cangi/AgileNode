@@ -31,9 +31,9 @@ class SignUp extends React.Component {
 
   handleSubmit(event) {
     let position;
-    if(this.state.position == 'RIS'){
+    if(this.state.position === 'RIS'){
       position = this.state.position;
-    }else if(this.state.position == 'Associate Dean'){
+    }else if(this.state.position === 'Associate Dean'){
       position = this.state.position.charAt(0).toLowerCase() + this.state.position.slice(1);
       position = position.replace(/\s/g, "");
       this.setState({position: position});

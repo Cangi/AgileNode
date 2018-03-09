@@ -7,44 +7,42 @@ import SignUp from './signUp'
 import Login from './login'
 import ProjectPage from './projectPage'
 import server from './serverConfig'
+import axios from 'axios';
 // <Route path='/index' component={ProjectsListResearcher} />
 
 class Main extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {department: ''};
     }
+
     render() {
-      if(localStorage.getItem('signUp') == false)
-       return (<SignUp userData={this.props.userData} />);
+      if(this.state.department === '')
+      axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
+      var department = <div></div>;
+      if(localStorage.getItem('signUp') === false){
+        return (<SignUp userData={this.props.userData} />);
+      }
+      console.log(this.state);
+      if(this.state.department === "researcher"){
+        department = <ProjectsListResearcher userData={this.props.userData} />
+      }
+      
+
         return (
             <main >
                 <Switch>
                     <Route exact path='/' component={() => {
-                        if (this.props.userData != undefined) {
+                        if (this.props.userData !== undefined) {
                             window.location = '/index';
 
                         }
                         return <div></div>
                     }}/>
+                    <Route path='/index' render={(props) => (
 
-                    {/*starts routing to different home pages if different departments (ie researcher/RIS/dean)*/}
-                    if(this.props.userData.department == "researcher")
-                    {
-
-                      <Route path='/index' render={(props) => (
-                          <ProjectsListResearcher {...props} userData={this.props.userData} />
-                      )} />
-                    }
-                    else if(this.props.userData.department == "RIS")
-                    {
-                      <Route path='/index' render={(props) => (
-                          <NewRISProjects {...props} userData={this.props.userData} />
-                      )} />
-                    }
-
-
-                    //TODO add routes for assoc dean and dean
-
+                        department
+                    )} />
                     <Route path='/disconnect' component={() => {
                         localStorage.clear();
                         window.location = server.serverApi + '/disconnect';
