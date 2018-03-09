@@ -23,6 +23,7 @@ class ProjectPage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleUpload = this.handleUpload.bind(this);
 		this.handleDownload = this.handleDownload.bind(this);
+		this.handleSubmitComment = this.handleSubmitComment.bind(this);
 	//console.log(this.props);
 	//console.log();
 
@@ -35,6 +36,12 @@ class ProjectPage extends Component {
   handleSubmit(event) {
     axios.post(server.serverApi + '/api/signProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData,signiture:this.state.value });
   }
+
+	handleSubmitComment(event) {
+	    alert('Username is: ' + this.state.userData.displayName+ ' Comment inside: ' + this.state.value);
+	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value });
+	  }
+
   handleUpload(event) {
 		var uploadForm = document.getElementById('upform');
 		let upfile = new FormData(uploadForm);
@@ -150,7 +157,17 @@ class ProjectPage extends Component {
 
 				<div class="row">
 					<div class="column">
-						<h2>Comments to be implemented.</h2>
+						<form>
+							<div class="form-group">
+							<div class="form-group">
+							<label for="Comment">Leave a comment here!</label>
+							<input type="comment" class="form-control" id="Comment" value value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
+							</div>
+							<div class="form-check">
+							</div>
+							<button type="button" class="btn btn-primary" onClick={this.handleSubmitComment}>Submit</button>
+							</div>
+						</form>
 					</div>
 				</div>
 		</div>
