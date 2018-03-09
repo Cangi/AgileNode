@@ -53,7 +53,7 @@ class NewRISProjects extends React.Component {
 
     if (this.props.userData != undefined && !this.state.loggedin) {
         this.setState({ loggedin: true, userData: this.props.userData });
-        axios.post(server.serverApi + '/api/getRISNewProjects', {}).then((response) => {
+        axios.post(server.serverApi + '/api/getRISNewProjects', {user: this.props.userData}).then((response) => {
             //should return all projects that have been readied for RIS
             this.setState({ projectData: response.data });
             console.log(response);

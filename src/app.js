@@ -18,12 +18,12 @@ class App extends React.Component {
 
 	}
     componentDidMount() {
-        if (localStorage.getItem('userData') === undefined) {
+        if (localStorage.getItem('userData') == undefined) {
 
             //this.state = { userData: undefined };
             axios.post(server.serverApi + '/userdata', { token: window.location.href.split('=')[1] }).then((response) => {
                 // this.setState({ userData: response.data });
-                if (response.data !== undefined) {
+                if (response.data != undefined) {
                     localStorage.setItem('userData', JSON.stringify(response.data));
                     this.setState({ userData: response.data });
                 }
@@ -31,7 +31,7 @@ class App extends React.Component {
             });
 
         } else {
-            if (this.state.userData === undefined) {
+            if (this.state.userData == undefined) {
                 var ob = JSON.parse(localStorage.getItem('userData'));
                 this.setState({ userData: ob });
             }
