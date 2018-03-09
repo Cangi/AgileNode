@@ -78,8 +78,10 @@ class ProjectPage extends Component {
 				button = <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Send to RIS</button>
 			} else if(this.state.department == 'researcher' && this.state.project.RISSigned == undefined && this.state.project.readyForRIS == true){
 				button = <button type="button" class="btn btn-primary" >Waiting for RIS</button>
-			}else{
+			}else if(this.state.department == 'researcher' && this.state.project.RISSigned == true && this.state.project.readyForRIS == true && this.state.project.researcherSigned == false){
 				button = <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign document</button>
+			}else{
+				button = <button type="submit" class="btn btn-primary">Waiting for Dean/Associate Dean</button>
 			}
 		  }
 	  }
