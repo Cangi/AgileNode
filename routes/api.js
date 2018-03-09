@@ -163,10 +163,10 @@ router.post('/signProject',(req,res) => {
 });
 
 router.post('/addComment',(req,res) =>{
-  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+  User.findOne({firstName:req.body.user.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
-        Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{$push: {commments: {name:req.body.user.displayName.split(' ')[0], date:new Date(),comment:req.body.comment}}}, function (err){
+        Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{$push: {commments: {name:req.body.user, date:new Date(),comment:req.body.comment}}}, function (err){
           });
     }
 });
