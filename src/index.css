@@ -38,11 +38,6 @@ padding-bottom: 0;
 padding-left: 2rem;
 }
 
-.avatar {
-width:35px;
-//border-radius: 50%;
-}
-
 .navbar-custom {
 background: #3E5BC7;
 }
@@ -107,7 +102,8 @@ footer {
 	position: relative;
 	bottom: 7px;
 	margin: auto;
-    border: 3px solid white;
+    border: 2px solid white;
+	width:35px;
 }
 
 .nav-item{
@@ -119,8 +115,13 @@ footer {
 }
 
 .card-custom {
+	margin-bottom: 1rem;
+}
+
+.card-header-custom {
 	background: #3E5BC7;
     color: white;
+	font-size: 1.5rem;
 }
 
 .btn-custom {

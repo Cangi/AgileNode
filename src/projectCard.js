@@ -42,8 +42,8 @@ render() {
   }
 
   return(
-	  <div class="card">
-        <div class="card-header card-custom">
+	  <div class="card card-custom">
+        <div class="card-header card-header-custom">
         {this.props.name}
         </div>
         <div class="card-body">
