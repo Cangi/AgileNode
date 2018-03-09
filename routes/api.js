@@ -108,7 +108,7 @@ router.post('/getRISNewProjects', (req,res) =>{
   User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
-      Project.find({readyForRIS:true}, (err,project) =>{
+      Project.find({readyForRIS:true, RISSigned:undefined, RISStaff:undefined}, (err,project) =>{
           if(err) throw err;
           if(project){
           res.json(project);
