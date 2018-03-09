@@ -195,6 +195,29 @@ input[type=number]::-webkit-outer-spin-button {
 	padding-top: 1rem;
 }
 
+.landingPage {
+	margin: 0;
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+	background: #3e5bc7cf;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+	text-align: center;
+}
+
+.landingPageFont{
+	letter-spacing: .125rem!important;
+	font-weight: 700!important;
+	font-family: Montserrat,sans-serif!important;
+	text-transform: uppercase!important;
+	margin-top: 1rem!important;
+	font-size: 4.375rem!important;
+    line-height: 4.375rem!important;
+}
+
 /*Code taken from http://tobiasahlin.com/spinkit/"*/
 
 .spinner {
