@@ -12,19 +12,21 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {department: ''};
-        axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
     }
+
     render() {
+      if(this.state.department === '')
+      axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
       var department = <div></div>;
-      if(localStorage.getItem('signUp') == false)
+      if(localStorage.getItem('signUp') === false)
        return (<SignUp userData={this.props.userData} />);
-       if(this.state.department == "researcher")
+       if(this.state.department === "researcher")
        department = <ProjectsListResearcher userData={this.props.userData} />
         return (
             <main >
                 <Switch>
                     <Route exact path='/' component={() => {
-                        if (this.props.userData != undefined) {
+                        if (this.props.userData !== undefined) {
                             window.location = '/index';
 
                         }

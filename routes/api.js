@@ -38,6 +38,7 @@ router.post('/getDepartment',(req,res) =>{
     if(user){
       res.send(user.department);
 	  }else{
+      console.log('aaaaaa');
     }
   });
 });
