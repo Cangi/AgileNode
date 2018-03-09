@@ -120,16 +120,14 @@ router.post('/signProject',(req,res) => {
   User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
-  		let userDepartment = user.department+'Signed';
-      console.log(userDepartment);
-      userDepartment = userDepartment.toString();
       if(user.staffID == req.body.signiture){
         //Refactor when we have time
-        Project.find({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},(err,proj) =>{
+        Project.findOne({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},(err,proj) =>{
+
         if(user.department=='researcher' && proj.readyForRIS != undefined && proj.RISSigned == true)
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{researcherSigned:true}, function (err){
         });
-        if(user.department=='researcher' && proj.readyForRIS == undefined)
+        if(user.department=='researcher' && proj.readyForRIS == undefined && proj.RISSigned == undefined)
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{readyForRIS:true}, function (err){
         });
         if(user.department=='RIS')
@@ -141,6 +139,7 @@ router.post('/signProject',(req,res) => {
         if(user.department=='dean')
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{deanSigned:true}, function (err){
         });
+        console.log(proj.readyForRIS + ':' + proj.RISSigned + ':' + proj._id);
       });
     }
     }
