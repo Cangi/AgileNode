@@ -40,7 +40,8 @@ class ProjectPage extends Component {
 	handleSubmitComment(event) {
 	    alert('Username is: ' + this.state.userData.displayName+ ' Comment inside: ' + this.state.value);
 	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value });
-	  }
+			this.setState({value:"" });
+		}
 
   handleUpload(event) {
 		var uploadForm = document.getElementById('upform');
