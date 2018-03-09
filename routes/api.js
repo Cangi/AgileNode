@@ -162,6 +162,13 @@ router.post('/signProject',(req,res) => {
   });
 });
 
+router.post('/addComment',(req,res) =>{
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+        Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{$push: {commments: {name:req.body.user.displayName.split(' ')[0], date:new Date(),comment:req.body.comment}}, function (err){});
+});
+
 //Upload to server functionality
 router.post('/upload', function(req, res) {
   if (!req.files)
