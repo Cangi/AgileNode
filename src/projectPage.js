@@ -104,7 +104,7 @@ class ProjectPage extends Component {
 							</form>
 							<UpDown />
 							<p></p>
-							<p>Small picture/snapshot of excel file</p>
+							<img class="snapshot" src="/images/snapshot.jpg"></img>
 						</div>
 						<div class="column">
 							<h2>Last update</h2>
