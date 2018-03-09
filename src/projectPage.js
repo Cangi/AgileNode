@@ -13,12 +13,12 @@ import UpDown from './updown'
 class ProjectPage extends Component {
 	 constructor(props) {
     super(props);
-    this.state = { value: '', project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:''};
+    this.state = { value: '', project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:'',department: ''};
     axios.post(server.serverApi + '/api/getProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData }).then((response) => {this.setState({project: response.data})});
 	axios.get(server.serverApi + '/api/downloadList').then((response)=>{
 		this.setState({downloadArray:JSON.parse(response.data)});
 	});
-    console.log(this.props);
+		axios.post(server.serverApi + '/api/getDepartment', {user: this.state.userData }).then((response) => {this.setState({department: response.data})});
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleUpload = this.handleUpload.bind(this);
@@ -67,15 +67,22 @@ class ProjectPage extends Component {
 	  var projectName;
 	  var researcherName;
 	  var date;
+		var button;
 
 	  if(this.state.project != undefined) {
-		  console.log(this.state.project);
+		  console.log(this.state.department + ":" + this.state.project.RISSigned);
 		  projectName = this.state.project.name;
 		  date = this.state.project.date.split('T')[0];
 		  if(this.state.userData != undefined) {
 			researcherName = this.state.userData.givenName + " " + this.state.userData.surname;
+			if(this.state.department == 'researcher' && this.state.project.RISSigned == undefined){
+				button = <button type="submit" class="btn btn-primary" >Send to RIS</button>
+			} else{
+				button = <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign this document</button>
+			}
 		  }
 	  }
+
 
     return(
           <body>
@@ -114,7 +121,10 @@ class ProjectPage extends Component {
 						</div>
 						<div class="column">
 							<h2>Digital signature</h2>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign this document</button>
+							<form onSubmit={this.handleSubmit}>
+									{button}
+							</form>
+
 							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
 									<div class="modal-content">

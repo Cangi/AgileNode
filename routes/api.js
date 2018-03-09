@@ -21,6 +21,26 @@ router.get('/', (req, res) => {
   }
 });
 
+router.post('/checkUser',(req,res) => {
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+      res.send(true);
+	  }else{
+      res.send(false);
+    }
+  });
+});
+
+router.post('/getDepartment',(req,res) =>{
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+      res.send(user.department);
+	  }else{
+    }
+  });
+});
 
 router.post('/createProject',(req,res) =>{
   User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
@@ -58,9 +78,11 @@ router.post('/signup',(req,res) =>{
   newUser.save((err) =>{
      if(err){
         console.log(err);
+        res.send(false);
         return;
       }else {
-        res.send('created');
+        console.log('Created');
+        res.send(true);
       }
   });
 });
@@ -118,8 +140,12 @@ router.post('/signProject',(req,res) => {
       userDepartment = userDepartment.toString();
       if(user.staffID == req.body.signiture){
         //Refactor when we have time
-        if(user.department=='researcher')
+        Project.find({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},(err,proj) =>{
+        if(user.department=='researcher' && proj.readyForRIS != undefined && proj.RISSigned == true)
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{researcherSigned:true}, function (err){
+        });
+        if(user.department=='researcher' && proj.readyForRIS == undefined)
+        Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{readyForRIS:true}, function (err){
         });
         if(user.department=='RIS')
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{RISSigned:true}, function (err){
@@ -130,7 +156,8 @@ router.post('/signProject',(req,res) => {
         if(user.department=='dean')
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{deanSigned:true}, function (err){
         });
-      }
+      });
+    }
     }
   });
 });

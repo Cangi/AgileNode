@@ -18,11 +18,11 @@ class ProjectsListResearcher extends React.Component {
 
 	}
   objectRow(id) {
-    var name;
-    var username;
-    var date;
-    var staffid;
-    var projectid;
+	  var name;
+	  var username;
+	  var date;
+	  var staffid;
+	  var projectid;
     var ris;
     var researcher;
     var assocDean;
@@ -57,7 +57,6 @@ class ProjectsListResearcher extends React.Component {
           axios.post(server.serverApi + '/api/getProjects', { user: this.props.userData }).then((response) => {
 
               this.setState({ projectData: response.data });
-              console.log(response);
           });
       }
 	  if(this.state.projectData!=undefined) {

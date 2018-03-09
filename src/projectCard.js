@@ -9,37 +9,37 @@ import front  from './serverConfig'
 class ProjectCard extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {linkTo: '/projectPage'};
+		this.state = {linkTo: '/projectPage',};
 	}
 render() {
-  if(this.props.risSign=="true"){
+  if(this.props.risSign==true){
 	var risSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
   }
   else {
 	var risSign = <img class="checkbox" src='images/redcheckbox.png'></img>;
   }
-  
-  if(this.props.researcherSign=="true"){
+
+  if(this.props.researcherSign==true){
 	var resSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
   }
   else {
 	var resSign = <img class="checkbox" src='images/redcheckbox.png'></img>;
   }
-  
-  if(this.props.assocDeanSign=="true"){
+
+  if(this.props.assocDeanSign==true){
 	var assoSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
   }
   else {
 	var assoSign = <img class="checkbox" src='images/redcheckbox.png'></img>;
   }
-  
-  if(this.props.deanSign=="true"){
+
+  if(this.props.deanSign==true){
 	var deanSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
   }
   else {
 	var deanSign = <img class="checkbox" src='images/redcheckbox.png'></img>;
   }
-  
+
   return(
 	  <div class="card">
         <div class="card-header card-custom">
@@ -51,17 +51,17 @@ render() {
               Created : {this.props.dateCreated}
 			  </p>
 			  <p class="centered">
-              Signatures: 
+              Signatures:
 			  <span class="badge badge-warning badge-custom">RIS {risSign}</span>
 			  <span class="badge badge-warning badge-custom">Researcher {resSign}</span>
 			  <span class="badge badge-warning badge-custom">Associate Dean {assoSign}</span>
-			  <span class="badge badge-warning badge-custom">Dean {deanSign}</span> 
+			  <span class="badge badge-warning badge-custom">Dean {deanSign}</span>
             </p>
 
           <button onClick={()=> window.location = front.serverFront + '/projectPage/:' + this.props.id}>Project Page</button>
 
         </div>
-		
+
     </div>
 
   )
