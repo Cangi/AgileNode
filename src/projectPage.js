@@ -51,16 +51,12 @@ class ProjectPage extends Component {
     this.setState({value: event.target.value});
   }
 
-	handleChangeComment(event){
-		this.setState({value: event.target.value2})
-	}
-
   handleSubmit(event) {
     axios.post(server.serverApi + '/api/signProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData,signiture:this.state.value });
   }
 
 	handleSubmitComment(event) {
-	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value2 });
+	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value });
 			this.setState({value:"" });
 		}
 
@@ -165,7 +161,7 @@ class ProjectPage extends Component {
 											<div class="modal-body">
 												<form onSubmit={this.handleSubmit}>
 														<label for="inputID">Please enter your ID
-														<input type="number" class="form-control" value={this.state.value} onChange={this.handleChange}/>
+														<input type="number" class="form-control" value value={this.state.value} onChange={this.handleChange}/>
 														</label>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -190,7 +186,7 @@ class ProjectPage extends Component {
 							<div class="form-group">
 							<div class="form-group">
 							<label for="Comment">Leave a comment here!</label>
-							<input type="comment" class="form-control" id="Comment" value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
+							<input type="comment" class="form-control" id="Comment" value value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
 							</div>
 							<div class="form-check">
 							</div>
