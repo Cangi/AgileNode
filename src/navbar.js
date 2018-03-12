@@ -10,17 +10,17 @@ class NavBar extends Component {
 		super(props);
 		this.state = ({name: "", loggedin: false, userData: undefined});
 		const self = this;
-		
-		
+
+
 		/*axios.get(server.serverApi + '/userdata')
 	    .then((response) => {
             console.log(response.data);
             });*/
-        
-		
-		
+
+
+
 	}
-	
+
     render() {
         /*if (sessionStorage.userData != undefined && !this.state.loggedin) {
             console.log(JSON.parse(sessionStorage.userData));
@@ -30,11 +30,11 @@ class NavBar extends Component {
         }
         else {
             console.log("USERDATA UNDEFINED");
-            
+
         }*/
 	if(this.props.userData!=undefined && !this.state.loggedin) {
 			this.setState({name: "Welcome " + this.props.userData.displayName, loggedin: true, userData: this.props.userData});
-	} 
+	}
 	var loginButton;
 	var userIMG;
 	if(this.state.loggedin == false) {
@@ -43,10 +43,10 @@ class NavBar extends Component {
 
 		loginButton = <button type="button" class="btn btn-light" onClick={() => this.setState({name: "", loggedin: false, userData: undefined})}><Link to="/disconnect">Logout</Link></button>
 		userIMG = <img class="avatar" src={front.serverFront + "/images/avatar_male.png"}></img>
-		
+
 	}
-	
-	
+
+
    return (
 			<div class="container-fluid container-navbar">
 				<nav class="navbar-custom navbar navbar-expand-sm navbar-light">
@@ -56,17 +56,17 @@ class NavBar extends Component {
 
 					<a class="navbar-brand" href="/index"><img class="dundee-logo" src={front.serverFront + "/images/university_logo.png"}></img></a>
 
-					<div class="collapse navbar-collapse justify-content-end" id="nav-content">  
-					
+					<div class="collapse navbar-collapse justify-content-end" id="nav-content">
+
 					<ul class="navbar-nav">
 					<li class="nav-item">
 						<span class="navbar-text">{this.state.name} {userIMG}</span>
 					</li>
-					
+
 					<li class="nav-item">
 					{loginButton}
 					</li>
-					
+
 					</ul>
 					</div>
 				</nav>

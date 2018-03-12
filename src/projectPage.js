@@ -6,6 +6,7 @@ import axios from 'axios';
 import './projectPage.css'
 import server from './serverConfig'
 import UpDown from './updown'
+import CommentCard from './commentCard'
 //call to local host - call to the server, pass it back to the server
 
 
@@ -29,6 +30,23 @@ class ProjectPage extends Component {
 
   }
 
+	objectRow(id) {
+		var name;
+		var date;
+		var comment;
+
+		if(this.state.project!=undefined && this.state.userData != undefined) {
+			 name = this.state.userData.displayName;
+			 date = this.state.project.date.split('T')[0] + " " + this.state.project.date.split('T')[1];
+			 comment = this.state.project.commments[id].comment;
+			 console.log("da");
+		}
+
+		return <CommentCard name={name}
+				 comment={comment}
+				 dateCreated = {date}/>
+	}
+
   handleChange(event) {
     this.setState({value: event.target.value});
   }
@@ -38,9 +56,9 @@ class ProjectPage extends Component {
   }
 
 	handleSubmitComment(event) {
-	    alert('Username is: ' + this.state.userData.displayName+ ' Comment inside: ' + this.state.value);
 	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value });
-	  }
+			this.setState({value:"" });
+		}
 
   handleUpload(event) {
 		var uploadForm = document.getElementById('upform');
@@ -74,11 +92,13 @@ class ProjectPage extends Component {
 	  var researcherName;
 	  var date;
 		var button;
+		var size = 0;
 
 	  if(this.state.project != undefined) {
 		  console.log(this.state.department + ":" + this.state.project.RISSigned);
 		  projectName = this.state.project.name;
 		  date = this.state.project.date.split('T')[0];
+			size = this.state.project.commments.length;
 		  if(this.state.userData != undefined) {
 				researcherName = this.state.userData.givenName + " " + this.state.userData.surname;
 				if(this.state.department == 'researcher' && this.state.project.RISSigned == undefined && this.state.project.readyForRIS == undefined){
@@ -127,28 +147,27 @@ class ProjectPage extends Component {
 			
 			<div class="row marketing">
 				<div class="col-lg-6">
-				<form>
+				{[...Array(size)].map((x, i) =>
+						//calls the function as many times as needed
+
+						this.objectRow(i)
+						)}
+						<form>
 							<div class="form-group">
 							<div class="form-group">
-							<h3>Leave a comment here!</h3>
+							<label for="Comment">Leave a comment here!</label>
 							<textarea rows="4" cols="1" type="comment" class="form-control" id="Comment" value value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
 							</div>
 							<div class="form-check">
 							</div>
 							<button type="button" class="btn btn-primary" onClick={this.handleSubmitComment}>Submit</button>
 							</div>
-				</form>
+						</form>
 				</div>
 				
 				<div class="col-lg-6">
 					<h3>Digital signature</h3>
 									{button}
-							<UpDown />
-							<p></p>
-							<img class="snapshot" src="/images/snapshot.jpg"></img>
-							<h2>Digital signature</h2>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign this document</button>
-
 							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
 									<div class="modal-content">
