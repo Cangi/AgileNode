@@ -119,6 +119,7 @@ class ProjectPage extends Component {
 					<form id="upform" onSubmit={this.handleUpload}>
 								<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
 								<input type="file" name="sampleFile"/><p></p>
+<<<<<<< HEAD
 					</form>
 					<UpDown />
 					<p></p>
@@ -143,6 +144,21 @@ class ProjectPage extends Component {
 				<div class="col-lg-6">
 					<h3>Digital signature</h3>
 									{button}
+=======
+							</form>
+							<UpDown />
+							<p></p>
+							<img class="snapshot" src="/images/snapshot.jpg"></img>
+						</div>
+						<div class="column">
+							<h2>Last update</h2>
+							<p>Last Edited: {date}</p>
+							<p>User who edited it: {researcherName}</p>
+						</div>
+						<div class="column">
+							<h2>Digital signature</h2>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign this document</button>
+>>>>>>> ab326bcf438aac2ddaf13436693e7dd172379e1c
 							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
 									<div class="modal-content">

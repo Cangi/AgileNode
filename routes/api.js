@@ -9,7 +9,7 @@ let User = require('../models/user');
 let Project = require('../models/project');
 let userData = require('./users');
 let filePath = path.join(__dirname, '\\..\\uploads\\');
-
+const fs = require('fs');
 // Get the home page.
 router.get('/', (req, res) => {
   // check if user is authenticated
@@ -177,16 +177,29 @@ router.post('/upload', function(req, res) {
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
     let uploadedFile = req.files.sampleFile;
-  uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
+	//console.log(uploadedFile.mimetype);
+	if (uploadedFile.mimetype != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+		res.send('Wrong file format.');
+	}
+	let now = new Date();
+	uploadedFile.mv('./routes/uploads/' + now.getFullYear() + "-"+ (now.getMonth()+1) + "-" + now.getDate() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() +'.xlsx', function(err) {
+	//uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
     if (err)
     return res.status(500).send(err);
     res.send('File uploaded!');
   });
 });
 
+//Delete file functionality
+router.post('/delete', function(req, res) {
+	let deletePath = path.join(__dirname, './uploads/');
+    deletePath = path.join(deletePath , req.body.nameOfFile);
+	fs.unlinkSync(deletePath);
+    res.send('File deleted!');
+});
+
 router.get('/download', function(req, res) {
     const fileloc = './routes/uploads/';
-    const fs = require('fs');
     var arr = [];
     fs.readdirSync(fileloc).forEach(file => {
       arr.push(file);

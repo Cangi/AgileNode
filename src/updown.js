@@ -16,6 +16,7 @@ class UpDown extends React.Component {
     this.state = {value: '' , downloadarray: undefined , dlfile: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
 	this.handleDownload = this.handleDownload.bind(this);
+	this.handleDelete = this.handleDelete.bind(this);
 
 	axios.get(server.serverApi + '/api/download')
 	.then((response) => {
@@ -44,6 +45,12 @@ class UpDown extends React.Component {
 	    iframe.src = server.serverApi + '/api/download3';
 	});
   }
+  handleDelete(event) {
+	axios.post(server.serverApi + '/api/delete',{'nameOfFile':event.target.name}).then((response)=>{
+		alert(response.data);
+	});
+  }
+  
 
   renderList(){
 	  if(this.state.downloadarray){
@@ -51,9 +58,14 @@ class UpDown extends React.Component {
 			<div class="list">
 				{this.state.downloadarray.map(function(item, i){
 					return (
-						<form class="list-items" onSubmit={this.handleDownload}>
+						<div>
+						<form class="list-items">
 						   <span class="btn btn-primary" id={i} onClick={this.handleDownload}><img class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item}</span>
 						</form>
+						<form class="list-items button-list">
+						   <button class="delete-btn" name={item} onClick={this.handleDelete} type="button"></button>
+						</form>
+						</div>
 					);
 				}, this)}
 				  </div>)
