@@ -14,7 +14,7 @@ import CommentCard from './commentCard'
 class ProjectPage extends Component {
 	 constructor(props) {
     super(props);
-    this.state = { value: '', project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:'',department: ''};
+    this.state = { value: '', comment:'',  project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:'',department: ''};
     axios.post(server.serverApi + '/api/getProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData }).then((response) => {this.setState({project: response.data})});
 	axios.get(server.serverApi + '/api/downloadList').then((response)=>{
 		this.setState({downloadArray:JSON.parse(response.data)});
@@ -25,6 +25,7 @@ class ProjectPage extends Component {
 		this.handleUpload = this.handleUpload.bind(this);
 		this.handleDownload = this.handleDownload.bind(this);
 		this.handleSubmitComment = this.handleSubmitComment.bind(this);
+		this.handleChangeComment = this.handleChangeComment.bind(this);
 	//console.log(this.props);
 	//console.log();
 
@@ -38,8 +39,7 @@ class ProjectPage extends Component {
 		if(this.state.project!=undefined && this.state.userData != undefined) {
 			 name = this.state.userData.displayName;
 			 date = this.state.project.date.split('T')[0] + " " + this.state.project.date.split('T')[1];
-			 comment = this.state.project.commments[id].comment;
-			 console.log("da");
+			 comment = this.state.project.comments[id].comment;
 		}
 
 		return <CommentCard name={name}
@@ -51,13 +51,17 @@ class ProjectPage extends Component {
     this.setState({value: event.target.value});
   }
 
+	handleChangeComment(event){
+		this.setState({comment: event.target.value});
+	}
+
   handleSubmit(event) {
     axios.post(server.serverApi + '/api/signProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData,signiture:this.state.value });
   }
 
 	handleSubmitComment(event) {
-	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value });
-			this.setState({value:"" });
+	    axios.post(server.serverApi + '/api/addComment', {comment:this.state.comment , idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName});
+			this.setState({comment:'' });
 		}
 
   handleUpload(event) {
@@ -98,7 +102,7 @@ class ProjectPage extends Component {
 		  console.log(this.state.department + ":" + this.state.project.RISSigned);
 		  projectName = this.state.project.name;
 		  date = this.state.project.date.split('T')[0];
-			size = this.state.project.commments.length;
+			size = this.state.project.comments.length;
 		  if(this.state.userData != undefined) {
 				researcherName = this.state.userData.givenName + " " + this.state.userData.surname;
 				if(this.state.department == 'researcher' && this.state.project.RISSigned == undefined && this.state.project.readyForRIS == undefined){
@@ -186,7 +190,7 @@ class ProjectPage extends Component {
 							<div class="form-group">
 							<div class="form-group">
 							<label for="Comment">Leave a comment here!</label>
-							<input type="comment" class="form-control" id="Comment" value value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
+							<input type="comment" class="form-control" id="Comment" value={this.state.comment} onChange={this.handleChangeComment} placeholder="Comment"/>
 							</div>
 							<div class="form-check">
 							</div>

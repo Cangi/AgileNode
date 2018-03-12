@@ -41,7 +41,7 @@ const projectSchema = mongoose.Schema({
       type : Boolean,
       required : false
     },//holds the coments of the project as an array
-    commments:{
+    comments:{
       type : [{name: String, date: Date,comment:String}],
       required : false
     }
