@@ -129,7 +129,7 @@ class ProjectPage extends Component {
 				<p class="lead">By {researcherName}</p>
 			</div>
 
-			 <div class="row marketing">
+			 <div class="row project-details">
 				<div class="col-lg-6">
 					<h3>Project details</h3>
 					<p>Date created: {date}</p>
@@ -139,36 +139,22 @@ class ProjectPage extends Component {
 				</div>
 				
 				<div class="col-lg-6">
-					<h3>Options</h3>
+					<h3>Upload</h3>
 					<form id="upform" onSubmit={this.handleUpload}>
+									<div class="upload-btn-wrapper">
+  										<button class="btn btn-primary">Browse</button>
+  										<input type="file" name="sampleFile"/>
+									</div>
+									<p> Choose a file and click on the Upload button.</p>
+								<p></p>
 								<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
-								<input type="file" name="sampleFile"/><p></p>
 					</form>
-					<UpDown />
 					<p></p>
 				</div>
+
 			</div>
 			
-			<div class="row marketing">
-				<div class="col-lg-6">
-				{[...Array(size)].map((x, i) =>
-						//calls the function as many times as needed
-
-						this.objectRow(i)
-						)}
-						<form>
-							<div class="form-group">
-							<div class="form-group">
-							<label for="Comment">Leave a comment here!</label>
-							<textarea rows="4" cols="1" type="comment" class="form-control" id="Comment" value={this.state.comment} onChange={this.handleChangeComment} placeholder="Comment"/>
-							</div>
-							<div class="form-check">
-							</div>
-							<button type="button" class="btn btn-primary" onClick={this.handleSubmitComment}>Submit</button>
-							</div>
-						</form>
-				</div>
-				
+			<div class="row project-details">
 				<div class="col-lg-6">
 					<h3>Digital signature</h3>
 									{button}
@@ -189,6 +175,33 @@ class ProjectPage extends Component {
 									</div>
 								</div>
 							</div>
+					<p></p>
+				</div>
+
+				<div class="col-lg-6">
+						<UpDown />
+				</div>
+			</div>
+
+			<div class="row project-details">
+				<div class="col-lg-6">
+					<h3>Leave a comment here!</h3>
+				{[...Array(size)].map((x, i) =>
+						//calls the function as many times as needed
+
+						this.objectRow(i)
+						)}
+				<p></p>
+						<form>
+							<div class="form-group">
+							<div class="form-group">
+							<textarea rows="4" cols="1" type="comment" class="form-control" id="Comment" value={this.state.comment} onChange={this.handleChangeComment} placeholder="Comment"/>
+							</div>
+							<div class="form-check">
+							</div>
+							<button type="button" class="btn btn-primary" onClick={this.handleSubmitComment}>Submit</button>
+							</div>
+						</form>
 				</div>
 			</div>
 		</div>
@@ -212,8 +225,6 @@ class ProjectPage extends Component {
             </div>
 			*/}
           </body>
-
-		
     )
   }
 

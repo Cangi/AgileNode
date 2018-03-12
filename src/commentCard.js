@@ -17,7 +17,7 @@ render() {
         {this.props.name}
         </div>
         <div class="card-body">
-          <h4 class="card-title">Comment: {this.props.comment}</h4>
+          <h4 class="card-title">{this.props.comment}</h4>
           <p class="card-text">
               Created : {this.props.dateCreated}
 			  </p>

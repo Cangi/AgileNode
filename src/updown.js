@@ -59,11 +59,12 @@ class UpDown extends React.Component {
 				{this.state.downloadarray.map(function(item, i){
 					return (
 						<div>
+						<h3>Manage files</h3>
 						<form class="list-items">
 						   <span class="btn btn-primary" id={i} onClick={this.handleDownload}><img class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item}</span>
 						</form>
 						<form class="list-items button-list">
-						   <button class="delete-btn" name={item} onClick={this.handleDelete} type="button"></button>
+						   <button class="btn btn-danger" name={item} onClick={this.handleDelete} type="button">Delete</button>
 						</form>
 						</div>
 					);
