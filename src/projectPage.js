@@ -6,6 +6,7 @@ import axios from 'axios';
 import './projectPage.css'
 import server from './serverConfig'
 import UpDown from './updown'
+import CommentCard from './commentCard'
 //call to local host - call to the server, pass it back to the server
 
 
@@ -29,17 +30,37 @@ class ProjectPage extends Component {
 
   }
 
+	objectRow(id) {
+		var name;
+		var date;
+		var comment;
+
+		if(this.state.project!=undefined && this.state.userData != undefined) {
+			 name = this.state.userData.displayName;
+			 date = this.state.project.date.split('T')[0] + " " + this.state.project.date.split('T')[1];
+			 comment = this.state.project.commments[id].comment;
+			 console.log("da");
+		}
+
+		return <CommentCard name={name}
+				 comment={comment}
+				 dateCreated = {date}/>
+	}
+
   handleChange(event) {
     this.setState({value: event.target.value});
   }
+
+	handleChangeComment(event){
+		this.setState({value: event.target.value2})
+	}
 
   handleSubmit(event) {
     axios.post(server.serverApi + '/api/signProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData,signiture:this.state.value });
   }
 
 	handleSubmitComment(event) {
-	    alert('Username is: ' + this.state.userData.displayName+ ' Comment inside: ' + this.state.value);
-	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value });
+	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value2 });
 			this.setState({value:"" });
 		}
 
@@ -75,11 +96,13 @@ class ProjectPage extends Component {
 	  var researcherName;
 	  var date;
 		var button;
+		var size = 0;
 
 	  if(this.state.project != undefined) {
 		  console.log(this.state.department + ":" + this.state.project.RISSigned);
 		  projectName = this.state.project.name;
 		  date = this.state.project.date.split('T')[0];
+			size = this.state.project.commments.length;
 		  if(this.state.userData != undefined) {
 				researcherName = this.state.userData.givenName + " " + this.state.userData.surname;
 				if(this.state.department == 'researcher' && this.state.project.RISSigned == undefined && this.state.project.readyForRIS == undefined){
@@ -142,7 +165,7 @@ class ProjectPage extends Component {
 											<div class="modal-body">
 												<form onSubmit={this.handleSubmit}>
 														<label for="inputID">Please enter your ID
-														<input type="number" class="form-control" value value={this.state.value} onChange={this.handleChange}/>
+														<input type="number" class="form-control" value={this.state.value} onChange={this.handleChange}/>
 														</label>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -158,11 +181,16 @@ class ProjectPage extends Component {
 
 				<div class="row">
 					<div class="column">
+					{[...Array(size)].map((x, i) =>
+						//calls the function as many times as needed
+
+						this.objectRow(i)
+						)}
 						<form>
 							<div class="form-group">
 							<div class="form-group">
 							<label for="Comment">Leave a comment here!</label>
-							<input type="comment" class="form-control" id="Comment" value value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
+							<input type="comment" class="form-control" id="Comment" value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
 							</div>
 							<div class="form-check">
 							</div>
