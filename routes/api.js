@@ -32,6 +32,17 @@ router.post('/checkUser',(req,res) => {
   });
 });
 
+router.post('/getDepartment',(req,res) =>{
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+      res.send(user.department);
+	  }else{
+      console.log('aaaaaa');
+    }
+  });
+});
+
 router.post('/createProject',(req,res) =>{
   User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
@@ -71,6 +82,7 @@ router.post('/signup',(req,res) =>{
         res.send(false);
         return;
       }else {
+        console.log('Created');
         res.send(true);
       }
   });
@@ -81,10 +93,26 @@ router.post('/getProjects',(req,res) =>{
     if(err) throw err;
     if(user){
       Project.find({researcherStaffID:user.staffID}, (err,projects) =>{
+        //if you don't give a staff id then you get all of them
         if(err) throw err;
         if(projects){
           res.json(projects);
         }
+      });
+    }
+  });
+});
+
+//should return all projects that have been readied for RIS
+router.post('/getRISNewProjects', (req,res) =>{
+  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+      Project.find({readyForRIS:true, RISSigned:undefined, RISStaff:undefined}, (err,project) =>{
+          if(err) throw err;
+          if(project){
+          res.json(project);
+          }
       });
     }
   });
@@ -108,13 +136,15 @@ router.post('/signProject',(req,res) => {
   User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
     if(err) throw err;
     if(user){
-  		let userDepartment = user.department+'Signed';
-      console.log(userDepartment);
-      userDepartment = userDepartment.toString();
       if(user.staffID == req.body.signiture){
         //Refactor when we have time
-        if(user.department=='researcher')
+        Project.findOne({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},(err,proj) =>{
+
+        if(user.department=='researcher' && proj.readyForRIS != undefined && proj.RISSigned == true)
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{researcherSigned:true}, function (err){
+        });
+        if(user.department=='researcher' && proj.readyForRIS == undefined && proj.RISSigned == undefined)
+        Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{readyForRIS:true}, function (err){
         });
         if(user.department=='RIS')
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{RISSigned:true}, function (err){
@@ -125,9 +155,21 @@ router.post('/signProject',(req,res) => {
         if(user.department=='dean')
         Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{deanSigned:true}, function (err){
         });
-      }
+        console.log(proj.readyForRIS + ':' + proj.RISSigned + ':' + proj._id);
+      });
+    }
     }
   });
+});
+
+router.post('/addComment',(req,res) =>{
+  User.findOne({firstName:req.body.user.split(' ')[0]}, (err,user) =>{
+    if(err) throw err;
+    if(user){
+        Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{$push: {commments: {name:req.body.user, date:new Date(),comment:req.body.comment}}}, function (err){
+          });
+    }
+});
 });
 
 //Upload to server functionality

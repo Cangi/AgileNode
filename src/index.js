@@ -3,9 +3,7 @@ import React from 'react'
 import { Component } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import App from './app';
-import axios from 'axios';
 import ReactDom from 'react-dom'
-import Login from './login'
 
 /*class LoginControl extends React.Component {
   constructor(props) {
@@ -16,14 +14,14 @@ import Login from './login'
 	   .then((response) => {
 		   if(response.data!=undefined)
 		self.setState({isLoggedIn: true});
-		
+
 		});
 	console.log("test");
   }
-	
+
 
   render() {
-	
+
 
 	//if(account!=undefined) isLoggedIn = true;
 	//console.log(account);

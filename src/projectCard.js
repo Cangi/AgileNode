@@ -12,7 +12,6 @@ class ProjectCard extends React.Component {
 		this.state = {linkTo: '/projectPage',};
 	}
 render() {
-	console.log(this.state.researcherSign);
   if(this.props.risSign==true){
 	var risSign = <img class="checkbox" src='images/greencheckbox.png'></img>;
   }

@@ -1,17 +1,22 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import ProjectsListResearcher from './projectsListResearcher'
+import NewRISProjects from './newRISProjects'
 import CreateProject from './createProject'
 import SignUp from './signUp'
 import Login from './login'
 import ProjectPage from './projectPage'
 import server from './serverConfig'
 import LandingPage from './landingPage'
+import axios from 'axios';
 // <Route path='/index' component={ProjectsListResearcher} />
+
 class Main extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {department: ''};
     }
+
     render() {
 	        if(JSON.parse(localStorage.getItem('signUp')) == false)
 			return (<SignUp userData={this.props.userData} />);	
@@ -40,18 +45,30 @@ class Main extends React.Component {
 			);
 		}
 		
+      if(this.state.department == '')
+      axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
+      var department = <div></div>;
+      if(localStorage.getItem('signUp') == false){
+        return (<SignUp userData={this.props.userData} />);
+      }
+      if(this.state.department == "researcher"){
+        department = <ProjectsListResearcher userData={this.props.userData} />
+      }
+      else if(this.state.department == "RIS"){
+        department = <NewRISProjects userData={this.props.userData} />
+      }
         return (
             <main>
                 <Switch>
                     <Route exact path='/' component={() => {
-                        if (this.props.userData != undefined) {
+                        if (this.props.userData !== undefined) {
                             window.location = '/index';
 
                         }
                         return <div></div>
                     }}/>
                     <Route path='/index' render={(props) => (
-                        <ProjectsListResearcher {...props} userData={this.props.userData} />
+                        department
                     )} />
                     <Route path='/disconnect' component={() => {
                         localStorage.clear();
@@ -65,6 +82,8 @@ class Main extends React.Component {
                     <Route path='/signup' component={SignUp} />
 
                     <Route path='/projectPage' component={ProjectPage} />
+
+                    <Route path='/newRISProjects' component={NewRISProjects} />
                 </Switch>
             </main>
         );

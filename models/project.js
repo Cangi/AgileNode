@@ -24,6 +24,10 @@ const projectSchema = mongoose.Schema({
     RISSheet:{
       type : String,
       required : false
+    },
+    RISStaff:{
+      type : String,
+      required : false
     },//holds the signiture of the RIS
     RISSigned:{
       type : Boolean,
@@ -37,8 +41,8 @@ const projectSchema = mongoose.Schema({
       type : Boolean,
       required : false
     },//holds the coments of the project as an array
-    comments:{
-      type : [],
+    commments:{
+      type : [{name: String, date: Date,comment:String}],
       required : false
     }
   });

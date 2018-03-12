@@ -14,7 +14,7 @@ import server from './serverConfig'
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {staffID: '', position: 'researcher', redirect:''};
+    this.state = {staffID: '', position: 'researcher', redirect:false};
 
     this.handleChangeStaffID = this.handleChangeStaffID.bind(this);
     this.handleChangePosition = this.handleChangePosition.bind(this);
@@ -43,14 +43,15 @@ class SignUp extends React.Component {
     }
     let userData = JSON.parse(localStorage.getItem('userData'));
     axios.post(server.serverApi + '/api/signUp',{ staffID: this.state.staffID, position:position, firstName:userData.displayName.split(' ')[0], lastName:userData.displayName.split(' ')[1], email:userData.mail }).then((response) => {
-      this.setState({redirect: response.data});
+      this.setState({redirect: true});
+    alert(response.date);
     });
 
 
   }
 
   render() {
-    console.log(this.state.testing);
+console.log(this.state.redirect);
     return (
 	
 	<div class="full-image-background">
