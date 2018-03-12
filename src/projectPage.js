@@ -99,41 +99,49 @@ class ProjectPage extends Component {
 
     return(
           <body>
+		  <div class="container">
+			<div class="jumbotron">
+				<h1 class="display-3">{projectName}</h1>
+				<p class="lead">By {researcherName}</p>
+			</div>
 
-			<div class = "page">
-				<div class="row">
-					<div class="column">
-						<h1>Name of Project</h1>
-						<p>{projectName}</p>
-					</div>
-					<div class="column">
-						<h1>Name of Head Researcher</h1>
-						<p>{researcherName}</p>
-					</div>
-					<div class="column">
-						<h2>Details</h2>
-						<p>Date created: {date}</p>
-						<p>Date Last Updated: {date}</p>
-					</div>
+			 <div class="row marketing">
+				<div class="col-lg-6">
+					<h3>Project details</h3>
+					<p>Date created: {date}</p>
+					<p>Date last updated: {date}</p>
+					<p>Last Edited: {date}</p>
+					<p>User who edited it: {researcherName}</p>
 				</div>
-
-				<div class="row">
-						<div class="column">
-							<form id="upform" onSubmit={this.handleUpload}>
+				
+				<div class="col-lg-6">
+					<h3>Options</h3>
+					<form id="upform" onSubmit={this.handleUpload}>
 								<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
 								<input type="file" name="sampleFile"/><p></p>
-							</form>
-							<UpDown />
-							<p></p>
-							<p>Small picture/snapshot of excel file</p>
-						</div>
-						<div class="column">
-							<h2>Last update</h2>
-							<p>Last Edited: {date}</p>
-							<p>User who edited it: {researcherName}</p>
-						</div>
-						<div class="column">
-							<h2>Digital signature</h2>
+					</form>
+					<UpDown />
+					<p></p>
+				</div>
+			</div>
+			
+			<div class="row marketing">
+				<div class="col-lg-6">
+				<form>
+							<div class="form-group">
+							<div class="form-group">
+							<h3>Leave a comment here!</h3>
+							<textarea rows="4" cols="1" type="comment" class="form-control" id="Comment" value value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
+							</div>
+							<div class="form-check">
+							</div>
+							<button type="button" class="btn btn-primary" onClick={this.handleSubmitComment}>Submit</button>
+							</div>
+				</form>
+				</div>
+				
+				<div class="col-lg-6">
+					<h3>Digital signature</h3>
 									{button}
 							<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 								<div class="modal-dialog modal-dialog-centered" role="document">
@@ -152,24 +160,8 @@ class ProjectPage extends Component {
 									</div>
 								</div>
 							</div>
-						</div>
 				</div>
-
-				<div class="row">
-					<div class="column">
-						<form>
-							<div class="form-group">
-							<div class="form-group">
-							<label for="Comment">Leave a comment here!</label>
-							<input type="comment" class="form-control" id="Comment" value value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
-							</div>
-							<div class="form-check">
-							</div>
-							<button type="button" class="btn btn-primary" onClick={this.handleSubmitComment}>Submit</button>
-							</div>
-						</form>
-					</div>
-				</div>
+			</div>
 		</div>
 			{/*
             <div class = 'page'>
@@ -192,6 +184,7 @@ class ProjectPage extends Component {
 			*/}
           </body>
 
+		
     )
   }
 

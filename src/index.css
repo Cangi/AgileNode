@@ -154,6 +154,7 @@ footer {
     background-size: cover;
 }
 
+
 .signup {
 	margin: 0;
     position: absolute;
@@ -217,6 +218,11 @@ input[type=number]::-webkit-outer-spin-button {
 	margin-top: 1rem!important;
 	font-size: 4.375rem!important;
     line-height: 4.375rem!important;
+}
+
+textarea {
+   resize: none;
+   width: 75%!important;
 }
 
 /*Code taken from http://tobiasahlin.com/spinkit/"*/
