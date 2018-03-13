@@ -41,10 +41,8 @@ class SignUp extends React.Component {
       position = this.state.position.charAt(0).toLowerCase() + this.state.position.slice(1);
       this.setState({positon: position});
     }
-    let userData = JSON.parse(localStorage.getItem('userData'));
-    axios.post(server.serverApi + '/api/signUp',{ staffID: this.state.staffID, position:position, firstName:userData.displayName.split(' ')[0], lastName:userData.displayName.split(' ')[1], email:userData.mail }).then((response) => {
+    axios.post(server.serverApi + '/api/signUp',{ user: JSON.parse(localStorage.getItem('userData')), position:position}).then((response) => {
       this.setState({redirect: true});
-    alert(response.date);
     });
 
 
@@ -53,7 +51,7 @@ class SignUp extends React.Component {
   render() {
 console.log(this.state.redirect);
     return (
-	
+
 	<div class="full-image-background">
       <form class="signup" onSubmit={this.handleSubmit}>
         <div class="container">

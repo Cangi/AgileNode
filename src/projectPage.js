@@ -13,13 +13,14 @@ import CommentCard from './commentCard'
 
 
 class ProjectPage extends React.Component {
+
 	 constructor(props) {
     super(props);
     this.state = { value: '', comment:'',  project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:'',department: ''};
     axios.post(server.serverApi + '/api/getProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData }).then((response) => {this.setState({project: response.data})});
-	axios.get(server.serverApi + '/api/downloadList').then((response)=>{
-		this.setState({downloadArray:JSON.parse(response.data)});
-	});
+		axios.get(server.serverApi + '/api/downloadList').then((response)=>{
+			this.setState({downloadArray:JSON.parse(response.data)});
+		});
 		axios.post(server.serverApi + '/api/getDepartment', {user: this.state.userData }).then((response) => {this.setState({department: response.data})});
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,8 +28,6 @@ class ProjectPage extends React.Component {
 		this.handleDownload = this.handleDownload.bind(this);
 		this.handleSubmitComment = this.handleSubmitComment.bind(this);
 		this.handleChangeComment = this.handleChangeComment.bind(this);
-	//console.log(this.props);
-	//console.log();
 
   }
 
@@ -61,7 +60,7 @@ class ProjectPage extends React.Component {
   }
 
 	handleSubmitComment(event) {
-	    axios.post(server.serverApi + '/api/addComment', {comment:this.state.comment , idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName});
+	    axios.post(server.serverApi + '/api/addComment', {comment:this.state.comment , idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData});
 			this.setState({comment:'' });
 		}
 
@@ -86,10 +85,6 @@ class ProjectPage extends React.Component {
 		iframe.src = server.serverApi + 'api/downloadFile';
 	});
 }
-//  getData(){
-  //  axios.get(URLofDatabase$)
-//  }
-
 
   render() {
 
@@ -100,8 +95,6 @@ class ProjectPage extends React.Component {
 		var size = 0;
 
 	  if(this.state.project != undefined) {
-			console.log(this.state.project);
-		  console.log(this.state.department + ":" + this.state.project.RISSigned);
 		  projectName = this.state.project.name;
 		  date = this.state.project.date.split('T')[0];
 			size = this.state.project.comments.length;
@@ -196,8 +189,6 @@ class ProjectPage extends React.Component {
 			<div class="row marketing">
 				<div class="col-lg-6">
 				{[...Array(size)].map((x, i) =>
-						//calls the function as many times as needed
-
 						this.objectRow(i)
 						)}
 						<form>

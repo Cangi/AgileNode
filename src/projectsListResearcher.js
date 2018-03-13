@@ -18,16 +18,7 @@ class ProjectsListResearcher extends React.Component {
 
 	}
   objectRow(id) {
-	  var name;
-	  var username;
-	  var date;
-	  var staffid;
-	  var projectid;
-    var readyRis
-    var ris;
-    var researcher;
-    var assocDean;
-    var dean;
+	  var name, username, date, staffid, projectid, readyRis, ris, researcher, assocDean, dean;
     if(this.state.projectData!=undefined) {
        name = this.state.projectData[id].name;
        date = this.state.projectData[id].date.split('T')[0];
@@ -68,26 +59,15 @@ class ProjectsListResearcher extends React.Component {
       var create = <CreateProject />
 
     return (
-
 			<div class="container-fluid container-content">
 				<h3 class="title">Researcher Projects</h3>
         <div class="Cards">
           {[...Array(size)].map((x, i) =>
-						//calls the function as many times as needed
-
 						this.objectRow(i)
-					  )}
-
-
-
-
-
-
-
+					)}
 				</div>
 				{create}
 			</div>
-       //passing the parameters to projectCard
     );
   }
 }
