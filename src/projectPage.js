@@ -1,6 +1,7 @@
 //import React from 'react';
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import './index.css';
+import { Link } from 'react-router-dom'
 import Footer from './footer';
 import axios from 'axios';
 import './projectPage.css'
@@ -11,7 +12,7 @@ import CommentCard from './commentCard'
 
 
 
-class ProjectPage extends Component {
+class ProjectPage extends React.Component {
 	 constructor(props) {
     super(props);
     this.state = { value: '', comment:'',  project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:'',department: ''};
@@ -99,6 +100,7 @@ class ProjectPage extends Component {
 		var size = 0;
 
 	  if(this.state.project != undefined) {
+			console.log(this.state.project);
 		  console.log(this.state.department + ":" + this.state.project.RISSigned);
 		  projectName = this.state.project.name;
 		  date = this.state.project.date.split('T')[0];
@@ -118,6 +120,41 @@ class ProjectPage extends Component {
 					button = <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign document</button>
 				}
 		  }
+
+			if(this.state.project.readyForRIS==true){
+			var readyRis = <img class="checkbox" src={server.serverFront + "/images/greencheckbox.png"}></img>;
+			}
+			else {
+			var readyRis = <img class="checkbox" src={server.serverFront + "/images/redcheckbox.png"}></img>;
+			}
+
+		  if(this.state.project.RISSigned==true){
+			var risSign = <img class="checkbox" src={server.serverFront + "/images/greencheckbox.png"}></img>;
+		  }
+		  else {
+			var risSign = <img class="checkbox" src={server.serverFront + "/images/redcheckbox.png"}></img>;
+		  }
+
+		  if(this.state.project.researcherSigned==true){
+			var resSign = <img class="checkbox" src={server.serverFront + "/images/greencheckbox.png"}></img>;
+		  }
+		  else {
+			var resSign = <img class="checkbox" src={server.serverFront + "/images/redcheckbox.png"}></img>;
+		  }
+
+		  if(this.state.project.associateDeanSigned==true){
+			var assoSign = <img class="checkbox" src={server.serverFront + "/images/greencheckbox.png"}></img>;
+		  }
+		  else {
+			var assoSign = <img class="checkbox" src={server.serverFront + "/images/redcheckbox.png"}></img>;
+		  }
+
+		  if(this.state.project.deanSigned==true){
+			var deanSign = <img class="checkbox" src={server.serverFront + "/images/greencheckbox.png"}></img>;
+		  }
+		  else {
+			var deanSign = <img class="checkbox" src={server.serverFront + "/images/redcheckbox.png"}></img>;
+		  }
 	  }
 
 
@@ -127,6 +164,13 @@ class ProjectPage extends Component {
 			<div class="jumbotron">
 				<h1 class="display-3">{projectName}</h1>
 				<p class="lead">By {researcherName}</p>
+				<p class="centered">
+				<span class="badge badge-warning badge-custom">Ready for RIS {readyRis}</span>
+			  <span class="badge badge-warning badge-custom">RIS {risSign}</span>
+			  <span class="badge badge-warning badge-custom">Researcher {resSign}</span>
+			  <span class="badge badge-warning badge-custom">Associate Dean {assoSign}</span>
+			  <span class="badge badge-warning badge-custom">Dean {deanSign}</span>
+            </p>
 			</div>
 
 			 <div class="row marketing">
@@ -137,7 +181,7 @@ class ProjectPage extends Component {
 					<p>Last Edited: {date}</p>
 					<p>User who edited it: {researcherName}</p>
 				</div>
-				
+
 				<div class="col-lg-6">
 					<h3>Options</h3>
 					<form id="upform" onSubmit={this.handleUpload}>
@@ -148,7 +192,7 @@ class ProjectPage extends Component {
 					<p></p>
 				</div>
 			</div>
-			
+
 			<div class="row marketing">
 				<div class="col-lg-6">
 				{[...Array(size)].map((x, i) =>
@@ -168,7 +212,7 @@ class ProjectPage extends Component {
 							</div>
 						</form>
 				</div>
-				
+
 				<div class="col-lg-6">
 					<h3>Digital signature</h3>
 									{button}
@@ -192,28 +236,10 @@ class ProjectPage extends Component {
 				</div>
 			</div>
 		</div>
-			{/*
-            <div class = 'page'>
-              <h1 class="display-1">{this.props.name}</h1>
-              <h2 class="display-2">By {this.props.researcherName}</h2>
-              <p>Date Created: {this.props.dateCreated}</p>
-              <p>Date Last Updated: 02/02/2002</p> //need to add this by quering when upload was last used
-              <button type="button" class="btn btn-primary">Upload</button>
-              <button type="button" class="btn btn-primary">Download latest</button>
-              <p>Small picture/snapshot of excel file</p>
-              <p>Signed : RIS = {this.props.risSign}
-                       Researcher = {this.props.researcherSign}
-                       Associate Dean = {this.props.assocDeanSign}
-                       Dean = {this.props.dean}//diplays the state of the signatures
 
-              </p>
-              <h3>Comments</h3>
-              <p>Comment box</p>
-            </div>
-			*/}
           </body>
 
-		
+
     )
   }
 

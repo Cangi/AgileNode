@@ -23,6 +23,7 @@ class ProjectsListResearcher extends React.Component {
 	  var date;
 	  var staffid;
 	  var projectid;
+    var readyRis
     var ris;
     var researcher;
     var assocDean;
@@ -31,6 +32,7 @@ class ProjectsListResearcher extends React.Component {
        name = this.state.projectData[id].name;
        date = this.state.projectData[id].date.split('T')[0];
        projectid = this.state.projectData[id]._id;
+       readyRis = this.state.projectData[id].readyForRIS;
        ris = this.state.projectData[id].RISSigned;
        researcher = this.state.projectData[id].researcherSigned;
        assocDean = this.state.projectData[id].associateDeanSigned;
@@ -41,6 +43,7 @@ class ProjectsListResearcher extends React.Component {
       }
     }
     return <ProjectCard name={name}
+         readyRis={readyRis}
          researcherName={username}
          dateCreated = {date}
          risSign = {ris}
@@ -74,10 +77,10 @@ class ProjectsListResearcher extends React.Component {
 
 						this.objectRow(i)
 					  )}
-					  
-					  
-					   
-					   
+
+
+
+
 
 
 

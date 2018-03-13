@@ -19,8 +19,8 @@ class Main extends React.Component {
 
     render() {
 	        if(JSON.parse(localStorage.getItem('signUp')) == false)
-			return (<SignUp userData={this.props.userData} />);	
-		
+			return (<SignUp userData={this.props.userData} />);
+
 		if(this.props.userData == undefined) {
 			return(
 			<main >
@@ -44,7 +44,7 @@ class Main extends React.Component {
             </main>
 			);
 		}
-		
+
       if(this.state.department == '')
       axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
       var department = <div></div>;
