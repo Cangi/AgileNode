@@ -14,10 +14,10 @@ class UpDown extends React.Component {
   constructor(props) {
     super(props);
     this.state = {value: '' , downloadarray: undefined , dlfile: ''};
-    this.handleSubmit = this.handleSubmit.bind(this);
 	this.handleDownload = this.handleDownload.bind(this);
 	this.handleDelete = this.handleDelete.bind(this);
-
+	this.handleUpload = this.handleUpload.bind(this);
+	this.handleSubmit = this.handleSubmit.bind(this);
 	axios.get(server.serverApi + '/api/download')
 	.then((response) => {
 		this.setState({downloadarray: JSON.parse(response.data)});
@@ -30,10 +30,25 @@ class UpDown extends React.Component {
 	.then((response) => {
 		alert(response.data);
 	});
+	
   }
 
+	handleUpload(event) {
+		var uploadForm = document.getElementById('upform');
+		let upfile = new FormData(uploadForm);
+		axios.post(server.serverApi + '/api/upload',upfile)
+			.then((response)=>{
+				alert(response.data);
+				axios.get(server.serverApi + '/api/download')
+				.then((response) => {
+					this.setState({downloadarray: JSON.parse(response.data)});
+				});
+				if (response.data == 'File uploaded!')window.location.reload();
+			});
+	}
+  
   handleDownload(event) {
-	axios.post(server.serverApi + '/api/download2',{'nameOfFile':event.target.textContent}).then(()=>{
+	axios.post(server.serverApi + '/api/download2',{'nameOfFile':event.target.id}).then(()=>{
 		var iframe;
 	    iframe = document.getElementById("hiddenDownloader");
 	    if (iframe == null) {
@@ -46,35 +61,63 @@ class UpDown extends React.Component {
 	});
   }
   handleDelete(event) {
-	axios.post(server.serverApi + '/api/delete',{'nameOfFile':event.target.name}).then((response)=>{
+	axios.post(server.serverApi + '/api/delete',{'nameOfFile':event.target.id}).then((response)=>{
 		alert(response.data);
+		axios.get(server.serverApi + '/api/download')
+		.then((response) => {
+			this.setState({downloadarray: JSON.parse(response.data)});
+		});
+		if (response.data == 'File deleted!')window.location.reload();
 	});
   }
   
 
   renderList(){
-	  if(this.state.downloadarray){
-		  return(
+	  if(this.state.downloadarray != undefined && this.state.downloadarray != '' ){
+		    return(
+			<div>
+			<form id="upform" onSubmit={this.handleUpload}>
+				<div class="upload-btn-wrapper">
+					<button class="btn btn-primary">Browse</button>
+					<input type="file" name="sampleFile"/>
+				</div>
+				<p> Choose a file and click on the Upload button.</p>
+				<p></p>
+				<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
+			</form>
 			<div class="list">
+				<h3>Manage files</h3>
+				<button id={this.state.downloadarray[this.state.downloadarray.length-1]} onClick={this.handleDownload} class="btn btn-primary">Download Latest</button><br/>
+				<button class="btn btn-primary">Other Downloads</button>
 				{this.state.downloadarray.map(function(item, i){
 					return (
 						<div>
-						<h3>Manage files</h3>
 						<form class="list-items">
-						   <span class="btn btn-primary" id={i} onClick={this.handleDownload}><img class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item}</span>
+						   <span class="btn btn-primary" id={item} onClick={this.handleDownload}><img id={item} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item}</span>
 						</form>
 						<form class="list-items button-list">
-						   <button class="btn btn-danger" name={item} onClick={this.handleDelete} type="button">Delete</button>
+						   <button class="btn btn-danger" id={item} onClick={this.handleDelete} type="button">Delete</button>
 						</form>
 						</div>
 					);
 				}, this)}
-				  </div>)
-			  }
-			  return (
+				  </div></div>)
+		}
+		else{
+			return (
 				<div>
-			</div>
-		)
+				<form id="upform" onSubmit={this.handleUpload}>
+					<div class="upload-btn-wrapper">
+						<button class="btn btn-primary">Browse</button>
+						<input type="file" name="sampleFile"/>
+					</div>
+					<p> Choose a file and click on the Upload button.</p>
+					<p></p>
+					<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
+				</form>
+				</div>
+			)
+		}
   }
 
   render() {

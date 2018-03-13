@@ -179,16 +179,22 @@ router.post('/upload', function(req, res) {
     return res.status(400).send('No files were uploaded.');
     let uploadedFile = req.files.sampleFile;
 	//console.log(uploadedFile.mimetype);
-	if (uploadedFile.mimetype != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
-		res.send('Wrong file format.');
+	if(!uploadedFile){
+		return res.send('Please select a file to upload.');
 	}
-	let now = new Date();
-	uploadedFile.mv('./routes/uploads/' + now.getFullYear() + "-"+ (now.getMonth()+1) + "-" + now.getDate() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() +'.xlsx', function(err) {
-	//uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
-    if (err)
-    return res.status(500).send(err);
-    res.send('File uploaded!');
-  });
+	if (uploadedFile.mimetype != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+		return res.send('Wrong file format.');
+	}
+	else{
+		let now = new Date();
+		uploadedFile.mv('./routes/uploads/' + now.getFullYear() + "-"+ (now.getMonth()+1) + "-" + now.getDate() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() +'.xlsx', function(err) {
+		//uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
+		if (err)
+		return res.status(500).send(err);
+		else
+		return res.send('File uploaded!');
+		});
+	}
 });
 
 //Delete file functionality
@@ -205,8 +211,8 @@ router.get('/download', function(req, res) {
     fs.readdirSync(fileloc).forEach(file => {
       arr.push(file);
     });
-    var json = JSON.stringify(arr);
-    res.json(json);
+	var json = JSON.stringify(arr);
+	res.json(json);
 });
 
 router.post('/download2', function(req, res){

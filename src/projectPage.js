@@ -14,16 +14,11 @@ import CommentCard from './commentCard'
 class ProjectPage extends Component {
 	 constructor(props) {
     super(props);
-    this.state = { value: '', comment:'',  project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:'',department: ''};
+    this.state = { value: '', comment:'',  project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', department: ''};
     axios.post(server.serverApi + '/api/getProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData }).then((response) => {this.setState({project: response.data})});
-	axios.get(server.serverApi + '/api/downloadList').then((response)=>{
-		this.setState({downloadArray:JSON.parse(response.data)});
-	});
 		axios.post(server.serverApi + '/api/getDepartment', {user: this.state.userData }).then((response) => {this.setState({department: response.data})});
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleUpload = this.handleUpload.bind(this);
-		this.handleDownload = this.handleDownload.bind(this);
 		this.handleSubmitComment = this.handleSubmitComment.bind(this);
 		this.handleChangeComment = this.handleChangeComment.bind(this);
 	//console.log(this.props);
@@ -59,32 +54,14 @@ class ProjectPage extends Component {
     axios.post(server.serverApi + '/api/signProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData,signiture:this.state.value });
   }
 
-	handleSubmitComment(event) {
-	    axios.post(server.serverApi + '/api/addComment', {comment:this.state.comment , idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName});
-			this.setState({comment:'' });
-		}
+  handleSubmitComment(event) {
+	axios.post(server.serverApi + '/api/addComment', {comment:this.state.comment , idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName});
+		this.setState({comment:'' });
+	window.location.reload();
+  }
 
-  handleUpload(event) {
-		var uploadForm = document.getElementById('upform');
-		let upfile = new FormData(uploadForm);
-		axios.post(server.serverApi + '/api/upload',upfile)
-			.then((response)=>{
-				alert(response.data);
-			});
-	}
-	handleDownload(event) {
-		axios.post(server.serverApi + '/api/downloadFile',{'nameOfFile':this.state.project.name}).then(()=>{
-		var iframe;
-		iframe = document.getElementById('hiddenIframe');
-		if(iframe == null){
-			iframe = document.createElement('iframe');
-			iframe.id = 'hiddenIframe';
-			iframe.style.visibility = 'hidden';
-			document.body.appendChild(iframe);
-		}
-		iframe.src = server.serverApi + 'api/downloadFile';
-	});
-}
+
+
 //  getData(){
   //  axios.get(URLofDatabase$)
 //  }
@@ -140,15 +117,7 @@ class ProjectPage extends Component {
 				
 				<div class="col-lg-6">
 					<h3>Upload</h3>
-					<form id="upform" onSubmit={this.handleUpload}>
-									<div class="upload-btn-wrapper">
-  										<button class="btn btn-primary">Browse</button>
-  										<input type="file" name="sampleFile"/>
-									</div>
-									<p> Choose a file and click on the Upload button.</p>
-								<p></p>
-								<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
-					</form>
+
 					<p></p>
 				</div>
 
