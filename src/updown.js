@@ -17,22 +17,12 @@ class UpDown extends React.Component {
 	this.handleDownload = this.handleDownload.bind(this);
 	this.handleDelete = this.handleDelete.bind(this);
 	this.handleUpload = this.handleUpload.bind(this);
-	this.handleSubmit = this.handleSubmit.bind(this);
+	this.handlePopUp = this.handlePopUp.bind(this);
 	axios.get(server.serverApi + '/api/download')
 	.then((response) => {
 		this.setState({downloadarray: JSON.parse(response.data)});
 	});
   }
-  handleSubmit(event) {
-	var uploadform = document.getElementById('upform');
-	let upfile = new FormData(uploadform);
-	axios.post(server.serverApi + '/api/upload',upfile)
-	.then((response) => {
-		alert(response.data);
-	});
-	
-  }
-
 	handleUpload(event) {
 		var uploadForm = document.getElementById('upform');
 		let upfile = new FormData(uploadForm);
@@ -43,7 +33,6 @@ class UpDown extends React.Component {
 				.then((response) => {
 					this.setState({downloadarray: JSON.parse(response.data)});
 				});
-				if (response.data == 'File uploaded!')window.location.reload();
 			});
 	}
   
@@ -54,7 +43,7 @@ class UpDown extends React.Component {
 	    if (iframe == null) {
 		    iframe = document.createElement('iframe');
 		    iframe.id = "hiddenDownloader";
-		    iframe.style.visibility = 'hidden';
+		    iframe.style.display = 'none';
 		    document.body.appendChild(iframe);
 	    }
 	    iframe.src = server.serverApi + '/api/download3';
@@ -66,11 +55,13 @@ class UpDown extends React.Component {
 		axios.get(server.serverApi + '/api/download')
 		.then((response) => {
 			this.setState({downloadarray: JSON.parse(response.data)});
-		});
-		if (response.data == 'File deleted!')window.location.reload();
+		}); 
 	});
   }
   
+  handlePopUp(event) {
+
+  }
 
   renderList(){
 	  if(this.state.downloadarray != undefined && this.state.downloadarray != '' ){
@@ -78,29 +69,47 @@ class UpDown extends React.Component {
 			<div>
 			<form id="upform" onSubmit={this.handleUpload}>
 				<div class="upload-btn-wrapper">
-					<button class="btn btn-primary">Browse</button>
+					<button id="upadd" class="btn-custom btn btn-primary">Browse</button>
 					<input type="file" name="sampleFile"/>
 				</div>
 				<p> Choose a file and click on the Upload button.</p>
 				<p></p>
-				<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
+				<button type="button" class="btn-custom btn btn-primary" onClick={this.handleUpload}>Upload</button>
 			</form>
 			<div class="list">
 				<h3>Manage files</h3>
 				<button id={this.state.downloadarray[this.state.downloadarray.length-1]} onClick={this.handleDownload} class="btn btn-primary">Download Latest</button><br/>
-				<button class="btn btn-primary">Other Downloads</button>
-				{this.state.downloadarray.map(function(item, i){
-					return (
-						<div>
-						<form class="list-items">
-						   <span class="btn btn-primary" id={item} onClick={this.handleDownload}><img id={item} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item}</span>
-						</form>
-						<form class="list-items button-list">
-						   <button class="btn btn-danger" id={item} onClick={this.handleDelete} type="button">Delete</button>
-						</form>
+				<button type="button" class="btn-custom btn btn-primary" data-toggle="modal" data-target="#downloadsModal">All Versions</button>
+				
+				<div class="modal fade" id="downloadsModal" role="dialog"> {/* inspired by https://www.w3schools.com/bootstrap/bootstrap_modal.asp */}
+					<div class="modal-dialog">
+					
+					  <div class="modal-content">
+						<div class="modal-header-custom modal-header">
+						  <button type="button" class="close-custom close" data-dismiss="modal">&times;</button>
+						  <h4 class="modal-title">All Versions</h4>
 						</div>
-					);
-				}, this)}
+						<div class="modal-body">
+						  
+						{this.state.downloadarray.map(function(item, i){
+							return (
+								<div>
+								<form class="list-items">
+								   <span class="btn-custom btn btn-primary" id={item} onClick={this.handleDownload}><img id={item} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item}</span>
+								   <button class="delete-btn btn btn-danger" id={item} onClick={this.handleDelete} type="button">Delete</button>
+								</form>
+								</div>
+							);
+						}, this)}
+						  
+						</div>
+						<div class="modal-footer">
+						  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					  </div>
+					  
+					</div>
+				</div>
 				  </div></div>)
 		}
 		else{
@@ -108,12 +117,12 @@ class UpDown extends React.Component {
 				<div>
 				<form id="upform" onSubmit={this.handleUpload}>
 					<div class="upload-btn-wrapper">
-						<button class="btn btn-primary">Browse</button>
+						<button class="btn-custom btn btn-primary">Browse</button>
 						<input type="file" name="sampleFile"/>
 					</div>
 					<p> Choose a file and click on the Upload button.</p>
 					<p></p>
-					<button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
+					<button type="button" class="btn-custom btn btn-primary" onClick={this.handleUpload}>Upload</button>
 				</form>
 				</div>
 			)

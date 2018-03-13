@@ -234,6 +234,25 @@ textarea {
    width: 75%!important;
 }
 
+.close-custom {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.modal-header-custom {
+	display: block;
+	justify-content: normal;
+}
+
+.delete-btn {
+	margin-left: 1rem;
+    font-size: 0.7rem;
+}
+
+.btn-custom {
+	margin-bottom: 1rem
+}
+
 /*Code taken from http://tobiasahlin.com/spinkit/"*/
 
 .spinner {

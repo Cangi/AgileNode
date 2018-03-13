@@ -55,8 +55,9 @@ class ProjectPage extends Component {
   }
 
   handleSubmitComment(event) {
+	alert('Comment Submited!');
 	axios.post(server.serverApi + '/api/addComment', {comment:this.state.comment , idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName});
-		this.setState({comment:'' });
+	this.setState({comment:'' });
 	window.location.reload();
   }
 
