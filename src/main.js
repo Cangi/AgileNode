@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import ProjectsListResearcher from './projectsListResearcher'
 import NewRISProjects from './newRISProjects'
+import DeanProjects from './deanProjects.js'
 import CreateProject from './createProject'
 import SignUp from './signUp'
 import Login from './login'
@@ -57,6 +58,9 @@ class Main extends React.Component {
       else if(this.state.department == "RIS"){
         department = <NewRISProjects userData={this.props.userData} />
       }
+      else if(this.state.department == "associateDean" || this.state.department == "dean"){
+        department = <DeanProjects userData={this.props.userData} />
+      }
         return (
             <main>
                 <Switch>
@@ -84,6 +88,8 @@ class Main extends React.Component {
                     <Route path='/projectPage' component={ProjectPage} />
 
                     <Route path='/newRISProjects' component={NewRISProjects} />
+
+                    <Route path='/deanProjects.js' component = {DeanProjects} />
                 </Switch>
             </main>
         );
