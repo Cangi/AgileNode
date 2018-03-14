@@ -121,6 +121,27 @@ router.post('/getRISInProcessProjects', (req,res) =>{
       });
 });
 
+//gets the projects that have been signed by RIS and the researcher and not signed by the staff member
+router.post('/getDeanProjects', (req,res) =>{
+//passed department in
+  if(req.body.department == "dean") {
+      Project.find({researcherSign:true, RISSigned:true, deanSign:undefined }, (err,project) =>{
+          if(err) throw err;
+          if(project){
+          res.json(project);
+          }
+      });
+  }
+  else if(req.body.department == "associateDean"){
+    Project.find({researcherSign:true, RISSigned:true, associateDeanSigned:undefined }, (err,project) =>{
+        if(err) throw err;
+        if(project){
+        res.json(project);
+        }
+    });
+  }
+});
+
 router.post('/getProject',(req,res) =>{
       Project.findOne({_id:req.body.idOfTheProject}, (err,project) =>{
           if(err) throw err;
