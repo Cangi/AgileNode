@@ -38,9 +38,7 @@ class DeanProjects extends React.Component {
        assocDean = this.state.projectData[id].associateDeanSigned;
        dean = this.state.projectData[id].deanSigned;
 readyRis = this.state.projectData[id].readyForRIS;
-       if(this.state.userData!=undefined) {
-         username=this.state.userData.givenName + " " + this.state.userData.surname;
-      }
+username = this.state.projectData[id].researcherName;
     }
     return <ProjectCard name={name}
          researcherName={username}

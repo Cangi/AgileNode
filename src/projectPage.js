@@ -109,8 +109,10 @@ class ProjectPage extends React.Component {
                     button = <button type="button" class="btn btn-primary" >Waiting for RIS</button>
                 } else if (this.state.department == 'researcher' && this.state.project.RISSigned == true && this.state.project.readyForRIS == true && this.state.project.researcherSigned == undefined) {
                     button = <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign document</button>
-                } else if (this.state.department == 'researcher' && this.state.project.RISSigned == true && this.state.project.readyForRIS == true && this.state.project.researcherSigned == true) {
+                } else if (this.state.department == 'researcher' && this.state.project.RISSigned == true && this.state.project.readyForRIS == true && this.state.project.researcherSigned == true && this.state.project.deanSigned == false) {
                     button = <button type="submit" class="btn btn-primary">Waiting for Dean/Associate Dean</button>
+                } else {
+                    button = <button type="submit" class="btn btn-primary">Project successfuly signed by everyone.</button>
                 }
                 if (this.state.department != 'researcher' && ((this.state.department == "RIS" && this.state.project.RISSigned != true)
                     || (this.state.department == "associateDean" && this.state.project.associateDeanSigned != true)
