@@ -11,10 +11,14 @@ import server from './serverConfig';
 class NewRISProjects extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({projectData: undefined, userData: undefined, loggedin: false, projectQuery:undefined });
+    this.state = ({projectData: undefined, userData: undefined, loggedin: false, projectQuery:"new", reRender:true });
+    //ProjectQuery changes what projects are displayed
+    //reRender determines if it needs to reRender
     const self = this;
     this.handleNewProjects = this.handleNewProjects.bind(this);
     this.handleInProcessPro = this.handleInProcessPro.bind(this);
+    this.reRenderTrue = this.reRenderTrue.bind(this);
+    this.reRenderFalse = this.reRenderFalse.bind(this);
   }
 
   objectRow(id) { //id is the project ID
@@ -51,41 +55,53 @@ class NewRISProjects extends React.Component {
          id = {projectid}/>
   }
 
+  reRenderTrue(){this.setState({reRender:true})} //changes the values of reRender so we can say for it rerender the page
+  reRenderFalse(){this.setState({reRender:false})}
+
+
   handleNewProjects(){
     this.setState({projectQuery:"new"});
     console.log("Changed to new");
+    this.reRenderTrue(); //change to true so the cards can be rerendered
+    this.forceUpdate();
   }
 
   handleInProcessPro(){
     this.setState({projectQuery:"inProcess"});
     console.log("Changed to in process");
-    console.log(this.props.projectQuery);
+    this.reRenderTrue();
+    this.forceUpdate();
+
   }
+
+
 
 
   render() {
     var size=0;
+    console.log(this.props.projectQuery);
 
-    if (this.props.userData != undefined && !this.state.loggedin) {
+    if (this.state.reRender == true) {
         this.setState({ loggedin: true, userData: this.props.userData });
-
-
-      if(this.state.projectQuery == "inProcess"){
-
-            axios.post(server.serverApi + '/api/getRISInProcessProjects', {user: this.props.userData}).then((response) => {
-              //should return the projects the ris member have assigned themselves to
-              this.setState({ projectData: response.data });
-              console.log(response);
-            });
-      }
-      else if (this.state.projectQuery == "new" || this.state.projectQuery == undefined)  {
-
-        axios.post(server.serverApi + '/api/getRISNewProjects', {user: this.props.userData}).then((response) => {
-          //should return all projects that have been readied for RIS
-          this.setState({ projectData: response.data });
-          console.log(response);
-        });
+        this.reRenderFalse(); //changes reRender value to false so it can only rerender after a button is clicked
+        if(this.state.projectQuery == "inProcess"){
+          console.log("get into in process");
+              axios.post(server.serverApi + '/api/getRISInProcessProjects', {user: this.props.userData}).then((response) => {
+                //should return the projects the ris member have assigned themselves to
+                this.setState({ projectData: response.data });
+                console.log(response);
+              });
         }
+        else if (this.state.projectQuery == "new")  {
+
+          axios.post(server.serverApi + '/api/getRISNewProjects', {user: this.props.userData}).then((response) => {
+            //should return all projects that have been readied for RIS
+            this.setState({ projectData: response.data });
+            console.log(response);
+          });
+        }
+
+
 
     }
    if(this.state.projectData!=undefined) {
