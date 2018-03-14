@@ -6,7 +6,6 @@ import Footer from './footer';
 import { Switch, Route } from 'react-router-dom'
 import server from './serverConfig'
 import axios from 'axios'
-
 class App extends React.Component {
 
 
@@ -42,7 +41,6 @@ class App extends React.Component {
         }
     }
 	render() {
-
 		return(
 			<div class="container-webpage">
                 <Navbar userData={this.state.userData}/>

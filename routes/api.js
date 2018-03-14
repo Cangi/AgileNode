@@ -9,7 +9,7 @@ let User = require('../models/user');
 let Project = require('../models/project');
 let userData = require('./users');
 let filePath = path.join(__dirname, '\\..\\uploads\\');
-
+const fs = require('fs');
 // Get the home page.
 router.get('/', (req, res) => {
   // check if user is authenticated
@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/checkUser',(req,res) => {
-  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+  User.findOne({staffID:req.body.user.employeeId}, (err,user) =>{
     if(err) throw err;
     if(user){
       res.send(true);
@@ -33,26 +33,21 @@ router.post('/checkUser',(req,res) => {
 });
 
 router.post('/getDepartment',(req,res) =>{
-  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+  User.findOne({staffID:req.body.user.employeeId}, (err,user) =>{
     if(err) throw err;
     if(user){
       res.send(user.department);
 	  }else{
-      console.log('aaaaaa');
+      res.send(undefined);
     }
   });
 });
 
 router.post('/createProject',(req,res) =>{
-  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
-    if(err) throw err;
-    if(user){
-      let staffID = user.staffID;
-
       let newProject = new Project({
       name:req.body.nameOfTheProject,
       date: new Date(),
-      researcherStaffID:staffID,
+      researcherStaffID:req.body.user.employeeId,
 
       });
       newProject.save((err) =>{
@@ -63,77 +58,65 @@ router.post('/createProject',(req,res) =>{
               res.redirect('/projectPage');
             }
       });
-	  }
-  });
 });
 
 router.post('/signup',(req,res) =>{
+  var fullName = req.body.user.displayName.split('(')[0];
   let newUser = new User({
-  firstName:req.body.firstName,
-  lastName:req.body.lastName,
-  email:req.body.email,
-  staffID:req.body.staffID,
+  name:fullName,
+  staffID:req.body.user.employeeId,
   department:req.body.position
   });
 
   newUser.save((err) =>{
      if(err){
-        console.log(err);
         res.send(false);
         return;
       }else {
-        console.log('Created');
         res.send(true);
       }
   });
 });
 
 router.post('/getProjects',(req,res) =>{
-  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
-    if(err) throw err;
-    if(user){
-      Project.find({researcherStaffID:user.staffID}, (err,projects) =>{
-        //if you don't give a staff id then you get all of them
+      Project.find({researcherStaffID:req.body.user.employeeId}, (err,projects) =>{
         if(err) throw err;
         if(projects){
           res.json(projects);
         }
       });
-    }
-  });
 });
 
 //should return all projects that have been readied for RIS
 router.post('/getRISNewProjects', (req,res) =>{
-  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
-    if(err) throw err;
-    if(user){
       Project.find({readyForRIS:true, RISSigned:undefined, RISStaff:undefined}, (err,project) =>{
           if(err) throw err;
           if(project){
           res.json(project);
           }
       });
-    }
-  });
 });
 
-router.post('/getProject',(req,res) =>{
-  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
-    if(err) throw err;
-    if(user){
-      Project.findOne({researcherStaffID:user.staffID , _id:req.body.idOfTheProject}, (err,project) =>{
+router.post('/getRISInProcessProjects', (req,res) =>{
+      Project.find({readyForRIS:true, RISSigned:undefined, RISStaff:req.body.user.employeeId}, (err,project) =>{
           if(err) throw err;
           if(project){
           res.json(project);
           }
       });
-    }
-  });
+});
+
+router.post('/getProject',(req,res) =>{
+      Project.findOne({researcherStaffID:req.body.user.employeeId, _id:req.body.idOfTheProject}, (err,project) =>{
+          if(err) throw err;
+          if(project){
+          res.json(project);
+          }
+      });
 });
 
 router.post('/signProject',(req,res) => {
-  User.findOne({firstName:req.body.user.displayName.split(' ')[0]}, (err,user) =>{
+  User.findOne({staffID:req.body.user.employeeId}, (err,user) =>{
     if(err) throw err;
     if(user){
       if(user.staffID == req.body.signiture){
@@ -163,13 +146,13 @@ router.post('/signProject',(req,res) => {
 });
 
 router.post('/addComment',(req,res) =>{
-  User.findOne({firstName:req.body.user.split(' ')[0]}, (err,user) =>{
-    if(err) throw err;
-    if(user){
-        Project.findOneAndUpdate({researcherStaffID:user.staffID,_id:req.body.idOfTheProject},{$push: {commments: {name:req.body.user, date:new Date(),comment:req.body.comment}}}, function (err){
+        var name = req.body.user.displayName.split('(')[0];
+        Project.findOneAndUpdate({
+          researcherStaffID:req.body.user.employeeId,_id:req.body.idOfTheProject},
+          {$push: {comments: {name:name, date:new Date(),comment:req.body.comment}}},
+          function (err){
+             console.log(err);
           });
-    }
-});
 });
 
 //Upload to server functionality
@@ -177,16 +160,29 @@ router.post('/upload', function(req, res) {
   if (!req.files)
     return res.status(400).send('No files were uploaded.');
     let uploadedFile = req.files.sampleFile;
-  uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
+	//console.log(uploadedFile.mimetype);
+	if (uploadedFile.mimetype != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+		res.send('Wrong file format.');
+	}
+	let now = new Date();
+	uploadedFile.mv('./routes/uploads/' + now.getFullYear() + "-"+ (now.getMonth()+1) + "-" + now.getDate() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() +'.xlsx', function(err) {
+	//uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
     if (err)
     return res.status(500).send(err);
     res.send('File uploaded!');
   });
 });
 
+//Delete file functionality
+router.post('/delete', function(req, res) {
+	let deletePath = path.join(__dirname, './uploads/');
+    deletePath = path.join(deletePath , req.body.nameOfFile);
+	fs.unlinkSync(deletePath);
+    res.send('File deleted!');
+});
+
 router.get('/download', function(req, res) {
     const fileloc = './routes/uploads/';
-    const fs = require('fs');
     var arr = [];
     fs.readdirSync(fileloc).forEach(file => {
       arr.push(file);

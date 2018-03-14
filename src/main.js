@@ -7,6 +7,7 @@ import SignUp from './signUp'
 import Login from './login'
 import ProjectPage from './projectPage'
 import server from './serverConfig'
+import LandingPage from './landingPage'
 import axios from 'axios';
 // <Route path='/index' component={ProjectsListResearcher} />
 
@@ -17,6 +18,33 @@ class Main extends React.Component {
     }
 
     render() {
+	        if(JSON.parse(localStorage.getItem('signUp')) == false)
+			return (<SignUp userData={this.props.userData} />);
+
+		if(this.props.userData == undefined) {
+			return(
+			<main >
+				<LandingPage/>
+                <Switch>
+                    <Route exact path='/' component={() => {
+                        if (this.props.userData != undefined) {
+                            window.location = '/index';
+
+                        }
+                        return <div></div>
+                    }}/>
+                    <Route path='/disconnect' component={() => {
+                        localStorage.clear();
+                        window.location = server.serverApi + '/disconnect';
+                    }
+                    } />
+                    <Route path='/login' component={Login} />
+                    <Route path='/signup' component={SignUp} />
+                </Switch>
+            </main>
+			);
+		}
+
       if(this.state.department == '')
       axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
       var department = <div></div>;
@@ -30,7 +58,7 @@ class Main extends React.Component {
         department = <NewRISProjects userData={this.props.userData} />
       }
         return (
-            <main >
+            <main>
                 <Switch>
                     <Route exact path='/' component={() => {
                         if (this.props.userData !== undefined) {

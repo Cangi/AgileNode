@@ -36,16 +36,9 @@ router.post('/userdata', (req, res) => {
 			res.send(user.body);
 		}
 		else {
-			
+
 		}
 	});
-	/*if(userData!=undefined){
-		res.send(userData);
-		console.log("SENDING DATA");
-	} else {
-		console.log("SO IM NOT SENDING DATA NOW");
-		res.send(undefined);
-	}*/
 });
 
 
@@ -63,25 +56,9 @@ router.get('/token',
 			if(err) throw err;
 			if(!user){
         res.redirect(front.serverFront + '/signup?valid='+req.user.accessToken);
-			  //let newUser = new User({
-			  //firstName:userData.displayName.split(' ')[0],
-			  //lastName:userData.displayName.split(' ')[1],
-			  //email:userData.mail,
-			  //change when we can get input from the react app
-			  //staffID:'150007237',
-
 			}else{
         res.redirect(front.serverFront + '/index?valid='+req.user.accessToken);
       }});
-			//newUser.save((err) =>{
-      //      if(err){
-      //        console.log(err);
-      //        return;
-      //      }else {
-              //add when react app ready
-              //req.flash('success','You are now registered and can log in');
-      //      }
-      //    });
     } else {
       console.log(err);
     }

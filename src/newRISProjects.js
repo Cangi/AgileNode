@@ -11,7 +11,7 @@ import server from './serverConfig';
 class NewRISProjects extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({projectData: undefined, userData: undefined, loggedin: false, projectQuery:"new" });
+    this.state = ({projectData: undefined, userData: undefined, loggedin: false, projectQuery:undefined });
     const self = this;
     this.handleNewProjects = this.handleNewProjects.bind(this);
     this.handleInProcessPro = this.handleInProcessPro.bind(this);
@@ -59,27 +59,34 @@ class NewRISProjects extends React.Component {
   handleInProcessPro(){
     this.setState({projectQuery:"inProcess"});
     console.log("Changed to in process");
+    console.log(this.props.projectQuery);
   }
+
+
   render() {
     var size=0;
 
     if (this.props.userData != undefined && !this.state.loggedin) {
         this.setState({ loggedin: true, userData: this.props.userData });
 
-      if (this.state.projectQuery == "new")  {
-            axios.post(server.serverApi + '/api/getRISNewProjects', {user: this.props.userData}).then((response) => {
-              //should return all projects that have been readied for RIS
+
+      if(this.state.projectQuery == "inProcess"){
+
+            axios.post(server.serverApi + '/api/getRISInProcessProjects', {user: this.props.userData}).then((response) => {
+              //should return the projects the ris member have assigned themselves to
               this.setState({ projectData: response.data });
               console.log(response);
             });
-        }
-      else if(this.state.projectQuery == "inProcess"){
-          axios.post(server.serverApi + '/api/getRISNewProjects', {user: this.props.userData}).then((response) => {
-            //should return all projects that have been readied for RIS
-            this.setState({ projectData: response.data });
-            console.log(response);
-          });
       }
+      else if (this.state.projectQuery == "new" || this.state.projectQuery == undefined)  {
+
+        axios.post(server.serverApi + '/api/getRISNewProjects', {user: this.props.userData}).then((response) => {
+          //should return all projects that have been readied for RIS
+          this.setState({ projectData: response.data });
+          console.log(response);
+        });
+        }
+
     }
    if(this.state.projectData!=undefined) {
      size = this.state.projectData.length;
