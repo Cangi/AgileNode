@@ -63,6 +63,7 @@ class ProjectPage extends React.Component {
     handleSubmitComment(event) {
         axios.post(server.serverApi + '/api/addComment', { comment: this.state.comment, idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData });
         this.setState({ comment: '' });
+        window.location.reload();
     }
 
     handleUpload(event) {
