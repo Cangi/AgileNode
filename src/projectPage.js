@@ -15,7 +15,7 @@ class ProjectPage extends Component {
     super(props);
     this.state = { value: '', project: undefined, userData: JSON.parse(localStorage.getItem('userData')),value:'', downloadArray: undefined, dfile:'',department: ''};
     axios.post(server.serverApi + '/api/getProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData }).then((response) => {this.setState({project: response.data})});
-	axios.get(server.serverApi + '/api/downloadList').then((response)=>{
+		axios.get(server.serverApi + '/api/downloadList').then((response)=>{
 		this.setState({downloadArray:JSON.parse(response.data)});
 	});
 		axios.post(server.serverApi + '/api/getDepartment', {user: this.state.userData }).then((response) => {this.setState({department: response.data})});
@@ -23,7 +23,6 @@ class ProjectPage extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleUpload = this.handleUpload.bind(this);
 		this.handleDownload = this.handleDownload.bind(this);
-		this.handleSubmitComment = this.handleSubmitComment.bind(this);
 	//console.log(this.props);
 	//console.log();
 
@@ -36,12 +35,6 @@ class ProjectPage extends Component {
   handleSubmit(event) {
     axios.post(server.serverApi + '/api/signProject', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData,signiture:this.state.value });
   }
-
-	handleSubmitComment(event) {
-	    alert('Username is: ' + this.state.userData.displayName+ ' Comment inside: ' + this.state.value);
-	    axios.post(server.serverApi + '/api/addComment', { idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData.displayName,comment:this.state.value });
-	  }
-
   handleUpload(event) {
 		var uploadForm = document.getElementById('upform');
 		let upfile = new FormData(uploadForm);
@@ -81,6 +74,7 @@ class ProjectPage extends Component {
 		  date = this.state.project.date.split('T')[0];
 		  if(this.state.userData != undefined) {
 				researcherName = this.state.userData.givenName + " " + this.state.userData.surname;
+
 				if(this.state.department == 'researcher' && this.state.project.RISSigned == undefined && this.state.project.readyForRIS == undefined){
 					button = <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Send to RIS</button>
 				} else if(this.state.department == 'researcher' && this.state.project.RISSigned == undefined && this.state.project.readyForRIS == true){
@@ -89,14 +83,15 @@ class ProjectPage extends Component {
 					button = <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign document</button>
 				}else if(this.state.department == 'researcher' && this.state.project.RISSigned == true && this.state.project.readyForRIS == true && this.state.project.researcherSigned == true){
 					button = <button type="submit" class="btn btn-primary">Waiting for Dean/Associate Dean</button>
-				}
-				if(this.state.department != 'researcher' ){
+				}else if(this.state.department == 'RIS' && this.state.project.RISSigned == undefined && this.state.project.readyForRIS == true){
 					button = <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign document</button>
+
 				}
+
 		  }
 	  }
 
-
+console.log(this.state.department);
     return(
           <body>
 
@@ -157,17 +152,7 @@ class ProjectPage extends Component {
 
 				<div class="row">
 					<div class="column">
-						<form>
-							<div class="form-group">
-							<div class="form-group">
-							<label for="Comment">Leave a comment here!</label>
-							<input type="comment" class="form-control" id="Comment" value value={this.state.value} onChange={this.handleChange} placeholder="Comment"/>
-							</div>
-							<div class="form-check">
-							</div>
-							<button type="button" class="btn btn-primary" onClick={this.handleSubmitComment}>Submit</button>
-							</div>
-						</form>
+						<h2>Comments to be implemented.</h2>
 					</div>
 				</div>
 		</div>
