@@ -187,12 +187,16 @@ router.post('/upload', function(req, res) {
 	}
 	else{
 		let now = new Date();
-		uploadedFile.mv('./routes/uploads/' + now.getFullYear() + "-"+ (now.getMonth()+1) + "-" + now.getDate() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() +'.xlsx', function(err) {
+		let pathname = './routes/uploads/' + req.body.projectID + '@' + now.getFullYear() + "-"+ (now.getMonth()+1) + "-" + now.getDate() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() +'.xlsx';
+		uploadedFile.mv(pathname, function(err) {
 		//uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
 		if (err)
 		return res.status(500).send(err);
-		else
-		return res.send('File uploaded!');
+		else{
+			Project.findOneAndUpdate({_id:req.body.projectID},{$push: {paths: {path: pathname}}}, function (err){
+			});
+			return res.send('File uploaded!');
+		}
 		});
 	}
 });
@@ -206,13 +210,11 @@ router.post('/delete', function(req, res) {
 });
 
 router.get('/download', function(req, res) {
-    const fileloc = './routes/uploads/';
-    var arr = [];
-    fs.readdirSync(fileloc).forEach(file => {
-      arr.push(file);
-    });
-	var json = JSON.stringify(arr);
-	res.json(json);
+	if(req.query.projectID != null && req.query.projectID != undefined){
+		Project.findOne({_id:req.query.projectID},(err,proj) =>{
+		res.send(proj.paths);
+		});
+	}
 });
 
 router.post('/download2', function(req, res){

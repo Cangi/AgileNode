@@ -18,20 +18,23 @@ class UpDown extends React.Component {
 	this.handleDelete = this.handleDelete.bind(this);
 	this.handleUpload = this.handleUpload.bind(this);
 	this.handlePopUp = this.handlePopUp.bind(this);
-	axios.get(server.serverApi + '/api/download')
+	axios.get(server.serverApi + '/api/download?projectID='+this.props.projectID)
 	.then((response) => {
-		this.setState({downloadarray: JSON.parse(response.data)});
+		
+		this.setState({downloadarray: response.data});
 	});
   }
 	handleUpload(event) {
 		var uploadForm = document.getElementById('upform');
 		let upfile = new FormData(uploadForm);
+		upfile.append('projectID',this.props.projectID);
 		axios.post(server.serverApi + '/api/upload',upfile)
 			.then((response)=>{
 				alert(response.data);
+				window.location.reload();
 				axios.get(server.serverApi + '/api/download')
 				.then((response) => {
-					this.setState({downloadarray: JSON.parse(response.data)});
+					this.setState({downloadarray: response.data});
 				});
 			});
 	}
@@ -54,7 +57,7 @@ class UpDown extends React.Component {
 		alert(response.data);
 		axios.get(server.serverApi + '/api/download')
 		.then((response) => {
-			this.setState({downloadarray: JSON.parse(response.data)});
+			this.setState({downloadarray: response.data});
 		}); 
 	});
   }
@@ -78,7 +81,7 @@ class UpDown extends React.Component {
 			</form>
 			<div class="list">
 				<h3>Manage files</h3>
-				<button id={this.state.downloadarray[this.state.downloadarray.length-1]} onClick={this.handleDownload} class="btn btn-primary">Download Latest</button><br/>
+				<button id={this.state.downloadarray[this.state.downloadarray.length-1].path.split('/')[3]} onClick={this.handleDownload} class="btn btn-primary">Download Latest</button><br/>
 				<button type="button" class="btn-custom btn btn-primary" data-toggle="modal" data-target="#downloadsModal">All Versions</button>
 				
 				<div class="modal fade" id="downloadsModal" role="dialog"> {/* inspired by https://www.w3schools.com/bootstrap/bootstrap_modal.asp */}
@@ -95,8 +98,8 @@ class UpDown extends React.Component {
 							return (
 								<div>
 								<form class="list-items">
-								   <span class="btn-custom btn btn-primary" id={item} onClick={this.handleDownload}><img id={item} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item}</span>
-								   <button class="delete-btn btn btn-danger" id={item} onClick={this.handleDelete} type="button">Delete</button>
+								   <span class="btn-custom btn btn-primary" id={item.path.split('/')[3]} onClick={this.handleDownload}><img id={item.path.split('/')[3]} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item.path.split('@')[1]}</span>
+								   <button class="delete-btn btn btn-danger" id={item.path.split('/')[3]} onClick={this.handleDelete} type="button">Delete</button>
 								</form>
 								</div>
 							);

@@ -7,7 +7,7 @@ const projectSchema = mongoose.Schema({
     },//Date when the project was created
     date:{
       type : Date,
-      requiered: true
+      required: true
     },//Staff id of the researcher
     researcherStaffID:{
       type : String,
@@ -44,7 +44,11 @@ const projectSchema = mongoose.Schema({
     comments:{
       type : [{name: String, date: Date,comment:String}],
       required : false
-    }
+    },
+	paths:{
+		type: [{path: String}],
+		required: true
+	}
   });
 
   const project = module.exports = mongoose.model('Project',projectSchema);

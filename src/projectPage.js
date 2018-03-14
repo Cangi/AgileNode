@@ -77,6 +77,7 @@ class ProjectPage extends Component {
 		var size = 0;
 
 	  if(this.state.project != undefined) {
+		  var updown = <UpDown projectID={this.state.project._id} />
 		  console.log(this.state.department + ":" + this.state.project.RISSigned);
 		  projectName = this.state.project.name;
 		  date = this.state.project.date.split('T')[0];
@@ -149,7 +150,8 @@ class ProjectPage extends Component {
 				</div>
 
 				<div class="col-lg-6">
-						<UpDown />
+				{updown}
+						
 				</div>
 			</div>
 
