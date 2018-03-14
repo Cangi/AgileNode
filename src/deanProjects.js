@@ -27,6 +27,7 @@ class DeanProjects extends React.Component {
     var researcher;
     var assocDean;
     var dean;
+    var readyRis;
     if(this.state.projectData!=undefined) {
       this.handleInProcessPro
        name = this.state.projectData[id].name;
@@ -36,7 +37,7 @@ class DeanProjects extends React.Component {
        researcher = this.state.projectData[id].researcherSigned;
        assocDean = this.state.projectData[id].associateDeanSigned;
        dean = this.state.projectData[id].deanSigned;
-
+readyRis = this.state.projectData[id].readyForRIS;
        if(this.state.userData!=undefined) {
          username=this.state.userData.givenName + " " + this.state.userData.surname;
       }
@@ -45,6 +46,7 @@ class DeanProjects extends React.Component {
          researcherName={username}
          dateCreated = {date}
          risSign = {ris}
+         readyRis = {readyRis}
          researcherSign = {researcher}
          assocDeanSign = {assocDean}
          deanSign = {dean}
@@ -60,11 +62,10 @@ class DeanProjects extends React.Component {
 
         }
 
-        if(this.state.department != undefined){
+        if(this.state.department != undefined && this.state.projectData == undefined){
               axios.post(server.serverApi + '/api/getDeanProjects', {user: this.props.userData, department: this.state.department}).then((response) => {
                 //should return the projects that RIS and the researcher signed - only the ones that the user hasn't signed yet
                 this.setState({ projectData: response.data });
-                console.log(response);
               });
         }
    if(this.state.projectData!=undefined) {

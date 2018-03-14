@@ -125,15 +125,16 @@ router.post('/getRISInProcessProjects', (req,res) =>{
 router.post('/getDeanProjects', (req,res) =>{
 //passed department in
   if(req.body.department == "dean") {
-      Project.find({researcherSign:true, RISSigned:true, deanSign:undefined }, (err,project) =>{
+      Project.find({researcherSigned:true, RISSigned:true, deanSign:undefined }, (err,project) =>{
           if(err) throw err;
           if(project){
+            console.log(project);
           res.json(project);
           }
       });
   }
   else if(req.body.department == "associateDean"){
-    Project.find({researcherSign:true, RISSigned:true, associateDeanSigned:undefined }, (err,project) =>{
+    Project.find({researcherSigned:true, RISSigned:true, associateDeanSigned:undefined }, (err,project) =>{
         if(err) throw err;
         if(project){
         res.json(project);
