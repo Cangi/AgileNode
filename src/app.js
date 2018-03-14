@@ -12,7 +12,7 @@ class App extends React.Component {
 
 	constructor(props) {
         super(props);
-        this.state = ({userData: undefined,signUp: false});
+        this.state = ({userData: undefined});
 
 
 	}
@@ -23,25 +23,38 @@ class App extends React.Component {
             axios.post(server.serverApi + '/userdata', { token: window.location.href.split('=')[1] }).then((response) => {
                 // this.setState({ userData: response.data });
                 if (response.data != undefined) {
+                    
                     localStorage.setItem('userData', JSON.stringify(response.data));
-                    this.setState({ userData: response.data });
+                    this.res = response;
+                    let self = this;
+                    axios.post(server.serverApi + '/api/checkUser', { user: JSON.parse(localStorage.getItem('userData')) }).then((response) => {
+
+                        localStorage.setItem('signUp', response.data);
+                         this.setState({ userData: self.res.data });
+
+                    });
+                   
                 }
 
             });
 
         } else {
             if (this.state.userData == undefined) {
-                var ob = JSON.parse(localStorage.getItem('userData'));
-                this.setState({ userData: ob });
-            }
-						axios.post(server.serverApi + '/api/checkUser', {user:JSON.parse(localStorage.getItem('userData')) }).then((response) => {
-                // this.setState({ userData: response.data });
+                
+                axios.post(server.serverApi + '/api/checkUser', { user: JSON.parse(localStorage.getItem('userData')) }).then((response) => {
+
                     localStorage.setItem('signUp', response.data);
-            });
+                    var ob = JSON.parse(localStorage.getItem('userData'));
+                    this.setState({ userData: ob });
+
+                });
+            }
+            
+          
         }
     }
-	render() {
-		return(
+    render() {
+        return (
 			<div class="container-webpage">
                 <Navbar userData={this.state.userData}/>
                 <Main userData={this.state.userData}/>

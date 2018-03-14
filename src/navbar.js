@@ -54,7 +54,7 @@ class NavBar extends Component {
 						<span class="navbar-toggler-icon"></span>
 					</button>
 
-					<a class="navbar-brand" href="/index"><img class="dundee-logo" src={front.serverFront + "/images/university_logo.png"}></img></a>
+					<Link to='/index'><a class="navbar-brand"><img class="dundee-logo" src={front.serverFront + "/images/university_logo.png"}></img></a></Link>
 
 					<div class="collapse navbar-collapse justify-content-end" id="nav-content">
 

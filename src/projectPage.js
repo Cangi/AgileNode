@@ -14,6 +14,7 @@ import CommentCard from './commentCard'
 
 class ProjectPage extends React.Component {
 
+
     constructor(props) {
         super(props);
         this.state = { value: '', comment: '', project: undefined, userData: JSON.parse(localStorage.getItem('userData')), value: '', downloadArray: undefined, dfile: '', department: '' };
@@ -110,10 +111,13 @@ class ProjectPage extends React.Component {
                 } else if (this.state.department == 'researcher' && this.state.project.RISSigned == true && this.state.project.readyForRIS == true && this.state.project.researcherSigned == true) {
                     button = <button type="submit" class="btn btn-primary">Waiting for Dean/Associate Dean</button>
                 }
-                if (this.state.department != 'researcher' && sign == undefined) {
-                    console.log("IM NOT A RESEARCHER!");
+                if (this.state.department != 'researcher' && ((this.state.department == "RIS" && this.state.project.RISSigned != true)
+                    || (this.state.department == "associateDean" && this.state.project.associateDeanSigned != true)
+                    || (this.state.department == "dean" && this.state.project.deanSigned != true))) {
+
                     button = <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign document</button>
-                } else if (this.state.department != 'researcher'){
+                } else if (this.state.department != 'researcher') {
+                    
                     button = <button type="button" class="btn btn-primary">Thank you for you contribution</button>
                 }
             }

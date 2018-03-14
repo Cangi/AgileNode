@@ -48,15 +48,14 @@ router.get('/token',
   passport.authenticate('azuread-openidconnect', { failureRedirect: '/' }),
     (req, res) => {
       graphHelper.getUserData(req.user.accessToken, (err, user) => {
-        if (!err) {
-            userData = user.body;
-            console.log(req.originalUrl);
-		  module.exports.user = userData;
-          User.findOne({firstName:userData.displayName.split(' ')[0]}, (err,user) =>{
+          if (!err) {		 
+          User.findOne({staffID:user.body.employeeId}, (err,user) =>{
 			if(err) throw err;
-			if(!user){
+            if (!user) {
+                console.log(user);
         res.redirect(front.serverFront + '/signup?valid='+req.user.accessToken);
-			}else{
+            } else {
+
         res.redirect(front.serverFront + '/index?valid='+req.user.accessToken);
       }});
     } else {

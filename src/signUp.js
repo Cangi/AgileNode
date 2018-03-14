@@ -31,6 +31,7 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
+      
     let position;
     if(this.state.position == 'RIS'){
       position = this.state.position;
@@ -43,18 +44,28 @@ class SignUp extends React.Component {
       this.setState({positon: position});
     }
     axios.post(server.serverApi + '/api/signUp',{ user: JSON.parse(localStorage.getItem('userData')), position:position}).then((response) => {
-      this.setState({redirect: true});
+        
+        this.setState({ redirect: true });
     });
+    
+    
+  
+    
 
 
   }
 
   render() {
-    console.log(this.state.redirect);
+
+      if (this.state.redirect) {
+          window.location.href = server.serverFront + '/index';
+         
+      }
+
     return (
 
 	<div class="full-image-background">
-      <form class="signup" onSubmit={this.handleSubmit}>
+            <form class="signup" onSubmit={this.handleSubmit}>
         <div class="container">
           <div class="row">
             <div class="col-md-14 col-md-offset-7">
@@ -81,7 +92,7 @@ class SignUp extends React.Component {
 
                       <div class="form-group last">
                         <div class="input-submit-custom col-sm-offset-3 col-sm-9">
-                                                <button type="submit" class="btn btn-success btn-sm" onClick={localStorage.setItem('signUp', true)}>Sign up</button>
+                              <button type="submit" class="btn btn-success btn-sm" onClick={() => { localStorage.setItem('signUp', true); }}>Sign up</button>
                         </div>
                       </div>
                     </form>

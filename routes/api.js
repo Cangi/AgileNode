@@ -39,7 +39,8 @@ router.post('/checkUser',(req,res) => {
   User.findOne({staffID:req.body.user.employeeId}, (err,user) =>{
     if(err) throw err;
     if(user){
-      res.send(true);
+        res.send(true);
+
 	  }else{
       res.send(false);
     }
@@ -104,6 +105,15 @@ router.post('/getProjects',(req,res) =>{
 //should return all projects that have been readied for RIS
 router.get('/getRISNewProjects', (req, res) => {
       Project.find({readyForRIS:true, RISSigned:undefined, RISStaff:undefined}, (err,project) =>{
+          if(err) throw err;
+          if(project){
+          res.json(project);
+          }
+      });
+});
+
+router.post('/getRISInProcessProjects', (req,res) =>{
+      Project.find({readyForRIS:true, RISSigned:undefined, RISStaff:req.body.user.employeeId}, (err,project) =>{
           if(err) throw err;
           if(project){
           res.json(project);

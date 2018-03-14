@@ -14,59 +14,40 @@ import axios from 'axios';
 class Main extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {department: ''};
+        this.state = { department: '' };
     }
 
     render() {
-	        if(JSON.parse(localStorage.getItem('signUp')) == false)
-			return (<SignUp userData={this.props.userData} />);
 
-		if(this.props.userData == undefined) {
-			return(
-			<main >
-				<LandingPage/>
-                <Switch>
-                    <Route exact path='/' component={() => {
-                        if (this.props.userData != undefined) {
-                            window.location = '/index';
 
-                        }
-                        return <div></div>
-                    }}/>
-                    <Route path='/disconnect' component={() => {
-                        localStorage.clear();
-                        window.location = server.serverApi + '/disconnect';
-                    }
-                    } />
-                    <Route path='/login' component={Login} />
-                    <Route path='/signup' component={SignUp} />
-                </Switch>
-            </main>
-			);
-		}
+        var department = <div></div>
 
-      if(this.state.department == '')
-      axios.post(server.serverApi + '/api/getDepartment', {user: JSON.parse(localStorage.getItem('userData'))}).then((response) => {this.setState({department: response.data})});
-      var department = <div></div>;
-      if(localStorage.getItem('signUp') == false){
-        return (<SignUp userData={this.props.userData} />);
-      }
-      if(this.state.department == "researcher"){
-        department = <ProjectsListResearcher userData={this.props.userData} />
-      }
-      else if(this.state.department == "RIS"){
-        department = <NewRISProjects userData={this.props.userData} />
-      }
+        if (localStorage.getItem('signUp') != "true" && JSON.parse(localStorage.getItem('userData')) != undefined) {
+            console.log(localStorage.getItem('signUp'));
+            console.log(JSON.parse(localStorage.getItem('userData')));
+            return (<SignUp userData={this.props.userData} />);
+        }
+        if (this.state.department == '' && JSON.parse(localStorage.getItem('userData')) != undefined)
+            axios.post(server.serverApi + '/api/getDepartment', { user: JSON.parse(localStorage.getItem('userData')) }).then((response) => { this.setState({ department: response.data }) });
+        var department = <div></div>;
+
+        if (this.state.department == "researcher") {
+            department = <ProjectsListResearcher userData={this.props.userData} />
+        }
+        else if (this.state.department == "RIS") {
+            department = <NewRISProjects userData={this.props.userData} />
+        }
         return (
             <main>
                 <Switch>
                     <Route exact path='/' component={() => {
                         if (this.props.userData !== undefined) {
+
                             window.location = '/index';
 
                         }
-                        return <div></div>
-                    }}/>
+                        return <LandingPage />
+                    }} />
                     <Route path='/index' render={(props) => (
                         department
                     )} />
@@ -79,7 +60,14 @@ class Main extends React.Component {
 
                     <Route path='/createProject' component={CreateProject} />
 
-                    <Route path='/signup' component={SignUp} />
+                    <Route path='/signup' component={() => {
+                        if (localStorage.getItem('signUp') == 'true') {
+                            window.location = '/index';
+                            return department;
+                        } else {
+                            return <SignUp />
+                        }
+                    }} />
 
                     <Route path='/projectPage' component={ProjectPage} />
 
@@ -87,6 +75,7 @@ class Main extends React.Component {
                 </Switch>
             </main>
         );
+        //}
     }
 
 }
