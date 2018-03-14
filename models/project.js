@@ -9,6 +9,10 @@ const projectSchema = mongoose.Schema({
       type : Date,
       requiered: true
     },//Staff id of the researcher
+    researcherName: {
+        type: String,
+        required: false
+    },
     researcherStaffID:{
       type : String,
       required: true

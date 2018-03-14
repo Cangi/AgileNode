@@ -5,6 +5,7 @@ import './index.css';
 import React from 'react';
 import axios from 'axios';
 import server from './serverConfig'
+import { Link } from "react-router-dom";
 
 //import ProjectsListResearcher from './projectsListResearcher';
 //import {Route, Link, BrowserRouter} from "react-router-dom";
@@ -49,7 +50,7 @@ class SignUp extends React.Component {
   }
 
   render() {
-console.log(this.state.redirect);
+    console.log(this.state.redirect);
     return (
 
 	<div class="full-image-background">
@@ -63,13 +64,7 @@ console.log(this.state.redirect);
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form">
-                      <div class="form-group last">
-                          <div class="input-custom col-sm-offset-3 col-sm-9">
-                            <label for="inputNewProject"> Staff ID
-                              <input type="number" max="999999999" class="form-control" id="inputStaffID" aria-describedby="emailHelp" placeholder="Enter staff ID" value={this.state.staffID} onChange={this.handleChangeStaffID} />
-                            </label>
-                          </div>
-                      </div>
+                      
                       <div class="form-group last">
                           <div class="input-custom col-sm-offset-3 col-sm-9">
                             <label for="inputNewProject"> Position
@@ -86,7 +81,7 @@ console.log(this.state.redirect);
 
                       <div class="form-group last">
                         <div class="input-submit-custom col-sm-offset-3 col-sm-9">
-                          <button type="submit" class="btn btn-success btn-sm">Sign up</button>
+                                                <button type="submit" class="btn btn-success btn-sm" onClick={localStorage.setItem('signUp', true)}>Sign up</button>
                         </div>
                       </div>
                     </form>

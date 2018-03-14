@@ -25,22 +25,22 @@ class NewRISProjects extends React.Component {
     var researcher;
     var assocDean;
     var dean;
+    var readyRis;
+    
     if(this.state.projectData!=undefined) {
        name = this.state.projectData[id].name;
        date = this.state.projectData[id].date.split('T')[0];
        projectid = this.state.projectData[id]._id;
        ris = this.state.projectData[id].RISSigned;
-       researcher = this.state.projectData[id].researcherSigned;
        assocDean = this.state.projectData[id].associateDeanSigned;
        dean = this.state.projectData[id].deanSigned;
-
-       if(this.state.userData!=undefined) {
-         username=this.state.userData.givenName + " " + this.state.userData.surname;
-      }
+       researcher = this.state.projectData[id].researcherName;
+       readyRis = this.state.projectData[id].readyForRIS;
     }
     return <ProjectCard name={name}
-         researcherName={username}
-         dateCreated = {date}
+        researcherName={researcher}
+        dateCreated={date}
+        readyRis={readyRis}
          risSign = {ris}
          researcherSign = {researcher}
          assocDeanSign = {assocDean}
@@ -53,10 +53,16 @@ class NewRISProjects extends React.Component {
 
     if (this.props.userData != undefined && !this.state.loggedin) {
         this.setState({ loggedin: true, userData: this.props.userData });
-        axios.post(server.serverApi + '/api/getRISNewProjects', {user: this.props.userData}).then((response) => {
+        axios.get(server.serverApi + '/api/getRISNewProjects').then((response) => {
             //should return all projects that have been readied for RIS
             this.setState({ projectData: response.data });
-            console.log(response);
+            /*axios.post(server.serverApi + '/api/getUserDisplayName', { staffID: this.state.projectData[id].researcherStaffID }).then((response) => {
+                this.state.projectData[id].researcherName = response.data;
+                console.log(this.state.projectData[id].researcherName);
+                if (researcher == undefined)
+                    researcher = this.state.projectData[id].researcherName;
+                this.forceUpdate();
+            });*/
         });
       }
    if(this.state.projectData!=undefined) {
