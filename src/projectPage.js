@@ -25,8 +25,6 @@ class ProjectPage extends React.Component {
         axios.post(server.serverApi + '/api/getDepartment', { user: this.state.userData }).then((response) => { this.setState({ department: response.data }); console.log(this.state.department) });
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleUpload = this.handleUpload.bind(this);
-        this.handleDownload = this.handleDownload.bind(this);
         this.handleSubmitComment = this.handleSubmitComment.bind(this);
         this.handleChangeComment = this.handleChangeComment.bind(this);
 
@@ -66,28 +64,6 @@ class ProjectPage extends React.Component {
         window.location.reload();
     }
 
-    handleUpload(event) {
-        var uploadForm = document.getElementById('upform');
-        let upfile = new FormData(uploadForm);
-        axios.post(server.serverApi + '/api/upload', upfile)
-            .then((response) => {
-                alert(response.data);
-            });
-    }
-    handleDownload(event) {
-        axios.post(server.serverApi + '/api/downloadFile', { 'nameOfFile': this.state.project.name }).then(() => {
-            var iframe;
-            iframe = document.getElementById('hiddenIframe');
-            if (iframe == null) {
-                iframe = document.createElement('iframe');
-                iframe.id = 'hiddenIframe';
-                iframe.style.visibility = 'hidden';
-                document.body.appendChild(iframe);
-            }
-            iframe.src = server.serverApi + 'api/downloadFile';
-        });
-    }
-
     render() {
 
         var projectName;
@@ -97,6 +73,7 @@ class ProjectPage extends React.Component {
         var size = 0;
 
         if (this.state.project != undefined) {
+			var updown = <UpDown projectID={this.state.project._id} />
             projectName = this.state.project.name;
             let sign = this.state.department + 'Signed';
             date = this.state.project.date.split('T')[0];
@@ -188,11 +165,7 @@ class ProjectPage extends React.Component {
 
                         <div class="col-lg-6">
                             <h3>Options</h3>
-                            <form id="upform" onSubmit={this.handleUpload}>
-                                <button type="button" class="btn btn-primary" onClick={this.handleUpload}>Upload</button>
-                                <input type="file" name="sampleFile" /><p></p>
-                            </form>
-                            <UpDown />
+                            {updown}
                             <p></p>
                         </div>
                     </div>

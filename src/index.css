@@ -197,6 +197,16 @@ input[type=number]::-webkit-outer-spin-button {
 	padding-top: 1rem;
 }
 
+.delete-btn {
+	margin-left: 1rem;
+    font-size: 0.7rem;
+}
+
+.btn-custom {
+	margin-bottom: 1rem
+}
+
+
 .landingPage {
 	margin: 0;
     position: absolute;
@@ -259,4 +269,42 @@ textarea {
     transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
+}
+
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.close-custom {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.modal-header-custom {
+	display: block;
+	justify-content: normal;
+}
+
+.delete-btn {
+	margin-left: 1rem;
+    font-size: 0.7rem;
+}
+
+.btn-custom {
+	margin-bottom: 1rem
+}
+
+.list{
+	padding: 0rem!important;
 }

@@ -27,10 +27,10 @@ router.post('/getUserDisplayName', (req, res) => {
         if (user) {
             console.log(user.name);
             console.log(req.body.staffID);
-            res.send(user.name);
+            res.status(200).send(user.name);
         } else {
             console.log('new flat mate');
-            res.send(undefined);
+            res.status(400).send(undefined);
         }
     });
 });
@@ -39,10 +39,10 @@ router.post('/checkUser',(req,res) => {
   User.findOne({staffID:req.body.user.employeeId}, (err,user) =>{
     if(err) throw err;
     if(user){
-        res.send(true);
+        res.status(200).send(true);
 
 	  }else{
-      res.send(false);
+		res.status(400).send(false);
     }
   });
 });
@@ -51,9 +51,9 @@ router.post('/getDepartment',(req,res) =>{
   User.findOne({staffID:req.body.user.employeeId}, (err,user) =>{
     if(err) throw err;
     if(user){
-      res.send(user.department);
+      res.status(200).send(user.department);
 	  }else{
-      res.send(undefined);
+      res.status(400).send(undefined);
     }
   });
 });
@@ -68,9 +68,10 @@ router.post('/createProject',(req,res) =>{
       newProject.save((err) =>{
             if(err){
               console.log(err);
+			  res.status(400);
               return;
             }else {
-              res.redirect('/projectPage');
+              res.status(200).redirect('/projectPage');
             }
       });
 });
@@ -190,25 +191,37 @@ router.post('/addComment',(req,res) =>{
           {$push: {comments: {name:name, date:new Date(),comment:req.body.comment}}},
           function (err){
              console.log(err);
+			 res.status(400);
           });
+		  res.status(200);
 });
 
 //Upload to server functionality
 router.post('/upload', function(req, res) {
   if (!req.files)
-    return res.status(400).send('No files were uploaded.');
+    return res.send('No files were uploaded.').status(400);
     let uploadedFile = req.files.sampleFile;
 	//console.log(uploadedFile.mimetype);
-	if (uploadedFile.mimetype != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
-		res.send('Wrong file format.');
+	if(!uploadedFile){
+		return res.send('Please select a file to upload.').status(401);
 	}
-	let now = new Date();
-	uploadedFile.mv('./routes/uploads/' + now.getFullYear() + "-"+ (now.getMonth()+1) + "-" + now.getDate() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() +'.xlsx', function(err) {
-	//uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
-    if (err)
-    return res.status(500).send(err);
-    res.send('File uploaded!');
-  });
+	if (uploadedFile.mimetype != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+		return res.send('Wrong file format.').status(402);
+	}
+	else{
+		let now = new Date();
+		let pathname = './routes/uploads/' + req.body.projectID + '@' + now.getFullYear() + "-"+ (now.getMonth()+1) + "-" + now.getDate() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() +'.xlsx';
+		uploadedFile.mv(pathname, function(err) {
+		//uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
+		if (err)
+		return res.send(err).status(500);
+		else{
+			Project.findOneAndUpdate({_id:req.body.projectID},{$push: {paths: {path: pathname}}}, function (err){
+			});
+			return res.send('File uploaded!').status(200);
+		}
+		});
+	}
 });
 
 //Delete file functionality
@@ -216,27 +229,25 @@ router.post('/delete', function(req, res) {
 	let deletePath = path.join(__dirname, './uploads/');
     deletePath = path.join(deletePath , req.body.nameOfFile);
 	fs.unlinkSync(deletePath);
-    res.send('File deleted!');
+    res.send('File deleted!').status(200);
 });
 
 router.get('/download', function(req, res) {
-    const fileloc = './routes/uploads/';
-    var arr = [];
-    fs.readdirSync(fileloc).forEach(file => {
-      arr.push(file);
-    });
-    var json = JSON.stringify(arr);
-    res.json(json);
+	if(req.query.projectID != null && req.query.projectID != undefined){
+		Project.findOne({_id:req.query.projectID},(err,proj) =>{
+		res.send(proj.paths);
+		});
+	}
 });
 
 router.post('/download2', function(req, res){
     filePath = path.join(__dirname, './uploads/');
     filePath = path.join(filePath , req.body.nameOfFile);
-    res.send('File found!');
+    res.send('File found!').status(200);
 });
 
 router.get('/download3', function(req, res){
-    res.download(filePath);
+    res.download(filePath).status(200);
 });
 
 module.exports = router;

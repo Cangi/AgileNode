@@ -48,7 +48,11 @@ const projectSchema = mongoose.Schema({
     comments:{
       type : [{name: String, date: Date,comment:String}],
       required : false
-    }
+    },
+	paths:{
+		type: [{path: String}],
+		required: true
+	}
   });
 
   const project = module.exports = mongoose.model('Project',projectSchema);
