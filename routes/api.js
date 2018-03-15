@@ -199,14 +199,14 @@ router.post('/addComment',(req,res) =>{
 //Upload to server functionality
 router.post('/upload', function(req, res) {
   if (!req.files)
-    return res.send('No files were uploaded.').status(400);
+    return res.status(400).send('No files were uploaded.');
     let uploadedFile = req.files.sampleFile;
 	//console.log(uploadedFile.mimetype);
 	if(!uploadedFile){
-		return res.send('Please select a file to upload.').status(401);
+		return res.status(401).send('Please select a file to upload.');
 	}
 	if (uploadedFile.mimetype != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
-		return res.send('Wrong file format.').status(402);
+		return res.status(402).send('Wrong file format.');
 	}
 	else{
 		let now = new Date();
@@ -214,11 +214,11 @@ router.post('/upload', function(req, res) {
 		uploadedFile.mv(pathname, function(err) {
 		//uploadedFile.mv('./routes/uploads/' + req.files.sampleFile.name, function(err) {
 		if (err)
-		return res.send(err).status(500);
+		return res.status(500).send(err);
 		else{
 			Project.findOneAndUpdate({_id:req.body.projectID},{$push: {paths: {path: pathname}}}, function (err){
 			});
-			return res.send('File uploaded!').status(200);
+			return res.status(200).send('File uploaded!');
 		}
 		});
 	}
@@ -226,10 +226,17 @@ router.post('/upload', function(req, res) {
 
 //Delete file functionality
 router.post('/delete', function(req, res) {
+	
+	var file =req.body.file.split('/')[3];
+	console.log(file);
 	let deletePath = path.join(__dirname, './uploads/');
-    deletePath = path.join(deletePath , req.body.nameOfFile);
+    deletePath = path.join(deletePath , file);
+    Project.findOneAndUpdate({_id:req.query.projectID}, { $pull: {paths:{path:req.body.file} }}, function (err){
+    	console.log(err);
+			});
+
 	fs.unlinkSync(deletePath);
-    res.send('File deleted!').status(200);
+    res.status(200).send('File deleted!');
 });
 
 router.get('/download', function(req, res) {
@@ -243,11 +250,11 @@ router.get('/download', function(req, res) {
 router.post('/download2', function(req, res){
     filePath = path.join(__dirname, './uploads/');
     filePath = path.join(filePath , req.body.nameOfFile);
-    res.send('File found!').status(200);
+    res.status(200).send('File found!');
 });
 
 router.get('/download3', function(req, res){
-    res.download(filePath).status(200);
+    res.status(200).download(filePath);
 });
 
 module.exports = router;

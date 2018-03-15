@@ -40,7 +40,7 @@ class UpDown extends React.Component {
 	}
   
   handleDownload(event) {
-	axios.post(server.serverApi + '/api/download2',{'nameOfFile':event.target.id}).then(()=>{
+	axios.post(server.serverApi + '/api/download2',{'nameOfFile':event.target.id,}).then(()=>{
 		var iframe;
 	    iframe = document.getElementById("hiddenDownloader");
 	    if (iframe == null) {
@@ -53,7 +53,7 @@ class UpDown extends React.Component {
 	});
   }
   handleDelete(event) {
-	axios.post(server.serverApi + '/api/delete',{'nameOfFile':event.target.id}).then((response)=>{
+	axios.post(server.serverApi + '/api/delete',{'file':event.target.id,'projectID':this.props.projectID}).then((response)=>{
 		alert(response.data);
 		axios.get(server.serverApi + '/api/download')
 		.then((response) => {
@@ -97,8 +97,8 @@ class UpDown extends React.Component {
 							return (
 								<div>
 								<form class="list-items">
-								   <span class="btn-custom btn btn-primary" id={item.path.split('/')[3]} onClick={this.handleDownload}><img id={item.path.split('/')[3]} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item.path.split('@')[1]}</span>
-								   <button class="delete-btn btn btn-danger" id={item.path.split('/')[3]} onClick={this.handleDelete} type="button">Delete</button>
+								   <span class="btn-custom btn btn-primary"onClick={this.handleDownload}><img id={item.path.split('/')[3]} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item.path.split('@')[1]}</span>
+								   <button class="delete-btn btn btn-danger" id={item.path} onClick={this.handleDelete} type="button">Delete</button>
 								</form>
 								</div>
 							);
