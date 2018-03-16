@@ -59,6 +59,7 @@ class ProjectPage extends React.Component {
     }
 
     handleSubmitComment(event) {
+        alert('Comment Submited!')
         axios.post(server.serverApi + '/api/addComment', { comment: this.state.comment, idOfTheProject: this.props.location.pathname.split(':')[1], user: this.state.userData });
         this.setState({ comment: '' });
         window.location.reload();
@@ -97,7 +98,7 @@ class ProjectPage extends React.Component {
 
                     button = <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Sign document</button>
                 } else if (this.state.department != 'researcher') {
-                    
+
                     button = <button type="button" class="btn btn-primary">Thank you for you contribution</button>
                 }
             }
@@ -178,7 +179,7 @@ class ProjectPage extends React.Component {
                             <form>
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label for="Comment">Leave a comment here!</label>
+                                    <h3>Leave a comment here:</h3>
                                         <textarea rows="4" cols="1" type="comment" class="form-control" id="Comment" value={this.state.comment} onChange={this.handleChangeComment} placeholder="Comment" />
                                     </div>
                                     <div class="form-check">

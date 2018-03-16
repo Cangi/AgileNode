@@ -12,7 +12,7 @@ class CommentCard extends React.Component {
 	}
 render() {
   return(
-	  <div class="card">
+	  <div class="card card-custom">
         <div class="card-header card-custom">
         {this.props.name}
         </div>
