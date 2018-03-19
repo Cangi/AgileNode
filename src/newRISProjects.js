@@ -116,8 +116,10 @@ class NewRISProjects extends React.Component {
        <h3 class="title"> RIS Projects View</h3>
        <div class="buttons">
         <button type="button" class="btn btn-primary" onClick={this.handleNewProjects}>New Projects</button>
+		<div class="divider" />
         <button type="button" class="btn btn-primary" onClick={this.handleInProcessPro}>In process projects</button>
-       </div>
+       <p></p>
+	   </div>
        <div class="card_container">
        {/*<a onClick={()=> window.location = front.serverFront + '//:' + this.props.id}>Project*/}
          <div class="Cards">

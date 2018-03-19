@@ -74,7 +74,7 @@ class ProjectPage extends React.Component {
         var size = 0;
 
         if (this.state.project != undefined) {
-			var updown = <UpDown projectID={this.state.project._id} />
+			var updown = <UpDown researcherSignedUP={this.state.project.researcherSigned} department={this.state.department} projectID={this.state.project._id} />
             projectName = this.state.project.name;
             let sign = this.state.department + 'Signed';
             date = this.state.project.date.split('T')[0];
@@ -165,7 +165,6 @@ class ProjectPage extends React.Component {
                         </div>
 
                         <div class="col-lg-6">
-                            <h3>Options</h3>
                             {updown}
                             <p></p>
                         </div>

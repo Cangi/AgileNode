@@ -308,3 +308,9 @@ textarea {
 .list{
 	padding: 0rem!important;
 }
+
+.divider {
+	width: 1rem;
+	height: auto;
+	display: inline-block;
+}

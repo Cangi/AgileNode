@@ -17,6 +17,7 @@ class UpDown extends React.Component {
 	this.handleDownload = this.handleDownload.bind(this);
 	this.handleDelete = this.handleDelete.bind(this);
 	this.handleUpload = this.handleUpload.bind(this);
+	this.uploadElement = this.uploadElement.bind(this);
 	axios.get(server.serverApi + '/api/download?projectID='+this.props.projectID)
 	.then((response) => {
 		
@@ -64,20 +65,32 @@ class UpDown extends React.Component {
 	});
   }
   
+  uploadElement(){
+	 if(!this.props.researcherSignedUP){
+		 if(this.props.department == "researcher" || this.props.department == 'RIS'){
+			 return(
+				<div>
+				<h3>Options</h3>
+				<form id="upform" onSubmit={this.handleUpload}>
+					<div class="upload-btn-wrapper">
+						<button class="btn-custom btn btn-primary">Browse</button>
+						<input type="file" name="sampleFile"/>
+					</div>
+					<p> Choose a file and click on the Upload button.</p>
+					<p></p>
+					<button type="button" class="btn-custom btn btn-primary" onClick={this.handleUpload}>Upload</button>
+				</form>
+				</div>
+			)
+		 }
+	 }
+  }
 
   renderList(){
 	  if(this.state.downloadarray != undefined && this.state.downloadarray != '' ){
 		    return(
 			<div>
-			<form id="upform" onSubmit={this.handleUpload}>
-				<div class="upload-btn-wrapper">
-						<button class="btn-custom btn btn-primary">Browse</button>
-						<input type="file" name="sampleFile"/>
-				</div>
-				<p> Choose a file and click on the Upload button.</p>
-				<p></p>
-				<button type="button" class="btn-custom btn btn-primary" onClick={this.handleUpload}>Upload</button>
-			</form>
+			{this.uploadElement()}
 			<div class="list">
 				<h3>Manage files</h3>
 				<button id={this.state.downloadarray[this.state.downloadarray.length-1].path.split('/')[3]} onClick={this.handleDownload} class="btn btn-primary">Download Latest</button><br/>
@@ -117,15 +130,7 @@ class UpDown extends React.Component {
 		else{
 			return (
 				<div>
-				<form id="upform" onSubmit={this.handleUpload}>
-					<div class="upload-btn-wrapper">
-						<button class="btn-custom btn btn-primary">Browse</button>
-						<input type="file" name="sampleFile"/>
-					</div>
-					<p> Choose a file and click on the Upload button.</p>
-					<p></p>
-					<button type="button" class="btn-custom btn btn-primary" onClick={this.handleUpload}>Upload</button>
-				</form>
+				{this.uploadElement()}
 				</div>
 			)
 		}
