@@ -231,9 +231,9 @@ router.post('/delete', function(req, res) {
 	console.log(file);
 	let deletePath = path.join(__dirname, './uploads/');
     deletePath = path.join(deletePath , file);
-    Project.findOneAndUpdate({_id:req.query.projectID}, { $pull: {paths:{path:req.body.file} }}, function (err){
+    Project.findOneAndUpdate({_id:req.body.projectID}, { $pull: {'paths':{ 'path':req.body.file} } }, function (err){
     	console.log(err);
-			});
+	});
 
 	fs.unlinkSync(deletePath);
     res.status(200).send('File deleted!');

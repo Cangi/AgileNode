@@ -72,7 +72,7 @@ username = this.state.projectData[id].researcherName;
    }
    return (
      <div class="container-fluid container-content">
-       <h3 class="title"> List of Projects needing Signed</h3>
+       <h3 class="title"> List of Projects waiting for approval</h3>
        <div class="card_container">
        {/*<a onClick={()=> window.location = front.serverFront + '//:' + this.props.id}>Project*/}
          <div class="Cards">

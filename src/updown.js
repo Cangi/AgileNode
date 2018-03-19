@@ -97,7 +97,7 @@ class UpDown extends React.Component {
 							return (
 								<div>
 								<form class="list-items">
-								   <span class="btn-custom btn btn-primary"onClick={this.handleDownload}><img id={item.path.split('/')[3]} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item.path.split('@')[1]}</span>
+								   <span class="btn-custom btn btn-primary" id={item.path.split('/')[3]} onClick={this.handleDownload}><img id={item.path.split('/')[3]} class="download-icon" src={server.serverFront+"/images/download.ico"}></img>{item.path.split('@')[1]}</span>
 								   <button class="delete-btn btn btn-danger" id={item.path} onClick={this.handleDelete} type="button">Delete</button>
 								</form>
 								</div>
